@@ -587,6 +587,7 @@ class ProGAN:
 
             data = get_data_loader(dataset, batch_sizes[current_depth], num_workers)
             ticker = 1
+            epochnum=0
 
             for epoch in range(1, epochs[current_depth] + 1):
                 start = timeit.default_timer()  # record time at the start of epoch
@@ -596,9 +597,7 @@ class ProGAN:
 
                 fader_point = int((fade_in_percentage[current_depth] / 100)
                                   * epochs[current_depth] * total_batches)
-
                 step = 0  # counter for number of iterations
-
                 for (i, batch) in enumerate(data, 1):
                     # calculate the alpha for fading in the layers
                     alpha = ticker / fader_point if ticker <= fader_point else 1
@@ -614,9 +613,9 @@ class ProGAN:
 
                     # optimize the generator:
                     gen_loss = self.optimize_generator(gan_input, images, current_depth, alpha)
-
+                    #print(i, "-", total_batches / feedback_factor) 
                     # provide a loss feedback
-                    if i % int(total_batches / feedback_factor) == 0 or i == 1:
+                    if epoch%feedback_factor==0:
                         elapsed = time.time() - global_time
                         elapsed = str(datetime.timedelta(seconds=elapsed))
                         print("Elapsed: [%s]  batch: %d  d_loss: %f  g_loss: %f"
