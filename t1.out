@@ -1,0 +1,3858 @@
+config/textile.conf
+Current Configuration: {'images_dir': 'data/mudo-proc-resized', 'log_dir': 'outputs/logs/', 'sample_dir': 'outputs/generated/', 'save_dir': 'outputs/saved/', 'img_dims': [1024, 1024], 'folder_distributed': False, 'use_eql': True, 'depth': 9, 'latent_size': 512, 'learning_rate': 0.001, 'beta_1': 0, 'beta_2': 0.99, 'eps': 1e-08, 'drift': 0.001, 'n_critic': 1, 'use_ema': True, 'ema_decay': 0.999, 'epochs': [100, 100, 100, 140, 200, 350, 800, 800, 800], 'fade_in_percentage': [50, 50, 50, 50, 50, 50, 50, 50, 50], 'batch_sizes': [512, 512, 512, 100, 64, 32, 16, 8, 3], 'num_samples': 36, 'loss_function': 'wgan-gp', 'num_workers': 3, 'feedback_factor': 7, 'checkpoint_factor': 5}
+total examples in training:  284
+Generator_configuration:
+DataParallel(
+  (module): Generator(
+    (initial_block): GenInitialBlock(
+      (conv_1): _equalized_deconv2d(512, 512, 4, 4)
+      (conv_2): _equalized_conv2d(512, 512, 3, 3)
+      (pixNorm): PixelwiseNorm()
+      (lrelu): LeakyReLU(negative_slope=0.2)
+    )
+    (layers): ModuleList(
+      (0): GenGeneralConvBlock(
+        (conv_1): _equalized_conv2d(512, 512, 3, 3)
+        (conv_2): _equalized_conv2d(512, 512, 3, 3)
+        (pixNorm): PixelwiseNorm()
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (1): GenGeneralConvBlock(
+        (conv_1): _equalized_conv2d(512, 512, 3, 3)
+        (conv_2): _equalized_conv2d(512, 512, 3, 3)
+        (pixNorm): PixelwiseNorm()
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (2): GenGeneralConvBlock(
+        (conv_1): _equalized_conv2d(512, 512, 3, 3)
+        (conv_2): _equalized_conv2d(512, 512, 3, 3)
+        (pixNorm): PixelwiseNorm()
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (3): GenGeneralConvBlock(
+        (conv_1): _equalized_conv2d(256, 512, 3, 3)
+        (conv_2): _equalized_conv2d(256, 256, 3, 3)
+        (pixNorm): PixelwiseNorm()
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (4): GenGeneralConvBlock(
+        (conv_1): _equalized_conv2d(128, 256, 3, 3)
+        (conv_2): _equalized_conv2d(128, 128, 3, 3)
+        (pixNorm): PixelwiseNorm()
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (5): GenGeneralConvBlock(
+        (conv_1): _equalized_conv2d(64, 128, 3, 3)
+        (conv_2): _equalized_conv2d(64, 64, 3, 3)
+        (pixNorm): PixelwiseNorm()
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (6): GenGeneralConvBlock(
+        (conv_1): _equalized_conv2d(32, 64, 3, 3)
+        (conv_2): _equalized_conv2d(32, 32, 3, 3)
+        (pixNorm): PixelwiseNorm()
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (7): GenGeneralConvBlock(
+        (conv_1): _equalized_conv2d(16, 32, 3, 3)
+        (conv_2): _equalized_conv2d(16, 16, 3, 3)
+        (pixNorm): PixelwiseNorm()
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+    )
+    (rgb_converters): ModuleList(
+      (0): _equalized_conv2d(3, 512, 1, 1)
+      (1): _equalized_conv2d(3, 512, 1, 1)
+      (2): _equalized_conv2d(3, 512, 1, 1)
+      (3): _equalized_conv2d(3, 512, 1, 1)
+      (4): _equalized_conv2d(3, 256, 1, 1)
+      (5): _equalized_conv2d(3, 128, 1, 1)
+      (6): _equalized_conv2d(3, 64, 1, 1)
+      (7): _equalized_conv2d(3, 32, 1, 1)
+      (8): _equalized_conv2d(3, 16, 1, 1)
+    )
+  )
+)
+Discriminator_configuration:
+DataParallel(
+  (module): Discriminator(
+    (final_block): DisFinalBlock(
+      (batch_discriminator): MinibatchStdDev()
+      (conv_1): _equalized_conv2d(512, 513, 3, 3)
+      (conv_2): _equalized_conv2d(512, 512, 4, 4)
+      (conv_3): _equalized_conv2d(1, 512, 1, 1)
+      (lrelu): LeakyReLU(negative_slope=0.2)
+    )
+    (layers): ModuleList(
+      (0): DisGeneralConvBlock(
+        (conv_1): _equalized_conv2d(512, 512, 3, 3)
+        (conv_2): _equalized_conv2d(512, 512, 3, 3)
+        (downSampler): AvgPool2d(kernel_size=2, stride=2, padding=0)
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (1): DisGeneralConvBlock(
+        (conv_1): _equalized_conv2d(512, 512, 3, 3)
+        (conv_2): _equalized_conv2d(512, 512, 3, 3)
+        (downSampler): AvgPool2d(kernel_size=2, stride=2, padding=0)
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (2): DisGeneralConvBlock(
+        (conv_1): _equalized_conv2d(512, 512, 3, 3)
+        (conv_2): _equalized_conv2d(512, 512, 3, 3)
+        (downSampler): AvgPool2d(kernel_size=2, stride=2, padding=0)
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (3): DisGeneralConvBlock(
+        (conv_1): _equalized_conv2d(256, 256, 3, 3)
+        (conv_2): _equalized_conv2d(512, 256, 3, 3)
+        (downSampler): AvgPool2d(kernel_size=2, stride=2, padding=0)
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (4): DisGeneralConvBlock(
+        (conv_1): _equalized_conv2d(128, 128, 3, 3)
+        (conv_2): _equalized_conv2d(256, 128, 3, 3)
+        (downSampler): AvgPool2d(kernel_size=2, stride=2, padding=0)
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (5): DisGeneralConvBlock(
+        (conv_1): _equalized_conv2d(64, 64, 3, 3)
+        (conv_2): _equalized_conv2d(128, 64, 3, 3)
+        (downSampler): AvgPool2d(kernel_size=2, stride=2, padding=0)
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (6): DisGeneralConvBlock(
+        (conv_1): _equalized_conv2d(32, 32, 3, 3)
+        (conv_2): _equalized_conv2d(64, 32, 3, 3)
+        (downSampler): AvgPool2d(kernel_size=2, stride=2, padding=0)
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (7): DisGeneralConvBlock(
+        (conv_1): _equalized_conv2d(16, 16, 3, 3)
+        (conv_2): _equalized_conv2d(32, 16, 3, 3)
+        (downSampler): AvgPool2d(kernel_size=2, stride=2, padding=0)
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+    )
+    (rgb_to_features): ModuleList(
+      (0): _equalized_conv2d(512, 3, 1, 1)
+      (1): _equalized_conv2d(512, 3, 1, 1)
+      (2): _equalized_conv2d(512, 3, 1, 1)
+      (3): _equalized_conv2d(512, 3, 1, 1)
+      (4): _equalized_conv2d(256, 3, 1, 1)
+      (5): _equalized_conv2d(128, 3, 1, 1)
+      (6): _equalized_conv2d(64, 3, 1, 1)
+      (7): _equalized_conv2d(32, 3, 1, 1)
+      (8): _equalized_conv2d(16, 3, 1, 1)
+    )
+    (temporaryDownsampler): AvgPool2d(kernel_size=2, stride=2, padding=0)
+  )
+)
+Starting the training process ... 
+
+
+Currently working on Depth:  0
+Current resolution: 4 x 4
+
+Epoch: 1
+Time taken for epoch: 14.822 secs
+
+Epoch: 2
+Time taken for epoch: 12.118 secs
+
+Epoch: 3
+Time taken for epoch: 12.094 secs
+
+Epoch: 4
+Time taken for epoch: 12.102 secs
+
+Epoch: 5
+Time taken for epoch: 12.124 secs
+
+Epoch: 6
+Time taken for epoch: 12.152 secs
+
+Epoch: 7
+Elapsed: [0:01:29.513837]  batch: 1  d_loss: -3.171288  g_loss: 2.875333
+Time taken for epoch: 13.835 secs
+
+Epoch: 8
+Time taken for epoch: 12.179 secs
+
+Epoch: 9
+Time taken for epoch: 12.201 secs
+
+Epoch: 10
+Time taken for epoch: 12.201 secs
+
+Epoch: 11
+Time taken for epoch: 12.188 secs
+
+Epoch: 12
+Time taken for epoch: 12.162 secs
+
+Epoch: 13
+Time taken for epoch: 12.167 secs
+
+Epoch: 14
+Elapsed: [0:02:58.345587]  batch: 1  d_loss: -5.140143  g_loss: 5.588386
+Time taken for epoch: 13.846 secs
+
+Epoch: 15
+Time taken for epoch: 12.165 secs
+
+Epoch: 16
+Time taken for epoch: 12.211 secs
+
+Epoch: 17
+Time taken for epoch: 12.214 secs
+
+Epoch: 18
+Time taken for epoch: 12.182 secs
+
+Epoch: 19
+Time taken for epoch: 12.185 secs
+
+Epoch: 20
+Time taken for epoch: 12.169 secs
+
+Epoch: 21
+Elapsed: [0:04:29.099500]  batch: 1  d_loss: -4.738449  g_loss: 6.104474
+Time taken for epoch: 13.882 secs
+
+Epoch: 22
+Time taken for epoch: 12.198 secs
+
+Epoch: 23
+Time taken for epoch: 12.206 secs
+
+Epoch: 24
+Time taken for epoch: 12.163 secs
+
+Epoch: 25
+Time taken for epoch: 12.173 secs
+
+Epoch: 26
+Time taken for epoch: 12.211 secs
+
+Epoch: 27
+Time taken for epoch: 12.216 secs
+
+Epoch: 28
+Elapsed: [0:05:58.041187]  batch: 1  d_loss: -5.322861  g_loss: 5.410973
+Time taken for epoch: 13.899 secs
+
+Epoch: 29
+Time taken for epoch: 12.234 secs
+
+Epoch: 30
+Time taken for epoch: 12.209 secs
+
+Epoch: 31
+Time taken for epoch: 12.181 secs
+
+Epoch: 32
+Time taken for epoch: 12.165 secs
+
+Epoch: 33
+Time taken for epoch: 12.183 secs
+
+Epoch: 34
+Time taken for epoch: 12.160 secs
+
+Epoch: 35
+Elapsed: [0:07:26.901169]  batch: 1  d_loss: -4.895771  g_loss: 5.357301
+Time taken for epoch: 13.827 secs
+
+Epoch: 36
+Time taken for epoch: 12.210 secs
+
+Epoch: 37
+Time taken for epoch: 12.206 secs
+
+Epoch: 38
+Time taken for epoch: 12.175 secs
+
+Epoch: 39
+Time taken for epoch: 12.173 secs
+
+Epoch: 40
+Time taken for epoch: 12.178 secs
+
+Epoch: 41
+Time taken for epoch: 12.210 secs
+
+Epoch: 42
+Elapsed: [0:08:57.669197]  batch: 1  d_loss: -4.972330  g_loss: 4.540528
+Time taken for epoch: 13.887 secs
+
+Epoch: 43
+Time taken for epoch: 12.214 secs
+
+Epoch: 44
+Time taken for epoch: 12.177 secs
+
+Epoch: 45
+Time taken for epoch: 12.172 secs
+
+Epoch: 46
+Time taken for epoch: 12.191 secs
+
+Epoch: 47
+Time taken for epoch: 12.206 secs
+
+Epoch: 48
+Time taken for epoch: 12.202 secs
+
+Epoch: 49
+Elapsed: [0:10:26.576569]  batch: 1  d_loss: -4.233994  g_loss: 4.340543
+Time taken for epoch: 13.852 secs
+
+Epoch: 50
+Time taken for epoch: 12.163 secs
+
+Epoch: 51
+Time taken for epoch: 12.219 secs
+
+Epoch: 52
+Time taken for epoch: 12.174 secs
+
+Epoch: 53
+Time taken for epoch: 12.173 secs
+
+Epoch: 54
+Time taken for epoch: 12.168 secs
+
+Epoch: 55
+Time taken for epoch: 12.190 secs
+
+Epoch: 56
+Elapsed: [0:11:57.293756]  batch: 1  d_loss: -4.362123  g_loss: 3.529692
+Time taken for epoch: 13.882 secs
+
+Epoch: 57
+Time taken for epoch: 12.211 secs
+
+Epoch: 58
+Time taken for epoch: 12.230 secs
+
+Epoch: 59
+Time taken for epoch: 12.182 secs
+
+Epoch: 60
+Time taken for epoch: 12.203 secs
+
+Epoch: 61
+Time taken for epoch: 12.218 secs
+
+Epoch: 62
+Time taken for epoch: 12.199 secs
+
+Epoch: 63
+Elapsed: [0:13:26.266178]  batch: 1  d_loss: -4.279451  g_loss: 3.969677
+Time taken for epoch: 13.835 secs
+
+Epoch: 64
+Time taken for epoch: 12.179 secs
+
+Epoch: 65
+Time taken for epoch: 12.171 secs
+
+Epoch: 66
+Time taken for epoch: 12.212 secs
+
+Epoch: 67
+Time taken for epoch: 12.162 secs
+
+Epoch: 68
+Time taken for epoch: 12.195 secs
+
+Epoch: 69
+Time taken for epoch: 12.209 secs
+
+Epoch: 70
+Elapsed: [0:14:55.113302]  batch: 1  d_loss: -3.935391  g_loss: 2.877160
+Time taken for epoch: 13.838 secs
+
+Epoch: 71
+Time taken for epoch: 12.212 secs
+
+Epoch: 72
+Time taken for epoch: 12.206 secs
+
+Epoch: 73
+Time taken for epoch: 12.227 secs
+
+Epoch: 74
+Time taken for epoch: 12.188 secs
+
+Epoch: 75
+Time taken for epoch: 12.172 secs
+
+Epoch: 76
+Time taken for epoch: 12.231 secs
+
+Epoch: 77
+Elapsed: [0:16:25.966053]  batch: 1  d_loss: -3.758186  g_loss: 2.998827
+Time taken for epoch: 13.883 secs
+
+Epoch: 78
+Time taken for epoch: 12.207 secs
+
+Epoch: 79
+Time taken for epoch: 12.220 secs
+
+Epoch: 80
+Time taken for epoch: 12.213 secs
+
+Epoch: 81
+Time taken for epoch: 12.212 secs
+
+Epoch: 82
+Time taken for epoch: 12.178 secs
+
+Epoch: 83
+Time taken for epoch: 12.189 secs
+
+Epoch: 84
+Elapsed: [0:17:54.918571]  batch: 1  d_loss: -3.710251  g_loss: 2.566044
+Time taken for epoch: 13.844 secs
+
+Epoch: 85
+Time taken for epoch: 12.181 secs
+
+Epoch: 86
+Time taken for epoch: 12.219 secs
+
+Epoch: 87
+Time taken for epoch: 12.181 secs
+
+Epoch: 88
+Time taken for epoch: 12.172 secs
+
+Epoch: 89
+Time taken for epoch: 12.172 secs
+
+Epoch: 90
+Time taken for epoch: 12.171 secs
+
+Epoch: 91
+Elapsed: [0:19:25.659733]  batch: 1  d_loss: -3.811289  g_loss: 2.823565
+Time taken for epoch: 13.907 secs
+
+Epoch: 92
+Time taken for epoch: 12.231 secs
+
+Epoch: 93
+Time taken for epoch: 12.203 secs
+
+Epoch: 94
+Time taken for epoch: 12.180 secs
+
+Epoch: 95
+Time taken for epoch: 12.206 secs
+
+Epoch: 96
+Time taken for epoch: 12.218 secs
+
+Epoch: 97
+Time taken for epoch: 12.206 secs
+
+Epoch: 98
+Elapsed: [0:20:54.668552]  batch: 1  d_loss: -3.071977  g_loss: 2.657364
+Time taken for epoch: 13.884 secs
+
+Epoch: 99
+Time taken for epoch: 12.242 secs
+
+Epoch: 100
+Time taken for epoch: 12.204 secs
+
+
+Currently working on Depth:  1
+Current resolution: 8 x 8
+
+Epoch: 1
+Time taken for epoch: 13.630 secs
+
+Epoch: 2
+Time taken for epoch: 12.694 secs
+
+Epoch: 3
+Time taken for epoch: 12.693 secs
+
+Epoch: 4
+Time taken for epoch: 12.724 secs
+
+Epoch: 5
+Time taken for epoch: 12.709 secs
+
+Epoch: 6
+Time taken for epoch: 12.697 secs
+
+Epoch: 7
+Elapsed: [0:22:55.294560]  batch: 1  d_loss: -5.013881  g_loss: 4.740642
+Time taken for epoch: 14.411 secs
+
+Epoch: 8
+Time taken for epoch: 12.688 secs
+
+Epoch: 9
+Time taken for epoch: 12.686 secs
+
+Epoch: 10
+Time taken for epoch: 12.671 secs
+
+Epoch: 11
+Time taken for epoch: 12.663 secs
+
+Epoch: 12
+Time taken for epoch: 12.670 secs
+
+Epoch: 13
+Time taken for epoch: 12.662 secs
+
+Epoch: 14
+Elapsed: [0:24:28.218403]  batch: 1  d_loss: -6.588792  g_loss: 11.899594
+Time taken for epoch: 14.380 secs
+
+Epoch: 15
+Time taken for epoch: 12.681 secs
+
+Epoch: 16
+Time taken for epoch: 12.692 secs
+
+Epoch: 17
+Time taken for epoch: 12.682 secs
+
+Epoch: 18
+Time taken for epoch: 12.682 secs
+
+Epoch: 19
+Time taken for epoch: 12.674 secs
+
+Epoch: 20
+Time taken for epoch: 12.693 secs
+
+Epoch: 21
+Elapsed: [0:26:03.585491]  batch: 1  d_loss: -3.621328  g_loss: 9.664915
+Time taken for epoch: 14.410 secs
+
+Epoch: 22
+Time taken for epoch: 12.730 secs
+
+Epoch: 23
+Time taken for epoch: 12.681 secs
+
+Epoch: 24
+Time taken for epoch: 12.699 secs
+
+Epoch: 25
+Time taken for epoch: 12.686 secs
+
+Epoch: 26
+Time taken for epoch: 12.696 secs
+
+Epoch: 27
+Time taken for epoch: 12.683 secs
+
+Epoch: 28
+Elapsed: [0:27:36.590901]  batch: 1  d_loss: -4.018413  g_loss: 7.720357
+Time taken for epoch: 14.376 secs
+
+Epoch: 29
+Time taken for epoch: 12.709 secs
+
+Epoch: 30
+Time taken for epoch: 12.684 secs
+
+Epoch: 31
+Time taken for epoch: 12.672 secs
+
+Epoch: 32
+Time taken for epoch: 12.674 secs
+
+Epoch: 33
+Time taken for epoch: 12.674 secs
+
+Epoch: 34
+Time taken for epoch: 12.681 secs
+
+Epoch: 35
+Elapsed: [0:29:09.500819]  batch: 1  d_loss: -7.220880  g_loss: 9.717131
+Time taken for epoch: 14.391 secs
+
+Epoch: 36
+Time taken for epoch: 12.718 secs
+
+Epoch: 37
+Time taken for epoch: 12.715 secs
+
+Epoch: 38
+Time taken for epoch: 12.715 secs
+
+Epoch: 39
+Time taken for epoch: 12.721 secs
+
+Epoch: 40
+Time taken for epoch: 12.681 secs
+
+Epoch: 41
+Time taken for epoch: 12.731 secs
+
+Epoch: 42
+Elapsed: [0:30:45.048055]  batch: 1  d_loss: -5.987874  g_loss: 4.382705
+Time taken for epoch: 14.487 secs
+
+Epoch: 43
+Time taken for epoch: 12.693 secs
+
+Epoch: 44
+Time taken for epoch: 12.679 secs
+
+Epoch: 45
+Time taken for epoch: 12.702 secs
+
+Epoch: 46
+Time taken for epoch: 12.705 secs
+
+Epoch: 47
+Time taken for epoch: 12.666 secs
+
+Epoch: 48
+Time taken for epoch: 12.666 secs
+
+Epoch: 49
+Elapsed: [0:32:18.041542]  batch: 1  d_loss: -6.108550  g_loss: 6.580888
+Time taken for epoch: 14.340 secs
+
+Epoch: 50
+Time taken for epoch: 12.666 secs
+
+Epoch: 51
+Time taken for epoch: 12.719 secs
+
+Epoch: 52
+Time taken for epoch: 12.672 secs
+
+Epoch: 53
+Time taken for epoch: 12.692 secs
+
+Epoch: 54
+Time taken for epoch: 12.703 secs
+
+Epoch: 55
+Time taken for epoch: 12.695 secs
+
+Epoch: 56
+Elapsed: [0:33:53.455747]  batch: 1  d_loss: -7.096251  g_loss: 8.573452
+Time taken for epoch: 14.400 secs
+
+Epoch: 57
+Time taken for epoch: 12.670 secs
+
+Epoch: 58
+Time taken for epoch: 12.705 secs
+
+Epoch: 59
+Time taken for epoch: 12.683 secs
+
+Epoch: 60
+Time taken for epoch: 12.711 secs
+
+Epoch: 61
+Time taken for epoch: 12.720 secs
+
+Epoch: 62
+Time taken for epoch: 12.722 secs
+
+Epoch: 63
+Elapsed: [0:35:26.495907]  batch: 1  d_loss: -7.700708  g_loss: 9.129731
+Time taken for epoch: 14.388 secs
+
+Epoch: 64
+Time taken for epoch: 12.676 secs
+
+Epoch: 65
+Time taken for epoch: 12.659 secs
+
+Epoch: 66
+Time taken for epoch: 12.719 secs
+
+Epoch: 67
+Time taken for epoch: 12.687 secs
+
+Epoch: 68
+Time taken for epoch: 12.675 secs
+
+Epoch: 69
+Time taken for epoch: 12.685 secs
+
+Epoch: 70
+Elapsed: [0:36:59.431873]  batch: 1  d_loss: -5.684264  g_loss: 5.218491
+Time taken for epoch: 14.402 secs
+
+Epoch: 71
+Time taken for epoch: 12.702 secs
+
+Epoch: 72
+Time taken for epoch: 12.717 secs
+
+Epoch: 73
+Time taken for epoch: 12.707 secs
+
+Epoch: 74
+Time taken for epoch: 12.712 secs
+
+Epoch: 75
+Time taken for epoch: 12.700 secs
+
+Epoch: 76
+Time taken for epoch: 12.715 secs
+
+Epoch: 77
+Elapsed: [0:38:34.935607]  batch: 1  d_loss: -5.947182  g_loss: 5.024689
+Time taken for epoch: 14.376 secs
+
+Epoch: 78
+Time taken for epoch: 12.684 secs
+
+Epoch: 79
+Time taken for epoch: 12.666 secs
+
+Epoch: 80
+Time taken for epoch: 12.686 secs
+
+Epoch: 81
+Time taken for epoch: 12.676 secs
+
+Epoch: 82
+Time taken for epoch: 12.715 secs
+
+Epoch: 83
+Time taken for epoch: 12.727 secs
+
+Epoch: 84
+Elapsed: [0:40:07.936872]  batch: 1  d_loss: -5.154489  g_loss: 4.467028
+Time taken for epoch: 14.386 secs
+
+Epoch: 85
+Time taken for epoch: 12.679 secs
+
+Epoch: 86
+Time taken for epoch: 12.721 secs
+
+Epoch: 87
+Time taken for epoch: 12.699 secs
+
+Epoch: 88
+Time taken for epoch: 12.703 secs
+
+Epoch: 89
+Time taken for epoch: 12.675 secs
+
+Epoch: 90
+Time taken for epoch: 12.665 secs
+
+Epoch: 91
+Elapsed: [0:41:43.319342]  batch: 1  d_loss: -5.476426  g_loss: 4.369359
+Time taken for epoch: 14.352 secs
+
+Epoch: 92
+Time taken for epoch: 12.658 secs
+
+Epoch: 93
+Time taken for epoch: 12.663 secs
+
+Epoch: 94
+Time taken for epoch: 12.681 secs
+
+Epoch: 95
+Time taken for epoch: 12.666 secs
+
+Epoch: 96
+Time taken for epoch: 12.710 secs
+
+Epoch: 97
+Time taken for epoch: 12.709 secs
+
+Epoch: 98
+Elapsed: [0:43:16.204765]  batch: 1  d_loss: -4.939775  g_loss: 3.431884
+Time taken for epoch: 14.388 secs
+
+Epoch: 99
+Time taken for epoch: 12.672 secs
+
+Epoch: 100
+Time taken for epoch: 12.674 secs
+
+
+Currently working on Depth:  2
+Current resolution: 16 x 16
+
+Epoch: 1
+Time taken for epoch: 16.510 secs
+
+Epoch: 2
+Time taken for epoch: 13.960 secs
+
+Epoch: 3
+Time taken for epoch: 13.997 secs
+
+Epoch: 4
+Time taken for epoch: 13.981 secs
+
+Epoch: 5
+Time taken for epoch: 13.950 secs
+
+Epoch: 6
+Time taken for epoch: 14.006 secs
+
+Epoch: 7
+Elapsed: [0:45:29.452342]  batch: 1  d_loss: -16.628689  g_loss: 15.443868
+Time taken for epoch: 15.950 secs
+
+Epoch: 8
+Time taken for epoch: 13.997 secs
+
+Epoch: 9
+Time taken for epoch: 13.969 secs
+
+Epoch: 10
+Time taken for epoch: 13.954 secs
+
+Epoch: 11
+Time taken for epoch: 13.954 secs
+
+Epoch: 12
+Time taken for epoch: 13.945 secs
+
+Epoch: 13
+Time taken for epoch: 13.951 secs
+
+Epoch: 14
+Elapsed: [0:47:12.147406]  batch: 1  d_loss: -11.233956  g_loss: 6.498294
+Time taken for epoch: 15.625 secs
+
+Epoch: 15
+Time taken for epoch: 13.926 secs
+
+Epoch: 16
+Time taken for epoch: 14.016 secs
+
+Epoch: 17
+Time taken for epoch: 13.952 secs
+
+Epoch: 18
+Time taken for epoch: 13.955 secs
+
+Epoch: 19
+Time taken for epoch: 13.955 secs
+
+Epoch: 20
+Time taken for epoch: 13.941 secs
+
+Epoch: 21
+Elapsed: [0:48:57.558999]  batch: 1  d_loss: -9.445499  g_loss: 8.589108
+Time taken for epoch: 15.704 secs
+
+Epoch: 22
+Time taken for epoch: 13.954 secs
+
+Epoch: 23
+Time taken for epoch: 13.962 secs
+
+Epoch: 24
+Time taken for epoch: 13.946 secs
+
+Epoch: 25
+Time taken for epoch: 13.950 secs
+
+Epoch: 26
+Time taken for epoch: 13.984 secs
+
+Epoch: 27
+Time taken for epoch: 13.983 secs
+
+Epoch: 28
+Elapsed: [0:50:40.056540]  batch: 1  d_loss: -16.218971  g_loss: 28.174021
+Time taken for epoch: 15.679 secs
+
+Epoch: 29
+Time taken for epoch: 13.965 secs
+
+Epoch: 30
+Time taken for epoch: 13.970 secs
+
+Epoch: 31
+Time taken for epoch: 13.995 secs
+
+Epoch: 32
+Time taken for epoch: 13.959 secs
+
+Epoch: 33
+Time taken for epoch: 13.974 secs
+
+Epoch: 34
+Time taken for epoch: 13.962 secs
+
+Epoch: 35
+Elapsed: [0:52:22.531518]  batch: 1  d_loss: -11.661816  g_loss: 10.290025
+Time taken for epoch: 15.647 secs
+
+Epoch: 36
+Time taken for epoch: 14.004 secs
+
+Epoch: 37
+Time taken for epoch: 13.977 secs
+
+Epoch: 38
+Time taken for epoch: 13.978 secs
+
+Epoch: 39
+Time taken for epoch: 13.994 secs
+
+Epoch: 40
+Time taken for epoch: 13.968 secs
+
+Epoch: 41
+Time taken for epoch: 14.004 secs
+
+Epoch: 42
+Elapsed: [0:54:08.047230]  batch: 1  d_loss: -15.922075  g_loss: 16.533878
+Time taken for epoch: 15.687 secs
+
+Epoch: 43
+Time taken for epoch: 13.969 secs
+
+Epoch: 44
+Time taken for epoch: 13.967 secs
+
+Epoch: 45
+Time taken for epoch: 13.994 secs
+
+Epoch: 46
+Time taken for epoch: 14.006 secs
+
+Epoch: 47
+Time taken for epoch: 13.991 secs
+
+Epoch: 48
+Time taken for epoch: 13.981 secs
+
+Epoch: 49
+Elapsed: [0:55:50.649674]  batch: 1  d_loss: -21.970587  g_loss: 36.855057
+Time taken for epoch: 15.665 secs
+
+Epoch: 50
+Time taken for epoch: 13.963 secs
+
+Epoch: 51
+Time taken for epoch: 13.980 secs
+
+Epoch: 52
+Time taken for epoch: 13.980 secs
+
+Epoch: 53
+Time taken for epoch: 13.966 secs
+
+Epoch: 54
+Time taken for epoch: 13.981 secs
+
+Epoch: 55
+Time taken for epoch: 13.985 secs
+
+Epoch: 56
+Elapsed: [0:57:36.174014]  batch: 1  d_loss: -12.585296  g_loss: 31.433662
+Time taken for epoch: 15.648 secs
+
+Epoch: 57
+Time taken for epoch: 13.950 secs
+
+Epoch: 58
+Time taken for epoch: 13.950 secs
+
+Epoch: 59
+Time taken for epoch: 13.945 secs
+
+Epoch: 60
+Time taken for epoch: 13.940 secs
+
+Epoch: 61
+Time taken for epoch: 13.974 secs
+
+Epoch: 62
+Time taken for epoch: 13.987 secs
+
+Epoch: 63
+Elapsed: [0:59:18.600898]  batch: 1  d_loss: -0.950903  g_loss: 11.683531
+Time taken for epoch: 15.697 secs
+
+Epoch: 64
+Time taken for epoch: 13.983 secs
+
+Epoch: 65
+Time taken for epoch: 13.970 secs
+
+Epoch: 66
+Time taken for epoch: 13.948 secs
+
+Epoch: 67
+Time taken for epoch: 13.946 secs
+
+Epoch: 68
+Time taken for epoch: 13.946 secs
+
+Epoch: 69
+Time taken for epoch: 13.946 secs
+
+Epoch: 70
+Elapsed: [1:01:00.991658]  batch: 1  d_loss: -6.911121  g_loss: 10.478171
+Time taken for epoch: 15.640 secs
+
+Epoch: 71
+Time taken for epoch: 13.982 secs
+
+Epoch: 72
+Time taken for epoch: 13.972 secs
+
+Epoch: 73
+Time taken for epoch: 13.952 secs
+
+Epoch: 74
+Time taken for epoch: 13.955 secs
+
+Epoch: 75
+Time taken for epoch: 13.962 secs
+
+Epoch: 76
+Time taken for epoch: 14.004 secs
+
+Epoch: 77
+Elapsed: [1:02:46.466847]  batch: 1  d_loss: -13.106705  g_loss: 11.005592
+Time taken for epoch: 15.690 secs
+
+Epoch: 78
+Time taken for epoch: 13.949 secs
+
+Epoch: 79
+Time taken for epoch: 13.989 secs
+
+Epoch: 80
+Time taken for epoch: 13.971 secs
+
+Epoch: 81
+Time taken for epoch: 13.992 secs
+
+Epoch: 82
+Time taken for epoch: 13.972 secs
+
+Epoch: 83
+Time taken for epoch: 13.959 secs
+
+Epoch: 84
+Elapsed: [1:04:28.964548]  batch: 1  d_loss: -7.954553  g_loss: 4.014086
+Time taken for epoch: 15.638 secs
+
+Epoch: 85
+Time taken for epoch: 13.961 secs
+
+Epoch: 86
+Time taken for epoch: 13.992 secs
+
+Epoch: 87
+Time taken for epoch: 13.981 secs
+
+Epoch: 88
+Time taken for epoch: 14.010 secs
+
+Epoch: 89
+Time taken for epoch: 14.015 secs
+
+Epoch: 90
+Time taken for epoch: 13.988 secs
+
+Epoch: 91
+Elapsed: [1:06:14.603192]  batch: 1  d_loss: -6.584629  g_loss: 0.681275
+Time taken for epoch: 15.694 secs
+
+Epoch: 92
+Time taken for epoch: 13.928 secs
+
+Epoch: 93
+Time taken for epoch: 13.935 secs
+
+Epoch: 94
+Time taken for epoch: 13.940 secs
+
+Epoch: 95
+Time taken for epoch: 13.931 secs
+
+Epoch: 96
+Time taken for epoch: 13.983 secs
+
+Epoch: 97
+Time taken for epoch: 13.975 secs
+
+Epoch: 98
+Elapsed: [1:07:56.961146]  batch: 1  d_loss: -13.438518  g_loss: 4.216550
+Time taken for epoch: 15.658 secs
+
+Epoch: 99
+Time taken for epoch: 13.955 secs
+
+Epoch: 100
+Time taken for epoch: 13.945 secs
+
+
+Currently working on Depth:  3
+Current resolution: 32 x 32
+
+Epoch: 1
+Time taken for epoch: 26.604 secs
+
+Epoch: 2
+Time taken for epoch: 16.638 secs
+
+Epoch: 3
+Time taken for epoch: 16.657 secs
+
+Epoch: 4
+Time taken for epoch: 16.670 secs
+
+Epoch: 5
+Time taken for epoch: 17.215 secs
+
+Epoch: 6
+Time taken for epoch: 16.750 secs
+
+Epoch: 7
+Elapsed: [1:10:35.397179]  batch: 1  d_loss: -24.200729  g_loss: 44.913700
+Elapsed: [1:10:40.678102]  batch: 2  d_loss: -18.325321  g_loss: 21.924007
+Elapsed: [1:10:44.850101]  batch: 3  d_loss: -19.664394  g_loss: 22.658018
+Time taken for epoch: 22.148 secs
+
+Epoch: 8
+Time taken for epoch: 16.660 secs
+
+Epoch: 9
+Time taken for epoch: 16.656 secs
+
+Epoch: 10
+Time taken for epoch: 16.871 secs
+
+Epoch: 11
+Time taken for epoch: 16.710 secs
+
+Epoch: 12
+Time taken for epoch: 16.872 secs
+
+Epoch: 13
+Time taken for epoch: 16.634 secs
+
+Epoch: 14
+Elapsed: [1:12:41.531650]  batch: 1  d_loss: -20.297110  g_loss: 15.652505
+Elapsed: [1:12:46.184358]  batch: 2  d_loss: -21.299902  g_loss: 14.201179
+Elapsed: [1:12:50.363651]  batch: 3  d_loss: -24.205162  g_loss: 21.002823
+Time taken for epoch: 21.547 secs
+
+Epoch: 15
+Time taken for epoch: 16.870 secs
+
+Epoch: 16
+Time taken for epoch: 16.868 secs
+
+Epoch: 17
+Time taken for epoch: 16.658 secs
+
+Epoch: 18
+Time taken for epoch: 16.709 secs
+
+Epoch: 19
+Time taken for epoch: 16.941 secs
+
+Epoch: 20
+Time taken for epoch: 16.680 secs
+
+Epoch: 21
+Elapsed: [1:14:50.771337]  batch: 1  d_loss: -14.365522  g_loss: 29.164877
+Elapsed: [1:14:55.413714]  batch: 2  d_loss: -20.606697  g_loss: 32.428204
+Elapsed: [1:14:59.608245]  batch: 3  d_loss: -16.378866  g_loss: 22.301113
+Time taken for epoch: 21.374 secs
+
+Epoch: 22
+Time taken for epoch: 16.794 secs
+
+Epoch: 23
+Time taken for epoch: 16.746 secs
+
+Epoch: 24
+Time taken for epoch: 16.923 secs
+
+Epoch: 25
+Time taken for epoch: 16.750 secs
+
+Epoch: 26
+Time taken for epoch: 16.730 secs
+
+Epoch: 27
+Time taken for epoch: 16.660 secs
+
+Epoch: 28
+Elapsed: [1:16:56.534419]  batch: 1  d_loss: -19.072470  g_loss: 37.021980
+Elapsed: [1:17:01.185617]  batch: 2  d_loss: -16.546541  g_loss: 25.209286
+Elapsed: [1:17:05.382354]  batch: 3  d_loss: -22.832901  g_loss: 26.794958
+Time taken for epoch: 21.612 secs
+
+Epoch: 29
+Time taken for epoch: 16.854 secs
+
+Epoch: 30
+Time taken for epoch: 16.889 secs
+
+Epoch: 31
+Time taken for epoch: 16.657 secs
+
+Epoch: 32
+Time taken for epoch: 16.892 secs
+
+Epoch: 33
+Time taken for epoch: 16.774 secs
+
+Epoch: 34
+Time taken for epoch: 16.801 secs
+
+Epoch: 35
+Elapsed: [1:19:02.626289]  batch: 1  d_loss: -13.627661  g_loss: 37.275772
+Elapsed: [1:19:07.307478]  batch: 2  d_loss: -5.315054  g_loss: 15.885853
+Elapsed: [1:19:11.523170]  batch: 3  d_loss: -20.551996  g_loss: 35.341499
+Time taken for epoch: 21.722 secs
+
+Epoch: 36
+Time taken for epoch: 16.882 secs
+
+Epoch: 37
+Time taken for epoch: 16.854 secs
+
+Epoch: 38
+Time taken for epoch: 16.727 secs
+
+Epoch: 39
+Time taken for epoch: 16.742 secs
+
+Epoch: 40
+Time taken for epoch: 16.761 secs
+
+Epoch: 41
+Time taken for epoch: 16.660 secs
+
+Epoch: 42
+Elapsed: [1:21:11.878239]  batch: 1  d_loss: -2.049294  g_loss: 38.395477
+Elapsed: [1:21:16.538460]  batch: 2  d_loss: -0.819456  g_loss: 24.755690
+Elapsed: [1:21:20.739098]  batch: 3  d_loss: -12.604918  g_loss: 30.291313
+Time taken for epoch: 21.444 secs
+
+Epoch: 43
+Time taken for epoch: 16.785 secs
+
+Epoch: 44
+Time taken for epoch: 16.825 secs
+
+Epoch: 45
+Time taken for epoch: 16.776 secs
+
+Epoch: 46
+Time taken for epoch: 16.766 secs
+
+Epoch: 47
+Time taken for epoch: 16.724 secs
+
+Epoch: 48
+Time taken for epoch: 16.791 secs
+
+Epoch: 49
+Elapsed: [1:23:17.741641]  batch: 1  d_loss: -16.390284  g_loss: 4.019418
+Elapsed: [1:23:22.408924]  batch: 2  d_loss: -21.317764  g_loss: 26.755634
+Elapsed: [1:23:26.611359]  batch: 3  d_loss: -12.879317  g_loss: 12.094867
+Time taken for epoch: 21.638 secs
+
+Epoch: 50
+Time taken for epoch: 16.729 secs
+
+Epoch: 51
+Time taken for epoch: 16.842 secs
+
+Epoch: 52
+Time taken for epoch: 16.765 secs
+
+Epoch: 53
+Time taken for epoch: 16.893 secs
+
+Epoch: 54
+Time taken for epoch: 16.858 secs
+
+Epoch: 55
+Time taken for epoch: 16.945 secs
+
+Epoch: 56
+Elapsed: [1:25:27.334842]  batch: 1  d_loss: -20.055708  g_loss: -0.404226
+Elapsed: [1:25:31.982687]  batch: 2  d_loss: -28.287952  g_loss: 13.345315
+Elapsed: [1:25:36.166258]  batch: 3  d_loss: -15.672375  g_loss: 9.960030
+Time taken for epoch: 21.388 secs
+
+Epoch: 57
+Time taken for epoch: 16.940 secs
+
+Epoch: 58
+Time taken for epoch: 16.701 secs
+
+Epoch: 59
+Time taken for epoch: 16.746 secs
+
+Epoch: 60
+Time taken for epoch: 16.723 secs
+
+Epoch: 61
+Time taken for epoch: 16.729 secs
+
+Epoch: 62
+Time taken for epoch: 16.775 secs
+
+Epoch: 63
+Elapsed: [1:27:32.967618]  batch: 1  d_loss: -23.671778  g_loss: 33.199707
+Elapsed: [1:27:37.649360]  batch: 2  d_loss: -20.641502  g_loss: 6.986259
+Elapsed: [1:27:41.859183]  batch: 3  d_loss: -23.991077  g_loss: 5.614511
+Time taken for epoch: 21.541 secs
+
+Epoch: 64
+Time taken for epoch: 16.921 secs
+
+Epoch: 65
+Time taken for epoch: 16.874 secs
+
+Epoch: 66
+Time taken for epoch: 16.670 secs
+
+Epoch: 67
+Time taken for epoch: 16.796 secs
+
+Epoch: 68
+Time taken for epoch: 16.912 secs
+
+Epoch: 69
+Time taken for epoch: 16.768 secs
+
+Epoch: 70
+Elapsed: [1:29:39.135606]  batch: 1  d_loss: -6.115976  g_loss: 8.161780
+Elapsed: [1:29:43.787551]  batch: 2  d_loss: -12.746968  g_loss: 15.975270
+Elapsed: [1:29:47.978247]  batch: 3  d_loss: -27.040380  g_loss: 40.855576
+Time taken for epoch: 21.601 secs
+
+Epoch: 71
+Time taken for epoch: 16.666 secs
+
+Epoch: 72
+Time taken for epoch: 16.835 secs
+
+Epoch: 73
+Time taken for epoch: 16.693 secs
+
+Epoch: 74
+Time taken for epoch: 16.891 secs
+
+Epoch: 75
+Time taken for epoch: 16.708 secs
+
+Epoch: 76
+Time taken for epoch: 16.734 secs
+
+Epoch: 77
+Elapsed: [1:31:48.312499]  batch: 1  d_loss: -17.852333  g_loss: 36.507084
+Elapsed: [1:31:52.996830]  batch: 2  d_loss: -22.004129  g_loss: 67.955498
+Elapsed: [1:31:57.206129]  batch: 3  d_loss: -22.162289  g_loss: 21.233135
+Time taken for epoch: 21.572 secs
+
+Epoch: 78
+Time taken for epoch: 16.843 secs
+
+Epoch: 79
+Time taken for epoch: 16.723 secs
+
+Epoch: 80
+Time taken for epoch: 16.877 secs
+
+Epoch: 81
+Time taken for epoch: 16.858 secs
+
+Epoch: 82
+Time taken for epoch: 17.209 secs
+
+Epoch: 83
+Time taken for epoch: 16.781 secs
+
+Epoch: 84
+Elapsed: [1:33:54.699404]  batch: 1  d_loss: -18.877182  g_loss: 28.209755
+Elapsed: [1:33:59.352467]  batch: 2  d_loss: -16.214733  g_loss: 12.159853
+Elapsed: [1:34:03.547959]  batch: 3  d_loss: -21.972637  g_loss: 21.383335
+Time taken for epoch: 21.490 secs
+
+Epoch: 85
+Time taken for epoch: 16.763 secs
+
+Epoch: 86
+Time taken for epoch: 16.760 secs
+
+Epoch: 87
+Time taken for epoch: 16.868 secs
+
+Epoch: 88
+Time taken for epoch: 16.830 secs
+
+Epoch: 89
+Time taken for epoch: 16.908 secs
+
+Epoch: 90
+Time taken for epoch: 16.743 secs
+
+Epoch: 91
+Elapsed: [1:36:04.123556]  batch: 1  d_loss: -5.171101  g_loss: 39.418560
+Elapsed: [1:36:08.787025]  batch: 2  d_loss: -19.963596  g_loss: 50.449226
+Elapsed: [1:36:12.992632]  batch: 3  d_loss: -16.148907  g_loss: 20.431034
+Time taken for epoch: 21.450 secs
+
+Epoch: 92
+Time taken for epoch: 16.666 secs
+
+Epoch: 93
+Time taken for epoch: 17.382 secs
+
+Epoch: 94
+Time taken for epoch: 16.738 secs
+
+Epoch: 95
+Time taken for epoch: 16.743 secs
+
+Epoch: 96
+Time taken for epoch: 16.652 secs
+
+Epoch: 97
+Time taken for epoch: 16.869 secs
+
+Epoch: 98
+Elapsed: [1:38:10.377653]  batch: 1  d_loss: 6.718015  g_loss: 45.441845
+Elapsed: [1:38:15.031614]  batch: 2  d_loss: -16.129597  g_loss: 49.880562
+Elapsed: [1:38:19.220520]  batch: 3  d_loss: -13.019708  g_loss: 33.776485
+Time taken for epoch: 21.602 secs
+
+Epoch: 99
+Time taken for epoch: 16.777 secs
+
+Epoch: 100
+Time taken for epoch: 16.718 secs
+
+Epoch: 101
+Time taken for epoch: 16.866 secs
+
+Epoch: 102
+Time taken for epoch: 16.862 secs
+
+Epoch: 103
+Time taken for epoch: 16.684 secs
+
+Epoch: 104
+Time taken for epoch: 16.749 secs
+
+Epoch: 105
+Elapsed: [1:40:16.206734]  batch: 1  d_loss: -20.827900  g_loss: 6.425485
+Elapsed: [1:40:20.862950]  batch: 2  d_loss: -20.001308  g_loss: 3.238900
+Elapsed: [1:40:25.061592]  batch: 3  d_loss: -4.871978  g_loss: 15.251181
+Time taken for epoch: 21.619 secs
+
+Epoch: 106
+Time taken for epoch: 16.627 secs
+
+Epoch: 107
+Time taken for epoch: 16.721 secs
+
+Epoch: 108
+Time taken for epoch: 16.861 secs
+
+Epoch: 109
+Time taken for epoch: 16.655 secs
+
+Epoch: 110
+Time taken for epoch: 16.781 secs
+
+Epoch: 111
+Time taken for epoch: 16.773 secs
+
+Epoch: 112
+Elapsed: [1:42:25.192431]  batch: 1  d_loss: -11.579219  g_loss: 81.060181
+Elapsed: [1:42:29.837770]  batch: 2  d_loss: -8.985716  g_loss: 50.097195
+Elapsed: [1:42:34.023417]  batch: 3  d_loss: -3.415673  g_loss: 10.459857
+Time taken for epoch: 21.410 secs
+
+Epoch: 113
+Time taken for epoch: 16.760 secs
+
+Epoch: 114
+Time taken for epoch: 16.705 secs
+
+Epoch: 115
+Time taken for epoch: 16.693 secs
+
+Epoch: 116
+Time taken for epoch: 16.939 secs
+
+Epoch: 117
+Time taken for epoch: 16.691 secs
+
+Epoch: 118
+Time taken for epoch: 16.673 secs
+
+Epoch: 119
+Elapsed: [1:44:30.671484]  batch: 1  d_loss: -15.105959  g_loss: 10.260635
+Elapsed: [1:44:35.346247]  batch: 2  d_loss: -18.073704  g_loss: 14.737799
+Elapsed: [1:44:39.550679]  batch: 3  d_loss: -2.091591  g_loss: 8.792042
+Time taken for epoch: 21.513 secs
+
+Epoch: 120
+Time taken for epoch: 16.710 secs
+
+Epoch: 121
+Time taken for epoch: 16.764 secs
+
+Epoch: 122
+Time taken for epoch: 16.784 secs
+
+Epoch: 123
+Time taken for epoch: 16.773 secs
+
+Epoch: 124
+Time taken for epoch: 16.706 secs
+
+Epoch: 125
+Time taken for epoch: 16.734 secs
+
+Epoch: 126
+Elapsed: [1:46:39.786676]  batch: 1  d_loss: -3.443637  g_loss: 9.919873
+Elapsed: [1:46:44.469498]  batch: 2  d_loss: -7.165201  g_loss: 43.258724
+Elapsed: [1:46:48.694547]  batch: 3  d_loss: -14.237277  g_loss: 62.620651
+Time taken for epoch: 21.574 secs
+
+Epoch: 127
+Time taken for epoch: 16.783 secs
+
+Epoch: 128
+Time taken for epoch: 16.770 secs
+
+Epoch: 129
+Time taken for epoch: 16.691 secs
+
+Epoch: 130
+Time taken for epoch: 17.068 secs
+
+Epoch: 131
+Time taken for epoch: 16.679 secs
+
+Epoch: 132
+Time taken for epoch: 16.752 secs
+
+Epoch: 133
+Elapsed: [1:48:45.868662]  batch: 1  d_loss: -2.164517  g_loss: 36.294075
+Elapsed: [1:48:50.514932]  batch: 2  d_loss: -16.552008  g_loss: 55.636642
+Elapsed: [1:48:54.708264]  batch: 3  d_loss: -11.733196  g_loss: 30.730585
+Time taken for epoch: 21.664 secs
+
+Epoch: 134
+Time taken for epoch: 16.754 secs
+
+Epoch: 135
+Time taken for epoch: 16.954 secs
+
+Epoch: 136
+Time taken for epoch: 16.676 secs
+
+Epoch: 137
+Time taken for epoch: 16.892 secs
+
+Epoch: 138
+Time taken for epoch: 16.886 secs
+
+Epoch: 139
+Time taken for epoch: 16.918 secs
+
+Epoch: 140
+Elapsed: [1:50:51.997230]  batch: 1  d_loss: -8.038033  g_loss: 12.695862
+Elapsed: [1:50:56.655608]  batch: 2  d_loss: -9.097716  g_loss: 12.737893
+Elapsed: [1:51:00.842280]  batch: 3  d_loss: -7.674598  g_loss: 12.003065
+Time taken for epoch: 21.500 secs
+
+
+Currently working on Depth:  4
+Current resolution: 64 x 64
+
+Epoch: 1
+Time taken for epoch: 42.869 secs
+
+Epoch: 2
+Time taken for epoch: 23.759 secs
+
+Epoch: 3
+Time taken for epoch: 23.854 secs
+
+Epoch: 4
+Time taken for epoch: 23.850 secs
+
+Epoch: 5
+Time taken for epoch: 23.923 secs
+
+Epoch: 6
+Time taken for epoch: 23.857 secs
+
+Epoch: 7
+Elapsed: [1:54:01.921809]  batch: 1  d_loss: -9.057796  g_loss: 28.606197
+Elapsed: [1:54:08.861949]  batch: 2  d_loss: -7.877811  g_loss: 58.019783
+Elapsed: [1:54:15.650499]  batch: 3  d_loss: -12.956955  g_loss: 73.345451
+Elapsed: [1:54:22.421947]  batch: 4  d_loss: -27.678255  g_loss: 80.123245
+Elapsed: [1:54:26.130026]  batch: 5  d_loss: -16.143246  g_loss: 37.653404
+Time taken for epoch: 35.408 secs
+
+Epoch: 8
+Time taken for epoch: 27.583 secs
+
+Epoch: 9
+Time taken for epoch: 27.649 secs
+
+Epoch: 10
+Time taken for epoch: 27.687 secs
+
+Epoch: 11
+Time taken for epoch: 27.675 secs
+
+Epoch: 12
+Time taken for epoch: 27.560 secs
+
+Epoch: 13
+Time taken for epoch: 27.677 secs
+
+Epoch: 14
+Elapsed: [1:57:27.841704]  batch: 1  d_loss: -9.025849  g_loss: 65.970795
+Elapsed: [1:57:34.627474]  batch: 2  d_loss: -10.453684  g_loss: 47.121880
+Elapsed: [1:57:41.415628]  batch: 3  d_loss: -25.059233  g_loss: 60.333649
+Elapsed: [1:57:48.203789]  batch: 4  d_loss: -16.278212  g_loss: 39.138748
+Elapsed: [1:57:51.902379]  batch: 5  d_loss: -11.998403  g_loss: 21.417604
+Time taken for epoch: 36.154 secs
+
+Epoch: 15
+Time taken for epoch: 27.691 secs
+
+Epoch: 16
+Time taken for epoch: 27.651 secs
+
+Epoch: 17
+Time taken for epoch: 27.694 secs
+
+Epoch: 18
+Time taken for epoch: 27.812 secs
+
+Epoch: 19
+Time taken for epoch: 27.751 secs
+
+Epoch: 20
+Time taken for epoch: 27.783 secs
+
+Epoch: 21
+Elapsed: [2:00:57.846966]  batch: 1  d_loss: -14.300674  g_loss: 54.151642
+Elapsed: [2:01:04.659967]  batch: 2  d_loss: -14.949326  g_loss: 25.023249
+Elapsed: [2:01:11.483934]  batch: 3  d_loss: -26.447149  g_loss: 49.871010
+Elapsed: [2:01:18.295421]  batch: 4  d_loss: -19.524149  g_loss: 42.936363
+Elapsed: [2:01:22.002864]  batch: 5  d_loss: -19.913702  g_loss: 25.112650
+Time taken for epoch: 36.171 secs
+
+Epoch: 22
+Time taken for epoch: 27.614 secs
+
+Epoch: 23
+Time taken for epoch: 27.644 secs
+
+Epoch: 24
+Time taken for epoch: 27.686 secs
+
+Epoch: 25
+Time taken for epoch: 27.832 secs
+
+Epoch: 26
+Time taken for epoch: 27.864 secs
+
+Epoch: 27
+Time taken for epoch: 27.632 secs
+
+Epoch: 28
+Elapsed: [2:04:24.206952]  batch: 1  d_loss: -16.488937  g_loss: 23.693777
+Elapsed: [2:04:31.004708]  batch: 2  d_loss: -11.684741  g_loss: 12.542421
+Elapsed: [2:04:37.797795]  batch: 3  d_loss: -22.075924  g_loss: 49.389435
+Elapsed: [2:04:44.581151]  batch: 4  d_loss: -18.543346  g_loss: 31.801983
+Elapsed: [2:04:48.278888]  batch: 5  d_loss: -15.688075  g_loss: 21.190281
+Time taken for epoch: 36.216 secs
+
+Epoch: 29
+Time taken for epoch: 28.514 secs
+
+Epoch: 30
+Time taken for epoch: 27.662 secs
+
+Epoch: 31
+Time taken for epoch: 27.693 secs
+
+Epoch: 32
+Time taken for epoch: 27.700 secs
+
+Epoch: 33
+Time taken for epoch: 27.786 secs
+
+Epoch: 34
+Time taken for epoch: 27.797 secs
+
+Epoch: 35
+Elapsed: [2:07:51.259474]  batch: 1  d_loss: -15.735153  g_loss: 23.296421
+Elapsed: [2:07:58.058697]  batch: 2  d_loss: -15.279534  g_loss: 33.256466
+Elapsed: [2:08:04.840171]  batch: 3  d_loss: -22.630098  g_loss: 41.938667
+Elapsed: [2:08:11.632923]  batch: 4  d_loss: -10.137619  g_loss: 21.733337
+Elapsed: [2:08:15.350796]  batch: 5  d_loss: -25.073730  g_loss: 29.125980
+Time taken for epoch: 36.194 secs
+
+Epoch: 36
+Time taken for epoch: 27.650 secs
+
+Epoch: 37
+Time taken for epoch: 27.729 secs
+
+Epoch: 38
+Time taken for epoch: 27.749 secs
+
+Epoch: 39
+Time taken for epoch: 27.680 secs
+
+Epoch: 40
+Time taken for epoch: 27.833 secs
+
+Epoch: 41
+Time taken for epoch: 27.637 secs
+
+Epoch: 42
+Elapsed: [2:11:21.294389]  batch: 1  d_loss: -13.113503  g_loss: 13.473790
+Elapsed: [2:11:28.072905]  batch: 2  d_loss: -9.858824  g_loss: 40.277161
+Elapsed: [2:11:34.848945]  batch: 3  d_loss: -16.376417  g_loss: 29.850420
+Elapsed: [2:11:41.632730]  batch: 4  d_loss: -7.248955  g_loss: 8.127163
+Elapsed: [2:11:45.328834]  batch: 5  d_loss: -18.716047  g_loss: 30.883593
+Time taken for epoch: 36.096 secs
+
+Epoch: 43
+Time taken for epoch: 27.597 secs
+
+Epoch: 44
+Time taken for epoch: 27.602 secs
+
+Epoch: 45
+Time taken for epoch: 27.663 secs
+
+Epoch: 46
+Time taken for epoch: 27.690 secs
+
+Epoch: 47
+Time taken for epoch: 27.794 secs
+
+Epoch: 48
+Time taken for epoch: 28.514 secs
+
+Epoch: 49
+Elapsed: [2:14:47.923310]  batch: 1  d_loss: -13.515963  g_loss: 27.009842
+Elapsed: [2:14:54.715122]  batch: 2  d_loss: -5.568272  g_loss: 3.649907
+Elapsed: [2:15:01.510679]  batch: 3  d_loss: -6.729153  g_loss: 6.237012
+Elapsed: [2:15:08.306810]  batch: 4  d_loss: -8.495288  g_loss: 14.744703
+Elapsed: [2:15:12.002385]  batch: 5  d_loss: -14.965128  g_loss: 31.313931
+Time taken for epoch: 36.038 secs
+
+Epoch: 50
+Time taken for epoch: 27.662 secs
+
+Epoch: 51
+Time taken for epoch: 27.700 secs
+
+Epoch: 52
+Time taken for epoch: 27.678 secs
+
+Epoch: 53
+Time taken for epoch: 27.704 secs
+
+Epoch: 54
+Time taken for epoch: 27.757 secs
+
+Epoch: 55
+Time taken for epoch: 27.780 secs
+
+Epoch: 56
+Elapsed: [2:18:17.866013]  batch: 1  d_loss: -4.796946  g_loss: 20.850925
+Elapsed: [2:18:24.647455]  batch: 2  d_loss: -21.080530  g_loss: 34.476261
+Elapsed: [2:18:31.415810]  batch: 3  d_loss: -7.617221  g_loss: 19.873268
+Elapsed: [2:18:38.191525]  batch: 4  d_loss: -21.598801  g_loss: 38.582787
+Elapsed: [2:18:41.890181]  batch: 5  d_loss: -8.722580  g_loss: 10.280532
+Time taken for epoch: 36.036 secs
+
+Epoch: 57
+Time taken for epoch: 27.707 secs
+
+Epoch: 58
+Time taken for epoch: 27.566 secs
+
+Epoch: 59
+Time taken for epoch: 27.677 secs
+
+Epoch: 60
+Time taken for epoch: 27.737 secs
+
+Epoch: 61
+Time taken for epoch: 27.748 secs
+
+Epoch: 62
+Time taken for epoch: 27.654 secs
+
+Epoch: 63
+Elapsed: [2:21:43.853105]  batch: 1  d_loss: -3.337522  g_loss: 11.953344
+Elapsed: [2:21:50.645802]  batch: 2  d_loss: -14.832315  g_loss: 34.963043
+Elapsed: [2:21:57.428128]  batch: 3  d_loss: -12.537831  g_loss: 23.812420
+Elapsed: [2:22:04.220093]  batch: 4  d_loss: -15.406579  g_loss: 18.571468
+Elapsed: [2:22:07.916752]  batch: 5  d_loss: -5.729590  g_loss: 3.595683
+Time taken for epoch: 36.152 secs
+
+Epoch: 64
+Time taken for epoch: 27.733 secs
+
+Epoch: 65
+Time taken for epoch: 27.737 secs
+
+Epoch: 66
+Time taken for epoch: 27.685 secs
+
+Epoch: 67
+Time taken for epoch: 27.755 secs
+
+Epoch: 68
+Time taken for epoch: 27.797 secs
+
+Epoch: 69
+Time taken for epoch: 27.809 secs
+
+Epoch: 70
+Elapsed: [2:25:10.302607]  batch: 1  d_loss: -15.298048  g_loss: 29.275290
+Elapsed: [2:25:17.124871]  batch: 2  d_loss: -6.340761  g_loss: 8.039083
+Elapsed: [2:25:23.911556]  batch: 3  d_loss: -11.105954  g_loss: 20.204163
+Elapsed: [2:25:30.690150]  batch: 4  d_loss: -11.928020  g_loss: 26.672552
+Elapsed: [2:25:34.382860]  batch: 5  d_loss: -14.271761  g_loss: 18.400488
+Time taken for epoch: 36.181 secs
+
+Epoch: 71
+Time taken for epoch: 27.726 secs
+
+Epoch: 72
+Time taken for epoch: 27.743 secs
+
+Epoch: 73
+Time taken for epoch: 27.628 secs
+
+Epoch: 74
+Time taken for epoch: 27.648 secs
+
+Epoch: 75
+Time taken for epoch: 27.674 secs
+
+Epoch: 76
+Time taken for epoch: 27.720 secs
+
+Epoch: 77
+Elapsed: [2:28:40.183954]  batch: 1  d_loss: -11.287994  g_loss: 14.266411
+Elapsed: [2:28:46.982363]  batch: 2  d_loss: -7.133236  g_loss: 11.576336
+Elapsed: [2:28:53.777314]  batch: 3  d_loss: -13.672892  g_loss: 43.762642
+Elapsed: [2:29:00.563539]  batch: 4  d_loss: -9.322331  g_loss: 20.241028
+Elapsed: [2:29:04.257666]  batch: 5  d_loss: -11.244101  g_loss: 25.278812
+Time taken for epoch: 36.188 secs
+
+Epoch: 78
+Time taken for epoch: 28.318 secs
+
+Epoch: 79
+Time taken for epoch: 27.864 secs
+
+Epoch: 80
+Time taken for epoch: 27.814 secs
+
+Epoch: 81
+Time taken for epoch: 27.633 secs
+
+Epoch: 82
+Time taken for epoch: 27.814 secs
+
+Epoch: 83
+Time taken for epoch: 27.864 secs
+
+Epoch: 84
+Elapsed: [2:32:07.314735]  batch: 1  d_loss: -4.744500  g_loss: 9.608942
+Elapsed: [2:32:14.112869]  batch: 2  d_loss: -13.938610  g_loss: 18.819134
+Elapsed: [2:32:20.909678]  batch: 3  d_loss: -6.771833  g_loss: 18.614262
+Elapsed: [2:32:27.700856]  batch: 4  d_loss: -8.359747  g_loss: 12.119011
+Elapsed: [2:32:31.401760]  batch: 5  d_loss: -12.364849  g_loss: 16.195372
+Time taken for epoch: 36.056 secs
+
+Epoch: 85
+Time taken for epoch: 27.713 secs
+
+Epoch: 86
+Time taken for epoch: 27.678 secs
+
+Epoch: 87
+Time taken for epoch: 27.619 secs
+
+Epoch: 88
+Time taken for epoch: 27.736 secs
+
+Epoch: 89
+Time taken for epoch: 27.660 secs
+
+Epoch: 90
+Time taken for epoch: 27.640 secs
+
+Epoch: 91
+Elapsed: [2:35:37.003961]  batch: 1  d_loss: -8.661348  g_loss: 20.630898
+Elapsed: [2:35:43.784246]  batch: 2  d_loss: -7.610174  g_loss: 6.783759
+Elapsed: [2:35:50.564556]  batch: 3  d_loss: -10.555431  g_loss: 27.627991
+Elapsed: [2:35:57.339056]  batch: 4  d_loss: -7.019090  g_loss: 17.695772
+Elapsed: [2:36:01.035337]  batch: 5  d_loss: -15.981054  g_loss: 54.573544
+Time taken for epoch: 36.030 secs
+
+Epoch: 92
+Time taken for epoch: 27.677 secs
+
+Epoch: 93
+Time taken for epoch: 27.752 secs
+
+Epoch: 94
+Time taken for epoch: 27.706 secs
+
+Epoch: 95
+Time taken for epoch: 27.744 secs
+
+Epoch: 96
+Time taken for epoch: 27.718 secs
+
+Epoch: 97
+Time taken for epoch: 27.761 secs
+
+Epoch: 98
+Elapsed: [2:39:03.156265]  batch: 1  d_loss: -9.389098  g_loss: 50.871788
+Elapsed: [2:39:09.951812]  batch: 2  d_loss: -7.386568  g_loss: 8.744358
+Elapsed: [2:39:16.737399]  batch: 3  d_loss: -7.272348  g_loss: -1.287891
+Elapsed: [2:39:23.525849]  batch: 4  d_loss: -9.546507  g_loss: 19.013397
+Elapsed: [2:39:27.227183]  batch: 5  d_loss: -6.990778  g_loss: 23.957939
+Time taken for epoch: 36.070 secs
+
+Epoch: 99
+Time taken for epoch: 27.645 secs
+
+Epoch: 100
+Time taken for epoch: 27.622 secs
+
+Epoch: 101
+Time taken for epoch: 27.710 secs
+
+Epoch: 102
+Time taken for epoch: 27.703 secs
+
+Epoch: 103
+Time taken for epoch: 27.748 secs
+
+Epoch: 104
+Time taken for epoch: 27.767 secs
+
+Epoch: 105
+Elapsed: [2:42:29.162987]  batch: 1  d_loss: -2.802585  g_loss: 4.187677
+Elapsed: [2:42:35.943564]  batch: 2  d_loss: -7.374501  g_loss: 23.894506
+Elapsed: [2:42:42.718215]  batch: 3  d_loss: -14.599915  g_loss: 36.076447
+Elapsed: [2:42:49.498726]  batch: 4  d_loss: -12.219490  g_loss: 24.554455
+Elapsed: [2:42:53.196554]  batch: 5  d_loss: -6.276536  g_loss: 36.055328
+Time taken for epoch: 35.982 secs
+
+Epoch: 106
+Time taken for epoch: 27.569 secs
+
+Epoch: 107
+Time taken for epoch: 27.738 secs
+
+Epoch: 108
+Time taken for epoch: 28.061 secs
+
+Epoch: 109
+Time taken for epoch: 27.756 secs
+
+Epoch: 110
+Time taken for epoch: 27.625 secs
+
+Epoch: 111
+Time taken for epoch: 27.607 secs
+
+Epoch: 112
+Elapsed: [2:45:59.181264]  batch: 1  d_loss: -3.819982  g_loss: 17.878798
+Elapsed: [2:46:05.965843]  batch: 2  d_loss: -12.523194  g_loss: 29.335690
+Elapsed: [2:46:12.742911]  batch: 3  d_loss: -4.725132  g_loss: 18.829332
+Elapsed: [2:46:19.525660]  batch: 4  d_loss: -18.765940  g_loss: 33.606533
+Elapsed: [2:46:23.223699]  batch: 5  d_loss: -3.889522  g_loss: 4.295830
+Time taken for epoch: 36.117 secs
+
+Epoch: 113
+Time taken for epoch: 27.666 secs
+
+Epoch: 114
+Time taken for epoch: 27.601 secs
+
+Epoch: 115
+Time taken for epoch: 27.583 secs
+
+Epoch: 116
+Time taken for epoch: 27.655 secs
+
+Epoch: 117
+Time taken for epoch: 27.569 secs
+
+Epoch: 118
+Time taken for epoch: 27.727 secs
+
+Epoch: 119
+Elapsed: [2:49:24.735496]  batch: 1  d_loss: -18.104378  g_loss: 36.833981
+Elapsed: [2:49:31.515207]  batch: 2  d_loss: -7.896641  g_loss: -3.134172
+Elapsed: [2:49:38.284118]  batch: 3  d_loss: -2.836126  g_loss: 15.539781
+Elapsed: [2:49:45.067790]  batch: 4  d_loss: -9.055078  g_loss: 31.352152
+Elapsed: [2:49:48.762908]  batch: 5  d_loss: -6.415425  g_loss: 17.892010
+Time taken for epoch: 35.961 secs
+
+Epoch: 120
+Time taken for epoch: 27.675 secs
+
+Epoch: 121
+Time taken for epoch: 27.614 secs
+
+Epoch: 122
+Time taken for epoch: 27.737 secs
+
+Epoch: 123
+Time taken for epoch: 27.694 secs
+
+Epoch: 124
+Time taken for epoch: 27.707 secs
+
+Epoch: 125
+Time taken for epoch: 27.647 secs
+
+Epoch: 126
+Elapsed: [2:52:54.412608]  batch: 1  d_loss: -6.625679  g_loss: 18.335089
+Elapsed: [2:53:01.188953]  batch: 2  d_loss: -5.796546  g_loss: 15.097014
+Elapsed: [2:53:07.966927]  batch: 3  d_loss: -9.913739  g_loss: 33.961906
+Elapsed: [2:53:14.739117]  batch: 4  d_loss: -5.542032  g_loss: 28.102726
+Elapsed: [2:53:18.435453]  batch: 5  d_loss: -12.847544  g_loss: 28.531199
+Time taken for epoch: 36.030 secs
+
+Epoch: 127
+Time taken for epoch: 27.701 secs
+
+Epoch: 128
+Time taken for epoch: 27.605 secs
+
+Epoch: 129
+Time taken for epoch: 27.764 secs
+
+Epoch: 130
+Time taken for epoch: 27.685 secs
+
+Epoch: 131
+Time taken for epoch: 27.615 secs
+
+Epoch: 132
+Time taken for epoch: 27.804 secs
+
+Epoch: 133
+Elapsed: [2:56:20.510864]  batch: 1  d_loss: -7.711051  g_loss: 11.188329
+Elapsed: [2:56:27.296239]  batch: 2  d_loss: -7.060249  g_loss: 19.054321
+Elapsed: [2:56:34.074670]  batch: 3  d_loss: -7.125123  g_loss: 19.284679
+Elapsed: [2:56:40.850331]  batch: 4  d_loss: -2.050969  g_loss: 6.771312
+Elapsed: [2:56:44.544299]  batch: 5  d_loss: -4.558984  g_loss: 4.585500
+Time taken for epoch: 36.156 secs
+
+Epoch: 134
+Time taken for epoch: 27.702 secs
+
+Epoch: 135
+Time taken for epoch: 27.554 secs
+
+Epoch: 136
+Time taken for epoch: 27.674 secs
+
+Epoch: 137
+Time taken for epoch: 27.772 secs
+
+Epoch: 138
+Time taken for epoch: 27.747 secs
+
+Epoch: 139
+Time taken for epoch: 27.721 secs
+
+Epoch: 140
+Elapsed: [2:59:46.462779]  batch: 1  d_loss: -5.559286  g_loss: 13.765166
+Elapsed: [2:59:53.251987]  batch: 2  d_loss: -8.892571  g_loss: 19.939003
+Elapsed: [3:00:00.027285]  batch: 3  d_loss: -5.671127  g_loss: 22.962818
+Elapsed: [3:00:06.808104]  batch: 4  d_loss: -10.317799  g_loss: 25.572813
+Elapsed: [3:00:10.500820]  batch: 5  d_loss: -3.607164  g_loss: 0.870014
+Time taken for epoch: 36.015 secs
+
+Epoch: 141
+Time taken for epoch: 27.589 secs
+
+Epoch: 142
+Time taken for epoch: 27.736 secs
+
+Epoch: 143
+Time taken for epoch: 28.440 secs
+
+Epoch: 144
+Time taken for epoch: 27.798 secs
+
+Epoch: 145
+Time taken for epoch: 27.790 secs
+
+Epoch: 146
+Time taken for epoch: 27.563 secs
+
+Epoch: 147
+Elapsed: [3:03:17.025446]  batch: 1  d_loss: -6.765876  g_loss: 13.590382
+Elapsed: [3:03:23.811070]  batch: 2  d_loss: -4.800461  g_loss: 17.008617
+Elapsed: [3:03:30.579224]  batch: 3  d_loss: -9.708209  g_loss: 27.650036
+Elapsed: [3:03:37.351910]  batch: 4  d_loss: -2.932180  g_loss: 8.849829
+Elapsed: [3:03:41.047871]  batch: 5  d_loss: -8.940607  g_loss: 14.054402
+Time taken for epoch: 36.093 secs
+
+Epoch: 148
+Time taken for epoch: 27.675 secs
+
+Epoch: 149
+Time taken for epoch: 27.685 secs
+
+Epoch: 150
+Time taken for epoch: 27.679 secs
+
+Epoch: 151
+Time taken for epoch: 27.688 secs
+
+Epoch: 152
+Time taken for epoch: 27.704 secs
+
+Epoch: 153
+Time taken for epoch: 27.655 secs
+
+Epoch: 154
+Elapsed: [3:06:43.041386]  batch: 1  d_loss: -1.335054  g_loss: -4.406577
+Elapsed: [3:06:49.822094]  batch: 2  d_loss: -3.905309  g_loss: 0.921423
+Elapsed: [3:06:56.596658]  batch: 3  d_loss: -4.711452  g_loss: 7.696446
+Elapsed: [3:07:03.367333]  batch: 4  d_loss: -3.820269  g_loss: 9.366774
+Elapsed: [3:07:07.064085]  batch: 5  d_loss: -6.146930  g_loss: 3.145848
+Time taken for epoch: 36.151 secs
+
+Epoch: 155
+Time taken for epoch: 27.717 secs
+
+Epoch: 156
+Time taken for epoch: 27.690 secs
+
+Epoch: 157
+Time taken for epoch: 27.593 secs
+
+Epoch: 158
+Time taken for epoch: 27.584 secs
+
+Epoch: 159
+Time taken for epoch: 27.698 secs
+
+Epoch: 160
+Time taken for epoch: 27.723 secs
+
+Epoch: 161
+Elapsed: [3:10:12.650433]  batch: 1  d_loss: 0.668206  g_loss: 7.918652
+Elapsed: [3:10:19.424481]  batch: 2  d_loss: -2.084149  g_loss: 15.674762
+Elapsed: [3:10:26.190605]  batch: 3  d_loss: -6.025098  g_loss: 17.283035
+Elapsed: [3:10:32.961848]  batch: 4  d_loss: -2.528485  g_loss: 21.469698
+Elapsed: [3:10:36.649948]  batch: 5  d_loss: -9.111674  g_loss: 33.194405
+Time taken for epoch: 36.023 secs
+
+Epoch: 162
+Time taken for epoch: 27.654 secs
+
+Epoch: 163
+Time taken for epoch: 27.543 secs
+
+Epoch: 164
+Time taken for epoch: 27.672 secs
+
+Epoch: 165
+Time taken for epoch: 27.647 secs
+
+Epoch: 166
+Time taken for epoch: 27.721 secs
+
+Epoch: 167
+Time taken for epoch: 27.782 secs
+
+Epoch: 168
+Elapsed: [3:13:38.444168]  batch: 1  d_loss: -6.744403  g_loss: 18.194233
+Elapsed: [3:13:45.240538]  batch: 2  d_loss: -9.098207  g_loss: 12.359459
+Elapsed: [3:13:52.039376]  batch: 3  d_loss: -2.928679  g_loss: 5.733673
+Elapsed: [3:13:58.838267]  batch: 4  d_loss: -8.003410  g_loss: 17.568817
+Elapsed: [3:14:02.551784]  batch: 5  d_loss: -6.169852  g_loss: 28.473499
+Time taken for epoch: 36.120 secs
+
+Epoch: 169
+Time taken for epoch: 27.701 secs
+
+Epoch: 170
+Time taken for epoch: 27.645 secs
+
+Epoch: 171
+Time taken for epoch: 27.592 secs
+
+Epoch: 172
+Time taken for epoch: 27.661 secs
+
+Epoch: 173
+Time taken for epoch: 27.672 secs
+
+Epoch: 174
+Time taken for epoch: 27.679 secs
+
+Epoch: 175
+Elapsed: [3:17:04.267400]  batch: 1  d_loss: -3.638385  g_loss: 6.824522
+Elapsed: [3:17:11.065483]  batch: 2  d_loss: -7.857149  g_loss: 13.109487
+Elapsed: [3:17:17.847706]  batch: 3  d_loss: -4.400843  g_loss: 22.553072
+Elapsed: [3:17:24.639044]  batch: 4  d_loss: -9.166287  g_loss: 33.506775
+Elapsed: [3:17:28.340112]  batch: 5  d_loss: -5.841536  g_loss: 10.066677
+Time taken for epoch: 36.060 secs
+
+Epoch: 176
+Time taken for epoch: 27.616 secs
+
+Epoch: 177
+Time taken for epoch: 27.571 secs
+
+Epoch: 178
+Time taken for epoch: 27.677 secs
+
+Epoch: 179
+Time taken for epoch: 27.651 secs
+
+Epoch: 180
+Time taken for epoch: 27.670 secs
+
+Epoch: 181
+Time taken for epoch: 27.579 secs
+
+Epoch: 182
+Elapsed: [3:20:33.733990]  batch: 1  d_loss: -6.288052  g_loss: 24.579769
+Elapsed: [3:20:40.524954]  batch: 2  d_loss: -6.756919  g_loss: 30.247026
+Elapsed: [3:20:47.303864]  batch: 3  d_loss: -8.120618  g_loss: 8.925179
+Elapsed: [3:20:54.081738]  batch: 4  d_loss: -3.726605  g_loss: 3.664599
+Elapsed: [3:20:57.782761]  batch: 5  d_loss: -5.979781  g_loss: 3.929721
+Time taken for epoch: 36.129 secs
+
+Epoch: 183
+Time taken for epoch: 27.691 secs
+
+Epoch: 184
+Time taken for epoch: 27.701 secs
+
+Epoch: 185
+Time taken for epoch: 27.699 secs
+
+Epoch: 186
+Time taken for epoch: 27.646 secs
+
+Epoch: 187
+Time taken for epoch: 27.745 secs
+
+Epoch: 188
+Time taken for epoch: 27.764 secs
+
+Epoch: 189
+Elapsed: [3:23:59.777602]  batch: 1  d_loss: -3.931550  g_loss: 16.040024
+Elapsed: [3:24:06.577946]  batch: 2  d_loss: -4.406876  g_loss: 5.580449
+Elapsed: [3:24:13.363679]  batch: 3  d_loss: -6.945958  g_loss: 17.587929
+Elapsed: [3:24:20.156960]  batch: 4  d_loss: -5.849321  g_loss: 43.276924
+Elapsed: [3:24:23.859361]  batch: 5  d_loss: -2.978873  g_loss: 15.245787
+Time taken for epoch: 36.039 secs
+
+Epoch: 190
+Time taken for epoch: 27.622 secs
+
+Epoch: 191
+Time taken for epoch: 27.660 secs
+
+Epoch: 192
+Time taken for epoch: 27.731 secs
+
+Epoch: 193
+Time taken for epoch: 27.661 secs
+
+Epoch: 194
+Time taken for epoch: 27.800 secs
+
+Epoch: 195
+Time taken for epoch: 27.630 secs
+
+Epoch: 196
+Elapsed: [3:27:29.627120]  batch: 1  d_loss: -5.718250  g_loss: 1.590935
+Elapsed: [3:27:36.397920]  batch: 2  d_loss: -3.485833  g_loss: 14.146818
+Elapsed: [3:27:43.166271]  batch: 3  d_loss: -4.801273  g_loss: 10.574289
+Elapsed: [3:27:49.932694]  batch: 4  d_loss: -5.837374  g_loss: 7.818811
+Elapsed: [3:27:53.621067]  batch: 5  d_loss: -4.054814  g_loss: 9.718422
+Time taken for epoch: 36.072 secs
+
+Epoch: 197
+Time taken for epoch: 27.570 secs
+
+Epoch: 198
+Time taken for epoch: 27.840 secs
+
+Epoch: 199
+Time taken for epoch: 27.775 secs
+
+Epoch: 200
+Time taken for epoch: 27.682 secs
+
+
+Currently working on Depth:  5
+Current resolution: 128 x 128
+
+Epoch: 1
+Time taken for epoch: 63.584 secs
+
+Epoch: 2
+Time taken for epoch: 47.045 secs
+
+Epoch: 3
+Time taken for epoch: 47.085 secs
+
+Epoch: 4
+Time taken for epoch: 47.254 secs
+
+Epoch: 5
+Time taken for epoch: 47.426 secs
+
+Epoch: 6
+Time taken for epoch: 47.217 secs
+
+Epoch: 7
+Elapsed: [3:35:01.818668]  batch: 1  d_loss: -10.704704  g_loss: 38.863644
+Elapsed: [3:35:10.143118]  batch: 2  d_loss: -14.852953  g_loss: 36.448990
+Elapsed: [3:35:17.311481]  batch: 3  d_loss: -13.531951  g_loss: 35.998695
+Elapsed: [3:35:24.321622]  batch: 4  d_loss: -17.734528  g_loss: 46.083908
+Elapsed: [3:35:31.236383]  batch: 5  d_loss: -14.445213  g_loss: 38.138786
+Elapsed: [3:35:38.153310]  batch: 6  d_loss: -11.061523  g_loss: 49.476933
+Elapsed: [3:35:45.065315]  batch: 7  d_loss: -9.534195  g_loss: 35.217098
+Elapsed: [3:35:51.985139]  batch: 8  d_loss: -9.421425  g_loss: 20.122982
+Elapsed: [3:35:57.708948]  batch: 9  d_loss: -16.012899  g_loss: 32.160706
+Time taken for epoch: 65.682 secs
+
+Epoch: 8
+Time taken for epoch: 47.081 secs
+
+Epoch: 9
+Time taken for epoch: 47.270 secs
+
+Epoch: 10
+Time taken for epoch: 48.018 secs
+
+Epoch: 11
+Time taken for epoch: 47.234 secs
+
+Epoch: 12
+Time taken for epoch: 47.311 secs
+
+Epoch: 13
+Time taken for epoch: 47.446 secs
+
+Epoch: 14
+Elapsed: [3:40:55.709391]  batch: 1  d_loss: -16.004150  g_loss: 28.442223
+Elapsed: [3:41:02.698670]  batch: 2  d_loss: -10.086870  g_loss: 41.788601
+Elapsed: [3:41:09.674055]  batch: 3  d_loss: -15.243198  g_loss: 51.074875
+Elapsed: [3:41:16.647569]  batch: 4  d_loss: -0.932281  g_loss: 13.904768
+Elapsed: [3:41:23.616982]  batch: 5  d_loss: -9.932682  g_loss: 20.368618
+Elapsed: [3:41:30.589697]  batch: 6  d_loss: -14.278904  g_loss: 37.794872
+Elapsed: [3:41:37.559689]  batch: 7  d_loss: -20.538773  g_loss: 41.423630
+Elapsed: [3:41:44.533364]  batch: 8  d_loss: -5.865208  g_loss: 20.225723
+Elapsed: [3:41:50.275061]  batch: 9  d_loss: -23.690685  g_loss: 37.684982
+Time taken for epoch: 64.409 secs
+
+Epoch: 15
+Time taken for epoch: 47.116 secs
+
+Epoch: 16
+Time taken for epoch: 47.013 secs
+
+Epoch: 17
+Time taken for epoch: 47.817 secs
+
+Epoch: 18
+Time taken for epoch: 47.335 secs
+
+Epoch: 19
+Time taken for epoch: 47.453 secs
+
+Epoch: 20
+Time taken for epoch: 47.512 secs
+
+Epoch: 21
+Elapsed: [3:46:52.018978]  batch: 1  d_loss: -12.214617  g_loss: 15.510956
+Elapsed: [3:46:59.072577]  batch: 2  d_loss: -6.088144  g_loss: 21.601231
+Elapsed: [3:47:06.093201]  batch: 3  d_loss: -14.013849  g_loss: 56.189941
+Elapsed: [3:47:13.086016]  batch: 4  d_loss: -12.403912  g_loss: 40.206379
+Elapsed: [3:47:20.052559]  batch: 5  d_loss: -11.985715  g_loss: 27.658934
+Elapsed: [3:47:27.025920]  batch: 6  d_loss: -16.085890  g_loss: 30.194324
+Elapsed: [3:47:33.995036]  batch: 7  d_loss: -15.491862  g_loss: 69.423988
+Elapsed: [3:47:40.962983]  batch: 8  d_loss: -4.468769  g_loss: 29.067554
+Elapsed: [3:47:46.711689]  batch: 9  d_loss: -21.165928  g_loss: 33.530125
+Time taken for epoch: 64.545 secs
+
+Epoch: 22
+Time taken for epoch: 47.501 secs
+
+Epoch: 23
+Time taken for epoch: 47.162 secs
+
+Epoch: 24
+Time taken for epoch: 47.235 secs
+
+Epoch: 25
+Time taken for epoch: 47.347 secs
+
+Epoch: 26
+Time taken for epoch: 47.233 secs
+
+Epoch: 27
+Time taken for epoch: 47.366 secs
+
+Epoch: 28
+Elapsed: [3:52:44.277432]  batch: 1  d_loss: -9.238892  g_loss: 49.502266
+Elapsed: [3:52:51.302186]  batch: 2  d_loss: -21.727976  g_loss: 59.511414
+Elapsed: [3:52:58.310418]  batch: 3  d_loss: -3.798149  g_loss: 5.242852
+Elapsed: [3:53:05.321283]  batch: 4  d_loss: -18.092068  g_loss: 33.293831
+Elapsed: [3:53:12.317442]  batch: 5  d_loss: -11.543116  g_loss: 45.310661
+Elapsed: [3:53:19.321864]  batch: 6  d_loss: -21.849339  g_loss: 65.040848
+Elapsed: [3:53:26.318402]  batch: 7  d_loss: -5.172859  g_loss: 8.348439
+Elapsed: [3:53:33.308901]  batch: 8  d_loss: -8.696407  g_loss: 15.153432
+Elapsed: [3:53:39.069970]  batch: 9  d_loss: -18.849707  g_loss: 31.469154
+Time taken for epoch: 64.691 secs
+
+Epoch: 29
+Time taken for epoch: 47.160 secs
+
+Epoch: 30
+Time taken for epoch: 47.559 secs
+
+Epoch: 31
+Time taken for epoch: 47.176 secs
+
+Epoch: 32
+Time taken for epoch: 47.300 secs
+
+Epoch: 33
+Time taken for epoch: 47.380 secs
+
+Epoch: 34
+Time taken for epoch: 47.529 secs
+
+Epoch: 35
+Elapsed: [3:58:36.851951]  batch: 1  d_loss: -5.042298  g_loss: 12.812094
+Elapsed: [3:58:43.891115]  batch: 2  d_loss: -20.466326  g_loss: 39.750660
+Elapsed: [3:58:50.899638]  batch: 3  d_loss: -8.190804  g_loss: 23.936653
+Elapsed: [3:58:57.904982]  batch: 4  d_loss: -17.919111  g_loss: 24.735592
+Elapsed: [3:59:04.920189]  batch: 5  d_loss: -11.616722  g_loss: 11.486034
+Elapsed: [3:59:11.933596]  batch: 6  d_loss: -19.150331  g_loss: 43.140747
+Elapsed: [3:59:18.927365]  batch: 7  d_loss: -10.987608  g_loss: 37.997078
+Elapsed: [3:59:25.939552]  batch: 8  d_loss: -1.326473  g_loss: 18.215273
+Elapsed: [3:59:31.714498]  batch: 9  d_loss: -11.471478  g_loss: 24.956850
+Time taken for epoch: 64.723 secs
+
+Epoch: 36
+Time taken for epoch: 46.971 secs
+
+Epoch: 37
+Time taken for epoch: 47.155 secs
+
+Epoch: 38
+Time taken for epoch: 47.296 secs
+
+Epoch: 39
+Time taken for epoch: 47.490 secs
+
+Epoch: 40
+Time taken for epoch: 47.537 secs
+
+Epoch: 41
+Time taken for epoch: 47.304 secs
+
+Epoch: 42
+Elapsed: [4:04:33.011791]  batch: 1  d_loss: -13.818579  g_loss: 20.401451
+Elapsed: [4:04:40.088978]  batch: 2  d_loss: -11.897161  g_loss: 31.134087
+Elapsed: [4:04:47.101876]  batch: 3  d_loss: -5.546645  g_loss: 34.989346
+Elapsed: [4:04:54.113344]  batch: 4  d_loss: -21.978186  g_loss: 66.107819
+Elapsed: [4:05:01.123765]  batch: 5  d_loss: -6.395995  g_loss: 12.984062
+Elapsed: [4:05:08.132720]  batch: 6  d_loss: -11.827166  g_loss: 19.584961
+Elapsed: [4:05:15.147177]  batch: 7  d_loss: -5.933458  g_loss: 45.655510
+Elapsed: [4:05:22.155174]  batch: 8  d_loss: -14.163391  g_loss: 56.631668
+Elapsed: [4:05:27.938021]  batch: 9  d_loss: -4.475222  g_loss: -1.476060
+Time taken for epoch: 64.821 secs
+
+Epoch: 43
+Time taken for epoch: 47.137 secs
+
+Epoch: 44
+Time taken for epoch: 47.241 secs
+
+Epoch: 45
+Time taken for epoch: 47.333 secs
+
+Epoch: 46
+Time taken for epoch: 47.209 secs
+
+Epoch: 47
+Time taken for epoch: 47.368 secs
+
+Epoch: 48
+Time taken for epoch: 48.455 secs
+
+Epoch: 49
+Elapsed: [4:10:26.441710]  batch: 1  d_loss: -16.727160  g_loss: 52.503487
+Elapsed: [4:10:33.498910]  batch: 2  d_loss: -7.494304  g_loss: 21.134727
+Elapsed: [4:10:40.524559]  batch: 3  d_loss: -17.753710  g_loss: 28.030519
+Elapsed: [4:10:47.552689]  batch: 4  d_loss: -4.448472  g_loss: 14.553752
+Elapsed: [4:10:54.578254]  batch: 5  d_loss: -12.216744  g_loss: 14.059168
+Elapsed: [4:11:01.602440]  batch: 6  d_loss: -15.282868  g_loss: 33.039055
+Elapsed: [4:11:08.633689]  batch: 7  d_loss: -13.843465  g_loss: 33.841675
+Elapsed: [4:11:15.654776]  batch: 8  d_loss: -8.871485  g_loss: 30.997978
+Elapsed: [4:11:21.443044]  batch: 9  d_loss: -15.540060  g_loss: 37.687893
+Time taken for epoch: 64.951 secs
+
+Epoch: 50
+Time taken for epoch: 47.087 secs
+
+Epoch: 51
+Time taken for epoch: 47.060 secs
+
+Epoch: 52
+Time taken for epoch: 47.295 secs
+
+Epoch: 53
+Time taken for epoch: 47.326 secs
+
+Epoch: 54
+Time taken for epoch: 47.425 secs
+
+Epoch: 55
+Time taken for epoch: 47.485 secs
+
+Epoch: 56
+Elapsed: [4:16:22.660656]  batch: 1  d_loss: -7.042070  g_loss: 11.288022
+Elapsed: [4:16:29.683142]  batch: 2  d_loss: -10.478735  g_loss: 23.607975
+Elapsed: [4:16:36.687310]  batch: 3  d_loss: -9.621578  g_loss: 22.341789
+Elapsed: [4:16:43.689362]  batch: 4  d_loss: -15.820649  g_loss: 55.415943
+Elapsed: [4:16:50.696995]  batch: 5  d_loss: -6.188422  g_loss: 9.034622
+Elapsed: [4:16:57.701052]  batch: 6  d_loss: -8.208093  g_loss: 4.259379
+Elapsed: [4:17:04.710197]  batch: 7  d_loss: -10.551107  g_loss: 20.360228
+Elapsed: [4:17:11.722410]  batch: 8  d_loss: -13.728565  g_loss: 37.214340
+Elapsed: [4:17:17.503324]  batch: 9  d_loss: -16.672003  g_loss: 43.213703
+Time taken for epoch: 64.711 secs
+
+Epoch: 57
+Time taken for epoch: 47.105 secs
+
+Epoch: 58
+Time taken for epoch: 47.182 secs
+
+Epoch: 59
+Time taken for epoch: 47.277 secs
+
+Epoch: 60
+Time taken for epoch: 47.302 secs
+
+Epoch: 61
+Time taken for epoch: 47.212 secs
+
+Epoch: 62
+Time taken for epoch: 47.280 secs
+
+Epoch: 63
+Elapsed: [4:22:14.595565]  batch: 1  d_loss: -7.107064  g_loss: 10.090954
+Elapsed: [4:22:21.661843]  batch: 2  d_loss: -9.992788  g_loss: 15.339990
+Elapsed: [4:22:28.713672]  batch: 3  d_loss: -8.712416  g_loss: 87.049057
+Elapsed: [4:22:35.774371]  batch: 4  d_loss: -0.929026  g_loss: 13.072304
+Elapsed: [4:22:42.820405]  batch: 5  d_loss: -9.236107  g_loss: 11.741986
+Elapsed: [4:22:49.852875]  batch: 6  d_loss: -14.005205  g_loss: 56.846481
+Elapsed: [4:22:56.884572]  batch: 7  d_loss: -0.553190  g_loss: 10.959435
+Elapsed: [4:23:03.916280]  batch: 8  d_loss: -17.397757  g_loss: 43.961754
+Elapsed: [4:23:09.728007]  batch: 9  d_loss: -2.395980  g_loss: 1.312366
+Time taken for epoch: 65.047 secs
+
+Epoch: 64
+Time taken for epoch: 47.031 secs
+
+Epoch: 65
+Time taken for epoch: 47.176 secs
+
+Epoch: 66
+Time taken for epoch: 47.161 secs
+
+Epoch: 67
+Time taken for epoch: 47.255 secs
+
+Epoch: 68
+Time taken for epoch: 47.329 secs
+
+Epoch: 69
+Time taken for epoch: 47.378 secs
+
+Epoch: 70
+Elapsed: [4:28:06.816748]  batch: 1  d_loss: -13.412199  g_loss: 17.888710
+Elapsed: [4:28:13.867414]  batch: 2  d_loss: -14.756889  g_loss: 33.763138
+Elapsed: [4:28:20.920908]  batch: 3  d_loss: -2.551017  g_loss: 19.478537
+Elapsed: [4:28:27.974451]  batch: 4  d_loss: -7.314710  g_loss: 26.173897
+Elapsed: [4:28:35.018895]  batch: 5  d_loss: -13.300579  g_loss: 42.227806
+Elapsed: [4:28:42.069740]  batch: 6  d_loss: -11.947333  g_loss: 21.895771
+Elapsed: [4:28:49.100132]  batch: 7  d_loss: -6.264717  g_loss: 8.937917
+Elapsed: [4:28:56.102786]  batch: 8  d_loss: -11.278379  g_loss: 8.343862
+Elapsed: [4:29:01.888222]  batch: 9  d_loss: -8.240459  g_loss: 16.426910
+Time taken for epoch: 64.986 secs
+
+Epoch: 71
+Time taken for epoch: 46.868 secs
+
+Epoch: 72
+Time taken for epoch: 47.124 secs
+
+Epoch: 73
+Time taken for epoch: 47.219 secs
+
+Epoch: 74
+Time taken for epoch: 47.428 secs
+
+Epoch: 75
+Time taken for epoch: 47.479 secs
+
+Epoch: 76
+Time taken for epoch: 47.316 secs
+
+Epoch: 77
+Elapsed: [4:34:02.857499]  batch: 1  d_loss: -14.617550  g_loss: 28.137718
+Elapsed: [4:34:09.891602]  batch: 2  d_loss: -11.607729  g_loss: 16.022804
+Elapsed: [4:34:16.898711]  batch: 3  d_loss: -18.378260  g_loss: 46.513252
+Elapsed: [4:34:23.913059]  batch: 4  d_loss: -2.297092  g_loss: 31.587654
+Elapsed: [4:34:30.927015]  batch: 5  d_loss: -10.316528  g_loss: 20.094416
+Elapsed: [4:34:37.939129]  batch: 6  d_loss: -10.915557  g_loss: 16.160852
+Elapsed: [4:34:44.947067]  batch: 7  d_loss: -8.259455  g_loss: 23.348709
+Elapsed: [4:34:51.954818]  batch: 8  d_loss: -4.916260  g_loss: 13.231138
+Elapsed: [4:34:57.731964]  batch: 9  d_loss: -12.700808  g_loss: 19.225887
+Time taken for epoch: 64.744 secs
+
+Epoch: 78
+Time taken for epoch: 47.150 secs
+
+Epoch: 79
+Time taken for epoch: 47.283 secs
+
+Epoch: 80
+Time taken for epoch: 47.441 secs
+
+Epoch: 81
+Time taken for epoch: 47.236 secs
+
+Epoch: 82
+Time taken for epoch: 47.373 secs
+
+Epoch: 83
+Time taken for epoch: 47.446 secs
+
+Epoch: 84
+Elapsed: [4:39:55.378707]  batch: 1  d_loss: -13.418626  g_loss: 47.986359
+Elapsed: [4:40:02.434285]  batch: 2  d_loss: -7.466563  g_loss: 4.647769
+Elapsed: [4:40:09.501560]  batch: 3  d_loss: -7.822948  g_loss: 6.589267
+Elapsed: [4:40:16.559488]  batch: 4  d_loss: -5.665276  g_loss: 15.708310
+Elapsed: [4:40:23.612407]  batch: 5  d_loss: -9.462562  g_loss: 0.341380
+Elapsed: [4:40:30.646833]  batch: 6  d_loss: -13.899950  g_loss: 34.058052
+Elapsed: [4:40:37.677897]  batch: 7  d_loss: -6.022496  g_loss: 19.755932
+Elapsed: [4:40:44.708988]  batch: 8  d_loss: -17.688923  g_loss: 36.534798
+Elapsed: [4:40:50.522130]  batch: 9  d_loss: -2.745571  g_loss: 5.706405
+Time taken for epoch: 65.048 secs
+
+Epoch: 85
+Time taken for epoch: 47.122 secs
+
+Epoch: 86
+Time taken for epoch: 47.097 secs
+
+Epoch: 87
+Time taken for epoch: 47.289 secs
+
+Epoch: 88
+Time taken for epoch: 47.438 secs
+
+Epoch: 89
+Time taken for epoch: 47.485 secs
+
+Epoch: 90
+Time taken for epoch: 47.513 secs
+
+Epoch: 91
+Elapsed: [4:45:52.004843]  batch: 1  d_loss: -8.490774  g_loss: 57.042549
+Elapsed: [4:45:59.025995]  batch: 2  d_loss: -5.752649  g_loss: 17.023758
+Elapsed: [4:46:06.030405]  batch: 3  d_loss: -9.105715  g_loss: 23.471031
+Elapsed: [4:46:13.040992]  batch: 4  d_loss: -15.189307  g_loss: 23.962296
+Elapsed: [4:46:20.051043]  batch: 5  d_loss: -10.285435  g_loss: 20.967224
+Elapsed: [4:46:27.055519]  batch: 6  d_loss: -7.741247  g_loss: 13.937048
+Elapsed: [4:46:34.057082]  batch: 7  d_loss: -14.495154  g_loss: 47.845024
+Elapsed: [4:46:41.067385]  batch: 8  d_loss: 1.379914  g_loss: 7.439398
+Elapsed: [4:46:46.847743]  batch: 9  d_loss: -13.287618  g_loss: 14.749467
+Time taken for epoch: 64.700 secs
+
+Epoch: 92
+Time taken for epoch: 47.057 secs
+
+Epoch: 93
+Time taken for epoch: 47.221 secs
+
+Epoch: 94
+Time taken for epoch: 47.920 secs
+
+Epoch: 95
+Time taken for epoch: 47.405 secs
+
+Epoch: 96
+Time taken for epoch: 47.213 secs
+
+Epoch: 97
+Time taken for epoch: 47.339 secs
+
+Epoch: 98
+Elapsed: [4:51:45.387879]  batch: 1  d_loss: 2.975945  g_loss: 11.506767
+Elapsed: [4:51:52.424868]  batch: 2  d_loss: -6.515211  g_loss: 14.820965
+Elapsed: [4:51:59.437705]  batch: 3  d_loss: -10.600214  g_loss: 20.363899
+Elapsed: [4:52:06.447570]  batch: 4  d_loss: -16.716787  g_loss: 68.983505
+Elapsed: [4:52:13.456938]  batch: 5  d_loss: -3.591850  g_loss: 26.227764
+Elapsed: [4:52:20.465961]  batch: 6  d_loss: -5.487118  g_loss: 10.251229
+Elapsed: [4:52:27.467614]  batch: 7  d_loss: -9.574345  g_loss: 16.714340
+Elapsed: [4:52:34.464310]  batch: 8  d_loss: -15.509039  g_loss: 31.648937
+Elapsed: [4:52:40.251604]  batch: 9  d_loss: -5.862627  g_loss: 11.946009
+Time taken for epoch: 65.419 secs
+
+Epoch: 99
+Time taken for epoch: 47.077 secs
+
+Epoch: 100
+Time taken for epoch: 47.456 secs
+
+Epoch: 101
+Time taken for epoch: 47.183 secs
+
+Epoch: 102
+Time taken for epoch: 47.315 secs
+
+Epoch: 103
+Time taken for epoch: 47.390 secs
+
+Epoch: 104
+Time taken for epoch: 47.475 secs
+
+Epoch: 105
+Elapsed: [4:57:37.935953]  batch: 1  d_loss: -12.882459  g_loss: 26.313089
+Elapsed: [4:57:44.984568]  batch: 2  d_loss: -13.941945  g_loss: 31.693134
+Elapsed: [4:57:52.021174]  batch: 3  d_loss: -8.192225  g_loss: 14.345925
+Elapsed: [4:57:59.049282]  batch: 4  d_loss: -12.437080  g_loss: 7.810860
+Elapsed: [4:58:06.075634]  batch: 5  d_loss: -8.498041  g_loss: 24.346779
+Elapsed: [4:58:13.086597]  batch: 6  d_loss: -16.983950  g_loss: 68.057159
+Elapsed: [4:58:20.100263]  batch: 7  d_loss: -7.623120  g_loss: 19.931961
+Elapsed: [4:58:27.111849]  batch: 8  d_loss: -6.255962  g_loss: 17.540680
+Elapsed: [4:58:32.906409]  batch: 9  d_loss: -10.945981  g_loss: 17.147158
+Time taken for epoch: 64.938 secs
+
+Epoch: 106
+Time taken for epoch: 46.993 secs
+
+Epoch: 107
+Time taken for epoch: 47.140 secs
+
+Epoch: 108
+Time taken for epoch: 47.336 secs
+
+Epoch: 109
+Time taken for epoch: 47.414 secs
+
+Epoch: 110
+Time taken for epoch: 47.615 secs
+
+Epoch: 111
+Time taken for epoch: 47.322 secs
+
+Epoch: 112
+Elapsed: [5:03:34.274115]  batch: 1  d_loss: -15.158919  g_loss: 26.730261
+Elapsed: [5:03:41.306761]  batch: 2  d_loss: -14.046459  g_loss: 53.975540
+Elapsed: [5:03:48.323823]  batch: 3  d_loss: -8.257629  g_loss: 28.529945
+Elapsed: [5:03:55.333217]  batch: 4  d_loss: -6.131312  g_loss: 24.399202
+Elapsed: [5:04:02.343050]  batch: 5  d_loss: -9.092561  g_loss: 43.509590
+Elapsed: [5:04:09.351801]  batch: 6  d_loss: -11.358068  g_loss: 20.720333
+Elapsed: [5:04:16.349466]  batch: 7  d_loss: -10.317738  g_loss: 66.935959
+Elapsed: [5:04:23.343175]  batch: 8  d_loss: -9.754539  g_loss: 5.646745
+Elapsed: [5:04:29.111957]  batch: 9  d_loss: -8.842164  g_loss: 4.980242
+Time taken for epoch: 64.723 secs
+
+Epoch: 113
+Time taken for epoch: 47.072 secs
+
+Epoch: 114
+Time taken for epoch: 47.217 secs
+
+Epoch: 115
+Time taken for epoch: 47.354 secs
+
+Epoch: 116
+Time taken for epoch: 47.180 secs
+
+Epoch: 117
+Time taken for epoch: 47.325 secs
+
+Epoch: 118
+Time taken for epoch: 47.462 secs
+
+Epoch: 119
+Elapsed: [5:09:26.462420]  batch: 1  d_loss: -12.717745  g_loss: 20.144917
+Elapsed: [5:09:33.542874]  batch: 2  d_loss: -11.718082  g_loss: -2.626971
+Elapsed: [5:09:40.584497]  batch: 3  d_loss: -1.157234  g_loss: 23.369631
+Elapsed: [5:09:47.614471]  batch: 4  d_loss: -2.980818  g_loss: 28.503246
+Elapsed: [5:09:54.646608]  batch: 5  d_loss: 0.215556  g_loss: 27.838448
+Elapsed: [5:10:01.687505]  batch: 6  d_loss: -7.375589  g_loss: 10.019699
+Elapsed: [5:10:08.728000]  batch: 7  d_loss: -7.514780  g_loss: -4.462288
+Elapsed: [5:10:15.787328]  batch: 8  d_loss: -4.915112  g_loss: 34.246628
+Elapsed: [5:10:21.609766]  batch: 9  d_loss: -10.392406  g_loss: 1.432440
+Time taken for epoch: 65.074 secs
+
+Epoch: 120
+Time taken for epoch: 47.138 secs
+
+Epoch: 121
+Time taken for epoch: 47.117 secs
+
+Epoch: 122
+Time taken for epoch: 47.275 secs
+
+Epoch: 123
+Time taken for epoch: 47.437 secs
+
+Epoch: 124
+Time taken for epoch: 47.504 secs
+
+Epoch: 125
+Time taken for epoch: 47.542 secs
+
+Epoch: 126
+Elapsed: [5:15:23.205220]  batch: 1  d_loss: -15.038107  g_loss: 19.330101
+Elapsed: [5:15:30.219631]  batch: 2  d_loss: -6.591445  g_loss: 27.014149
+Elapsed: [5:15:37.215663]  batch: 3  d_loss: -9.346894  g_loss: 40.172539
+Elapsed: [5:15:44.219487]  batch: 4  d_loss: -12.201003  g_loss: 25.564867
+Elapsed: [5:15:51.232508]  batch: 5  d_loss: -7.335823  g_loss: 16.943636
+Elapsed: [5:15:58.230978]  batch: 6  d_loss: -6.802863  g_loss: 10.387792
+Elapsed: [5:16:05.228828]  batch: 7  d_loss: -9.210241  g_loss: 35.101921
+Elapsed: [5:16:12.210194]  batch: 8  d_loss: -9.796490  g_loss: 48.157024
+Elapsed: [5:16:17.986581]  batch: 9  d_loss: -4.368368  g_loss: 46.957851
+Time taken for epoch: 64.678 secs
+
+Epoch: 127
+Time taken for epoch: 47.045 secs
+
+Epoch: 128
+Time taken for epoch: 47.220 secs
+
+Epoch: 129
+Time taken for epoch: 47.335 secs
+
+Epoch: 130
+Time taken for epoch: 47.453 secs
+
+Epoch: 131
+Time taken for epoch: 47.312 secs
+
+Epoch: 132
+Time taken for epoch: 47.517 secs
+
+Epoch: 133
+Elapsed: [5:21:15.537641]  batch: 1  d_loss: -10.681883  g_loss: 24.669287
+Elapsed: [5:21:22.615057]  batch: 2  d_loss: -8.911375  g_loss: 21.920879
+Elapsed: [5:21:29.665966]  batch: 3  d_loss: -18.692337  g_loss: 44.530014
+Elapsed: [5:21:36.712432]  batch: 4  d_loss: -7.858662  g_loss: 8.252260
+Elapsed: [5:21:43.771660]  batch: 5  d_loss: -9.602418  g_loss: 10.683972
+Elapsed: [5:21:50.825901]  batch: 6  d_loss: -9.123529  g_loss: 11.692611
+Elapsed: [5:21:57.872527]  batch: 7  d_loss: -15.436119  g_loss: 26.760624
+Elapsed: [5:22:04.956992]  batch: 8  d_loss: -11.127698  g_loss: 45.767776
+Elapsed: [5:22:10.783155]  batch: 9  d_loss: -8.499878  g_loss: 11.112519
+Time taken for epoch: 65.128 secs
+
+Epoch: 134
+Time taken for epoch: 47.718 secs
+
+Epoch: 135
+Time taken for epoch: 47.851 secs
+
+Epoch: 136
+Time taken for epoch: 47.141 secs
+
+Epoch: 137
+Time taken for epoch: 47.247 secs
+
+Epoch: 138
+Time taken for epoch: 47.352 secs
+
+Epoch: 139
+Time taken for epoch: 47.387 secs
+
+Epoch: 140
+Elapsed: [5:27:09.261721]  batch: 1  d_loss: -5.005606  g_loss: 29.445183
+Elapsed: [5:27:16.308648]  batch: 2  d_loss: -11.057629  g_loss: 10.952631
+Elapsed: [5:27:23.329983]  batch: 3  d_loss: -12.306399  g_loss: 23.231125
+Elapsed: [5:27:30.341280]  batch: 4  d_loss: -12.210996  g_loss: 34.661919
+Elapsed: [5:27:37.352476]  batch: 5  d_loss: -6.228797  g_loss: 23.198221
+Elapsed: [5:27:44.362861]  batch: 6  d_loss: -16.224663  g_loss: 41.595505
+Elapsed: [5:27:51.373024]  batch: 7  d_loss: -6.610442  g_loss: 19.025467
+Elapsed: [5:27:58.368014]  batch: 8  d_loss: -13.675115  g_loss: 47.309998
+Elapsed: [5:28:04.139392]  batch: 9  d_loss: -8.464462  g_loss: 18.624166
+Time taken for epoch: 64.794 secs
+
+Epoch: 141
+Time taken for epoch: 46.920 secs
+
+Epoch: 142
+Time taken for epoch: 47.111 secs
+
+Epoch: 143
+Time taken for epoch: 47.207 secs
+
+Epoch: 144
+Time taken for epoch: 47.313 secs
+
+Epoch: 145
+Time taken for epoch: 47.400 secs
+
+Epoch: 146
+Time taken for epoch: 47.251 secs
+
+Epoch: 147
+Elapsed: [5:33:04.903035]  batch: 1  d_loss: -12.455503  g_loss: 35.758949
+Elapsed: [5:33:11.931336]  batch: 2  d_loss: -9.972225  g_loss: 19.248714
+Elapsed: [5:33:18.941732]  batch: 3  d_loss: -11.644427  g_loss: 28.558619
+Elapsed: [5:33:25.948809]  batch: 4  d_loss: -12.096372  g_loss: 26.585121
+Elapsed: [5:33:32.965795]  batch: 5  d_loss: -12.787618  g_loss: 38.134262
+Elapsed: [5:33:39.962043]  batch: 6  d_loss: -14.170391  g_loss: 25.840725
+Elapsed: [5:33:46.967881]  batch: 7  d_loss: -7.117404  g_loss: 18.674767
+Elapsed: [5:33:53.959049]  batch: 8  d_loss: -6.808701  g_loss: 9.018068
+Elapsed: [5:33:59.730252]  batch: 9  d_loss: -9.213248  g_loss: 36.097412
+Time taken for epoch: 64.724 secs
+
+Epoch: 148
+Time taken for epoch: 47.082 secs
+
+Epoch: 149
+Time taken for epoch: 47.256 secs
+
+Epoch: 150
+Time taken for epoch: 47.282 secs
+
+Epoch: 151
+Time taken for epoch: 47.182 secs
+
+Epoch: 152
+Time taken for epoch: 47.296 secs
+
+Epoch: 153
+Time taken for epoch: 47.451 secs
+
+Epoch: 154
+Elapsed: [5:38:57.034639]  batch: 1  d_loss: -12.392938  g_loss: 14.811781
+Elapsed: [5:39:04.150657]  batch: 2  d_loss: -11.317986  g_loss: 11.505891
+Elapsed: [5:39:11.161758]  batch: 3  d_loss: -8.035608  g_loss: 15.894386
+Elapsed: [5:39:18.167442]  batch: 4  d_loss: -9.595426  g_loss: 19.325790
+Elapsed: [5:39:25.176157]  batch: 5  d_loss: -13.346966  g_loss: 20.746704
+Elapsed: [5:39:32.180775]  batch: 6  d_loss: -8.132576  g_loss: 25.825027
+Elapsed: [5:39:39.186657]  batch: 7  d_loss: -6.757647  g_loss: 37.107319
+Elapsed: [5:39:46.177498]  batch: 8  d_loss: -12.267231  g_loss: 29.745983
+Elapsed: [5:39:51.958436]  batch: 9  d_loss: -13.468151  g_loss: 54.009850
+Time taken for epoch: 64.864 secs
+
+Epoch: 155
+Time taken for epoch: 47.062 secs
+
+Epoch: 156
+Time taken for epoch: 47.082 secs
+
+Epoch: 157
+Time taken for epoch: 47.202 secs
+
+Epoch: 158
+Time taken for epoch: 47.333 secs
+
+Epoch: 159
+Time taken for epoch: 47.428 secs
+
+Epoch: 160
+Time taken for epoch: 47.497 secs
+
+Epoch: 161
+Elapsed: [5:44:53.971228]  batch: 1  d_loss: -9.634151  g_loss: 8.984077
+Elapsed: [5:45:00.981641]  batch: 2  d_loss: -15.291765  g_loss: 24.351337
+Elapsed: [5:45:07.975087]  batch: 3  d_loss: -3.512870  g_loss: 20.666935
+Elapsed: [5:45:14.965440]  batch: 4  d_loss: -10.152119  g_loss: 29.004013
+Elapsed: [5:45:21.959021]  batch: 5  d_loss: -7.035588  g_loss: 35.230816
+Elapsed: [5:45:28.954168]  batch: 6  d_loss: 1.672503  g_loss: -17.469101
+Elapsed: [5:45:35.943621]  batch: 7  d_loss: -6.969465  g_loss: 6.627436
+Elapsed: [5:45:42.931843]  batch: 8  d_loss: -9.978361  g_loss: 25.645033
+Elapsed: [5:45:48.705033]  batch: 9  d_loss: -12.330200  g_loss: 16.758177
+Time taken for epoch: 65.465 secs
+
+Epoch: 162
+Time taken for epoch: 47.008 secs
+
+Epoch: 163
+Time taken for epoch: 47.184 secs
+
+Epoch: 164
+Time taken for epoch: 47.285 secs
+
+Epoch: 165
+Time taken for epoch: 47.484 secs
+
+Epoch: 166
+Time taken for epoch: 47.216 secs
+
+Epoch: 167
+Time taken for epoch: 47.407 secs
+
+Epoch: 168
+Elapsed: [5:50:46.003406]  batch: 1  d_loss: -12.019019  g_loss: 37.966679
+Elapsed: [5:50:53.031010]  batch: 2  d_loss: -11.132900  g_loss: 21.108440
+Elapsed: [5:51:00.041804]  batch: 3  d_loss: -9.586364  g_loss: 38.002502
+Elapsed: [5:51:07.035003]  batch: 4  d_loss: -12.802420  g_loss: -2.216172
+Elapsed: [5:51:14.041346]  batch: 5  d_loss: -7.420136  g_loss: 24.569378
+Elapsed: [5:51:21.067311]  batch: 6  d_loss: -13.749815  g_loss: 23.567131
+Elapsed: [5:51:28.078686]  batch: 7  d_loss: -10.432649  g_loss: 37.524467
+Elapsed: [5:51:35.091172]  batch: 8  d_loss: -9.664076  g_loss: 37.516769
+Elapsed: [5:51:40.875341]  batch: 9  d_loss: -10.714469  g_loss: 24.092400
+Time taken for epoch: 64.758 secs
+
+Epoch: 169
+Time taken for epoch: 47.133 secs
+
+Epoch: 170
+Time taken for epoch: 47.268 secs
+
+Epoch: 171
+Time taken for epoch: 47.218 secs
+
+Epoch: 172
+Time taken for epoch: 47.349 secs
+
+Epoch: 173
+Time taken for epoch: 47.383 secs
+
+Epoch: 174
+Time taken for epoch: 47.524 secs
+
+Epoch: 175
+Elapsed: [5:56:38.474229]  batch: 1  d_loss: -12.287436  g_loss: 35.058498
+Elapsed: [5:56:45.506628]  batch: 2  d_loss: -9.359307  g_loss: 23.358952
+Elapsed: [5:56:52.517502]  batch: 3  d_loss: -17.875046  g_loss: 36.822334
+Elapsed: [5:56:59.532482]  batch: 4  d_loss: -7.259791  g_loss: 9.030001
+Elapsed: [5:57:06.537320]  batch: 5  d_loss: -11.288299  g_loss: 7.995212
+Elapsed: [5:57:13.544417]  batch: 6  d_loss: -11.937068  g_loss: 31.976048
+Elapsed: [5:57:20.541490]  batch: 7  d_loss: -5.554090  g_loss: 43.435078
+Elapsed: [5:57:27.533316]  batch: 8  d_loss: -7.979218  g_loss: 15.058699
+Elapsed: [5:57:33.309151]  batch: 9  d_loss: -4.189195  g_loss: 13.549856
+Time taken for epoch: 64.732 secs
+
+Epoch: 176
+Time taken for epoch: 46.967 secs
+
+Epoch: 177
+Time taken for epoch: 47.054 secs
+
+Epoch: 178
+Time taken for epoch: 47.198 secs
+
+Epoch: 179
+Time taken for epoch: 47.253 secs
+
+Epoch: 180
+Time taken for epoch: 47.356 secs
+
+Epoch: 181
+Time taken for epoch: 47.256 secs
+
+Epoch: 182
+Elapsed: [6:02:33.905329]  batch: 1  d_loss: -16.582430  g_loss: 31.438604
+Elapsed: [6:02:40.914013]  batch: 2  d_loss: -7.902158  g_loss: 19.487453
+Elapsed: [6:02:47.923137]  batch: 3  d_loss: -10.182942  g_loss: 54.075783
+Elapsed: [6:02:54.916108]  batch: 4  d_loss: -8.740348  g_loss: 23.768034
+Elapsed: [6:03:01.909145]  batch: 5  d_loss: -13.154739  g_loss: 25.560276
+Elapsed: [6:03:08.902963]  batch: 6  d_loss: -5.202027  g_loss: 4.480066
+Elapsed: [6:03:15.895840]  batch: 7  d_loss: -6.868444  g_loss: 13.231363
+Elapsed: [6:03:22.878728]  batch: 8  d_loss: -15.076438  g_loss: 34.229603
+Elapsed: [6:03:28.644677]  batch: 9  d_loss: -10.609043  g_loss: 26.068264
+Time taken for epoch: 64.587 secs
+
+Epoch: 183
+Time taken for epoch: 47.080 secs
+
+Epoch: 184
+Time taken for epoch: 47.175 secs
+
+Epoch: 185
+Time taken for epoch: 47.258 secs
+
+Epoch: 186
+Time taken for epoch: 47.205 secs
+
+Epoch: 187
+Time taken for epoch: 47.704 secs
+
+Epoch: 188
+Time taken for epoch: 47.367 secs
+
+Epoch: 189
+Elapsed: [6:08:26.122178]  batch: 1  d_loss: -7.592167  g_loss: 17.834364
+Elapsed: [6:08:33.164256]  batch: 2  d_loss: -9.488222  g_loss: 24.486786
+Elapsed: [6:08:40.188137]  batch: 3  d_loss: -11.025126  g_loss: 19.798807
+Elapsed: [6:08:47.200159]  batch: 4  d_loss: -6.974533  g_loss: 42.888832
+Elapsed: [6:08:54.213265]  batch: 5  d_loss: -3.483508  g_loss: 16.769588
+Elapsed: [6:09:01.242913]  batch: 6  d_loss: -10.786055  g_loss: 3.945413
+Elapsed: [6:09:08.268240]  batch: 7  d_loss: -11.732599  g_loss: 14.103416
+Elapsed: [6:09:15.279212]  batch: 8  d_loss: -5.335817  g_loss: 52.648357
+Elapsed: [6:09:21.060033]  batch: 9  d_loss: -8.160066  g_loss: 6.047773
+Time taken for epoch: 64.808 secs
+
+Epoch: 190
+Time taken for epoch: 47.155 secs
+
+Epoch: 191
+Time taken for epoch: 47.155 secs
+
+Epoch: 192
+Time taken for epoch: 47.160 secs
+
+Epoch: 193
+Time taken for epoch: 47.280 secs
+
+Epoch: 194
+Time taken for epoch: 47.316 secs
+
+Epoch: 195
+Time taken for epoch: 47.370 secs
+
+Epoch: 196
+Elapsed: [6:14:21.998887]  batch: 1  d_loss: -9.471499  g_loss: 21.003286
+Elapsed: [6:14:29.012539]  batch: 2  d_loss: -12.685642  g_loss: 21.812967
+Elapsed: [6:14:35.996517]  batch: 3  d_loss: -8.264030  g_loss: 22.323078
+Elapsed: [6:14:42.989723]  batch: 4  d_loss: -11.411908  g_loss: -1.952636
+Elapsed: [6:14:49.966891]  batch: 5  d_loss: -6.357190  g_loss: 24.611481
+Elapsed: [6:14:56.960294]  batch: 6  d_loss: -8.061829  g_loss: 34.479118
+Elapsed: [6:15:03.941575]  batch: 7  d_loss: -4.856836  g_loss: 20.248821
+Elapsed: [6:15:10.925172]  batch: 8  d_loss: -11.919271  g_loss: 27.612896
+Elapsed: [6:15:16.693965]  batch: 9  d_loss: -9.233656  g_loss: 35.967247
+Time taken for epoch: 64.521 secs
+
+Epoch: 197
+Time taken for epoch: 46.932 secs
+
+Epoch: 198
+Time taken for epoch: 47.168 secs
+
+Epoch: 199
+Time taken for epoch: 47.268 secs
+
+Epoch: 200
+Time taken for epoch: 47.363 secs
+
+Epoch: 201
+Time taken for epoch: 47.239 secs
+
+Epoch: 202
+Time taken for epoch: 47.341 secs
+
+Epoch: 203
+Elapsed: [6:20:13.701857]  batch: 1  d_loss: -7.007461  g_loss: 6.858191
+Elapsed: [6:20:20.726487]  batch: 2  d_loss: -6.154452  g_loss: 10.282698
+Elapsed: [6:20:27.738094]  batch: 3  d_loss: -9.831009  g_loss: 7.689055
+Elapsed: [6:20:34.728953]  batch: 4  d_loss: -8.565037  g_loss: 6.277434
+Elapsed: [6:20:41.732220]  batch: 5  d_loss: -10.341588  g_loss: 27.811050
+Elapsed: [6:20:48.740458]  batch: 6  d_loss: -10.764067  g_loss: 24.517597
+Elapsed: [6:20:55.738459]  batch: 7  d_loss: -11.985590  g_loss: 13.508948
+Elapsed: [6:21:02.735255]  batch: 8  d_loss: -9.990129  g_loss: 27.867771
+Elapsed: [6:21:08.510077]  batch: 9  d_loss: -6.641123  g_loss: 9.368505
+Time taken for epoch: 64.680 secs
+
+Epoch: 204
+Time taken for epoch: 47.013 secs
+
+Epoch: 205
+Time taken for epoch: 47.170 secs
+
+Epoch: 206
+Time taken for epoch: 47.125 secs
+
+Epoch: 207
+Time taken for epoch: 47.241 secs
+
+Epoch: 208
+Time taken for epoch: 47.406 secs
+
+Epoch: 209
+Time taken for epoch: 47.438 secs
+
+Epoch: 210
+Elapsed: [6:26:05.609839]  batch: 1  d_loss: -7.028630  g_loss: 2.325623
+Elapsed: [6:26:12.638749]  batch: 2  d_loss: -7.189224  g_loss: -7.927824
+Elapsed: [6:26:19.647282]  batch: 3  d_loss: -9.167490  g_loss: 26.266838
+Elapsed: [6:26:26.656914]  batch: 4  d_loss: -5.184140  g_loss: 13.209831
+Elapsed: [6:26:33.667018]  batch: 5  d_loss: -10.507498  g_loss: 35.627735
+Elapsed: [6:26:40.675533]  batch: 6  d_loss: -7.313696  g_loss: -9.463020
+Elapsed: [6:26:47.673237]  batch: 7  d_loss: -4.879135  g_loss: 37.673851
+Elapsed: [6:26:54.674688]  batch: 8  d_loss: -6.398678  g_loss: 19.968576
+Elapsed: [6:27:00.451208]  batch: 9  d_loss: -10.225336  g_loss: 11.541520
+Time taken for epoch: 64.718 secs
+
+Epoch: 211
+Time taken for epoch: 46.926 secs
+
+Epoch: 212
+Time taken for epoch: 47.837 secs
+
+Epoch: 213
+Time taken for epoch: 47.270 secs
+
+Epoch: 214
+Time taken for epoch: 47.326 secs
+
+Epoch: 215
+Time taken for epoch: 47.418 secs
+
+Epoch: 216
+Time taken for epoch: 47.296 secs
+
+Epoch: 217
+Elapsed: [6:32:01.975271]  batch: 1  d_loss: -14.069451  g_loss: 48.192966
+Elapsed: [6:32:08.985266]  batch: 2  d_loss: -1.625073  g_loss: -11.869297
+Elapsed: [6:32:15.975451]  batch: 3  d_loss: -8.304633  g_loss: 21.923912
+Elapsed: [6:32:22.966837]  batch: 4  d_loss: -6.406459  g_loss: 4.328627
+Elapsed: [6:32:29.945021]  batch: 5  d_loss: -11.096378  g_loss: 34.238598
+Elapsed: [6:32:36.935603]  batch: 6  d_loss: -8.109659  g_loss: -8.989408
+Elapsed: [6:32:44.004974]  batch: 7  d_loss: -3.780476  g_loss: 40.079643
+Elapsed: [6:32:51.034412]  batch: 8  d_loss: -7.879938  g_loss: 14.607456
+Elapsed: [6:32:56.813203]  batch: 9  d_loss: -5.103031  g_loss: 5.234062
+Time taken for epoch: 64.627 secs
+
+Epoch: 218
+Time taken for epoch: 46.954 secs
+
+Epoch: 219
+Time taken for epoch: 47.171 secs
+
+Epoch: 220
+Time taken for epoch: 47.236 secs
+
+Epoch: 221
+Time taken for epoch: 47.156 secs
+
+Epoch: 222
+Time taken for epoch: 47.230 secs
+
+Epoch: 223
+Time taken for epoch: 47.396 secs
+
+Epoch: 224
+Elapsed: [6:37:53.674013]  batch: 1  d_loss: -10.236374  g_loss: 57.938278
+Elapsed: [6:38:00.687057]  batch: 2  d_loss: -6.242352  g_loss: -3.493374
+Elapsed: [6:38:07.681666]  batch: 3  d_loss: -7.459797  g_loss: 15.671028
+Elapsed: [6:38:14.669472]  batch: 4  d_loss: -10.322947  g_loss: 24.448666
+Elapsed: [6:38:21.662575]  batch: 5  d_loss: -13.318499  g_loss: 14.289835
+Elapsed: [6:38:28.655172]  batch: 6  d_loss: -5.219146  g_loss: -7.713043
+Elapsed: [6:38:35.645436]  batch: 7  d_loss: -9.822949  g_loss: 7.156332
+Elapsed: [6:38:42.634036]  batch: 8  d_loss: -1.715023  g_loss: 21.484606
+Elapsed: [6:38:48.394689]  batch: 9  d_loss: -7.979956  g_loss: 21.909304
+Time taken for epoch: 64.603 secs
+
+Epoch: 225
+Time taken for epoch: 47.022 secs
+
+Epoch: 226
+Time taken for epoch: 47.017 secs
+
+Epoch: 227
+Time taken for epoch: 47.147 secs
+
+Epoch: 228
+Time taken for epoch: 47.248 secs
+
+Epoch: 229
+Time taken for epoch: 47.284 secs
+
+Epoch: 230
+Time taken for epoch: 47.365 secs
+
+Epoch: 231
+Elapsed: [6:43:48.955579]  batch: 1  d_loss: -6.909941  g_loss: 27.115339
+Elapsed: [6:43:55.969361]  batch: 2  d_loss: -7.656374  g_loss: 19.019089
+Elapsed: [6:44:02.982853]  batch: 3  d_loss: -6.901938  g_loss: 11.324072
+Elapsed: [6:44:09.975476]  batch: 4  d_loss: -3.276659  g_loss: 21.442425
+Elapsed: [6:44:16.970077]  batch: 5  d_loss: -9.797678  g_loss: 16.687613
+Elapsed: [6:44:23.959776]  batch: 6  d_loss: -11.713964  g_loss: 25.890671
+Elapsed: [6:44:30.949288]  batch: 7  d_loss: -3.947407  g_loss: 24.369946
+Elapsed: [6:44:37.936760]  batch: 8  d_loss: -11.153660  g_loss: 22.111513
+Elapsed: [6:44:43.713264]  batch: 9  d_loss: -6.948187  g_loss: 10.492566
+Time taken for epoch: 64.602 secs
+
+Epoch: 232
+Time taken for epoch: 46.978 secs
+
+Epoch: 233
+Time taken for epoch: 47.119 secs
+
+Epoch: 234
+Time taken for epoch: 47.178 secs
+
+Epoch: 235
+Time taken for epoch: 47.326 secs
+
+Epoch: 236
+Time taken for epoch: 47.174 secs
+
+Epoch: 237
+Time taken for epoch: 47.350 secs
+
+Epoch: 238
+Elapsed: [6:49:40.579765]  batch: 1  d_loss: -9.565483  g_loss: 30.473492
+Elapsed: [6:49:47.673759]  batch: 2  d_loss: -2.817240  g_loss: 7.829769
+Elapsed: [6:49:54.706884]  batch: 3  d_loss: -9.254207  g_loss: 3.938780
+Elapsed: [6:50:01.759645]  batch: 4  d_loss: -7.259330  g_loss: 18.669277
+Elapsed: [6:50:08.752321]  batch: 5  d_loss: -11.483099  g_loss: 24.087172
+Elapsed: [6:50:15.782202]  batch: 6  d_loss: -4.627739  g_loss: 37.393307
+Elapsed: [6:50:22.774864]  batch: 7  d_loss: -6.094340  g_loss: 9.241253
+Elapsed: [6:50:29.763642]  batch: 8  d_loss: -7.065130  g_loss: -9.810966
+Elapsed: [6:50:35.539574]  batch: 9  d_loss: -12.992895  g_loss: 21.767553
+Time taken for epoch: 64.854 secs
+
+Epoch: 239
+Time taken for epoch: 47.004 secs
+
+Epoch: 240
+Time taken for epoch: 47.211 secs
+
+Epoch: 241
+Time taken for epoch: 47.134 secs
+
+Epoch: 242
+Time taken for epoch: 47.519 secs
+
+Epoch: 243
+Time taken for epoch: 48.122 secs
+
+Epoch: 244
+Time taken for epoch: 47.410 secs
+
+Epoch: 245
+Elapsed: [6:55:33.868973]  batch: 1  d_loss: -10.065497  g_loss: 6.035555
+Elapsed: [6:55:40.907409]  batch: 2  d_loss: -8.447429  g_loss: 42.367561
+Elapsed: [6:55:47.917371]  batch: 3  d_loss: -6.745953  g_loss: 9.844500
+Elapsed: [6:55:54.925525]  batch: 4  d_loss: -9.233227  g_loss: 10.197536
+Elapsed: [6:56:01.937500]  batch: 5  d_loss: -7.517118  g_loss: 10.673012
+Elapsed: [6:56:08.954451]  batch: 6  d_loss: -7.585534  g_loss: 21.412098
+Elapsed: [6:56:15.950606]  batch: 7  d_loss: -3.900100  g_loss: 7.021525
+Elapsed: [6:56:22.943061]  batch: 8  d_loss: -5.495793  g_loss: 36.815247
+Elapsed: [6:56:28.719888]  batch: 9  d_loss: -8.095870  g_loss: 8.813533
+Time taken for epoch: 64.953 secs
+
+Epoch: 246
+Time taken for epoch: 46.897 secs
+
+Epoch: 247
+Time taken for epoch: 47.121 secs
+
+Epoch: 248
+Time taken for epoch: 47.285 secs
+
+Epoch: 249
+Time taken for epoch: 47.342 secs
+
+Epoch: 250
+Time taken for epoch: 47.470 secs
+
+Epoch: 251
+Time taken for epoch: 47.739 secs
+
+Epoch: 252
+Elapsed: [7:01:30.125187]  batch: 1  d_loss: -4.387364  g_loss: 28.434483
+Elapsed: [7:01:37.150364]  batch: 2  d_loss: -6.452273  g_loss: 23.488888
+Elapsed: [7:01:44.157972]  batch: 3  d_loss: -7.171753  g_loss: 34.060913
+Elapsed: [7:01:51.168371]  batch: 4  d_loss: -8.698972  g_loss: 13.124388
+Elapsed: [7:01:58.164733]  batch: 5  d_loss: -9.233442  g_loss: 19.101408
+Elapsed: [7:02:05.160429]  batch: 6  d_loss: -6.414649  g_loss: 23.494080
+Elapsed: [7:02:12.151277]  batch: 7  d_loss: -10.044801  g_loss: 39.610909
+Elapsed: [7:02:19.139022]  batch: 8  d_loss: -5.968382  g_loss: 2.006938
+Elapsed: [7:02:24.910832]  batch: 9  d_loss: -11.381749  g_loss: 22.324835
+Time taken for epoch: 64.657 secs
+
+Epoch: 253
+Time taken for epoch: 46.975 secs
+
+Epoch: 254
+Time taken for epoch: 47.174 secs
+
+Epoch: 255
+Time taken for epoch: 47.312 secs
+
+Epoch: 256
+Time taken for epoch: 47.189 secs
+
+Epoch: 257
+Time taken for epoch: 47.250 secs
+
+Epoch: 258
+Time taken for epoch: 47.274 secs
+
+Epoch: 259
+Elapsed: [7:07:21.782988]  batch: 1  d_loss: -7.735709  g_loss: 37.215561
+Elapsed: [7:07:28.794881]  batch: 2  d_loss: -5.462926  g_loss: 0.819205
+Elapsed: [7:07:35.805100]  batch: 3  d_loss: -4.649326  g_loss: 13.355194
+Elapsed: [7:07:42.798687]  batch: 4  d_loss: -4.170953  g_loss: 20.860241
+Elapsed: [7:07:49.789323]  batch: 5  d_loss: -5.031172  g_loss: 8.254905
+Elapsed: [7:07:56.780610]  batch: 6  d_loss: -6.161694  g_loss: 16.736408
+Elapsed: [7:08:03.774069]  batch: 7  d_loss: -7.118760  g_loss: 10.387880
+Elapsed: [7:08:10.764729]  batch: 8  d_loss: -7.439548  g_loss: 27.392193
+Elapsed: [7:08:16.538920]  batch: 9  d_loss: -10.884325  g_loss: 6.856943
+Time taken for epoch: 64.631 secs
+
+Epoch: 260
+Time taken for epoch: 47.078 secs
+
+Epoch: 261
+Time taken for epoch: 47.057 secs
+
+Epoch: 262
+Time taken for epoch: 47.197 secs
+
+Epoch: 263
+Time taken for epoch: 47.287 secs
+
+Epoch: 264
+Time taken for epoch: 47.368 secs
+
+Epoch: 265
+Time taken for epoch: 47.407 secs
+
+Epoch: 266
+Elapsed: [7:13:17.459382]  batch: 1  d_loss: -4.488381  g_loss: 10.709687
+Elapsed: [7:13:24.450900]  batch: 2  d_loss: -7.599635  g_loss: 21.031796
+Elapsed: [7:13:31.427042]  batch: 3  d_loss: -3.971485  g_loss: 31.353539
+Elapsed: [7:13:38.391944]  batch: 4  d_loss: -6.095217  g_loss: 20.731525
+Elapsed: [7:13:45.373675]  batch: 5  d_loss: -6.082179  g_loss: 24.643705
+Elapsed: [7:13:52.351962]  batch: 6  d_loss: -9.442828  g_loss: 4.240494
+Elapsed: [7:13:59.339423]  batch: 7  d_loss: -5.265721  g_loss: 39.952126
+Elapsed: [7:14:06.315017]  batch: 8  d_loss: -6.264250  g_loss: 2.775254
+Elapsed: [7:14:12.062526]  batch: 9  d_loss: -5.642083  g_loss: -0.014371
+Time taken for epoch: 64.453 secs
+
+Epoch: 267
+Time taken for epoch: 46.998 secs
+
+Epoch: 268
+Time taken for epoch: 47.216 secs
+
+Epoch: 269
+Time taken for epoch: 47.260 secs
+
+Epoch: 270
+Time taken for epoch: 47.498 secs
+
+Epoch: 271
+Time taken for epoch: 47.204 secs
+
+Epoch: 272
+Time taken for epoch: 47.314 secs
+
+Epoch: 273
+Elapsed: [7:19:09.205171]  batch: 1  d_loss: -6.372668  g_loss: 26.975868
+Elapsed: [7:19:16.214085]  batch: 2  d_loss: -9.093031  g_loss: 22.703091
+Elapsed: [7:19:23.204189]  batch: 3  d_loss: -4.180735  g_loss: 2.898269
+Elapsed: [7:19:30.194312]  batch: 4  d_loss: -5.764184  g_loss: 12.328977
+Elapsed: [7:19:37.173956]  batch: 5  d_loss: -8.056736  g_loss: 16.252728
+Elapsed: [7:19:44.158558]  batch: 6  d_loss: -9.609730  g_loss: 23.718029
+Elapsed: [7:19:51.150066]  batch: 7  d_loss: -3.097515  g_loss: 26.142851
+Elapsed: [7:19:58.124832]  batch: 8  d_loss: -5.736186  g_loss: 14.143066
+Elapsed: [7:20:03.885375]  batch: 9  d_loss: -6.704561  g_loss: 30.828758
+Time taken for epoch: 64.506 secs
+
+Epoch: 274
+Time taken for epoch: 47.017 secs
+
+Epoch: 275
+Time taken for epoch: 47.187 secs
+
+Epoch: 276
+Time taken for epoch: 47.092 secs
+
+Epoch: 277
+Time taken for epoch: 47.281 secs
+
+Epoch: 278
+Time taken for epoch: 47.354 secs
+
+Epoch: 279
+Time taken for epoch: 47.432 secs
+
+Epoch: 280
+Elapsed: [7:25:00.967834]  batch: 1  d_loss: -6.050692  g_loss: 10.983665
+Elapsed: [7:25:08.043157]  batch: 2  d_loss: -6.973567  g_loss: -1.630553
+Elapsed: [7:25:15.058066]  batch: 3  d_loss: -9.432368  g_loss: 40.787106
+Elapsed: [7:25:22.051820]  batch: 4  d_loss: -6.406784  g_loss: -7.305430
+Elapsed: [7:25:29.042757]  batch: 5  d_loss: -5.441957  g_loss: 17.349087
+Elapsed: [7:25:36.032342]  batch: 6  d_loss: -2.377220  g_loss: 21.843925
+Elapsed: [7:25:43.025443]  batch: 7  d_loss: -9.091921  g_loss: 11.278831
+Elapsed: [7:25:50.016481]  batch: 8  d_loss: -7.059122  g_loss: 9.623296
+Elapsed: [7:25:55.775500]  batch: 9  d_loss: -4.309162  g_loss: 10.310591
+Time taken for epoch: 64.689 secs
+
+Epoch: 281
+Time taken for epoch: 46.897 secs
+
+Epoch: 282
+Time taken for epoch: 47.113 secs
+
+Epoch: 283
+Time taken for epoch: 47.279 secs
+
+Epoch: 284
+Time taken for epoch: 47.356 secs
+
+Epoch: 285
+Time taken for epoch: 47.391 secs
+
+Epoch: 286
+Time taken for epoch: 47.223 secs
+
+Epoch: 287
+Elapsed: [7:30:56.546239]  batch: 1  d_loss: -3.617341  g_loss: 12.721676
+Elapsed: [7:31:03.568787]  batch: 2  d_loss: -8.994881  g_loss: 36.527290
+Elapsed: [7:31:10.578137]  batch: 3  d_loss: -5.627399  g_loss: -0.490594
+Elapsed: [7:31:17.582705]  batch: 4  d_loss: -3.724335  g_loss: 0.285325
+Elapsed: [7:31:24.584792]  batch: 5  d_loss: -1.117347  g_loss: 32.833385
+Elapsed: [7:31:31.595876]  batch: 6  d_loss: -7.734319  g_loss: -2.904879
+Elapsed: [7:31:38.590115]  batch: 7  d_loss: -4.192783  g_loss: 13.813779
+Elapsed: [7:31:45.596945]  batch: 8  d_loss: -6.514075  g_loss: 16.657734
+Elapsed: [7:31:51.373174]  batch: 9  d_loss: -5.633242  g_loss: 14.069262
+Time taken for epoch: 64.700 secs
+
+Epoch: 288
+Time taken for epoch: 47.089 secs
+
+Epoch: 289
+Time taken for epoch: 47.247 secs
+
+Epoch: 290
+Time taken for epoch: 47.287 secs
+
+Epoch: 291
+Time taken for epoch: 47.186 secs
+
+Epoch: 292
+Time taken for epoch: 47.377 secs
+
+Epoch: 293
+Time taken for epoch: 47.376 secs
+
+Epoch: 294
+Elapsed: [7:36:48.705210]  batch: 1  d_loss: -5.974764  g_loss: 5.642831
+Elapsed: [7:36:55.719635]  batch: 2  d_loss: -8.550791  g_loss: 21.199650
+Elapsed: [7:37:02.711084]  batch: 3  d_loss: -2.648908  g_loss: -6.092099
+Elapsed: [7:37:09.699001]  batch: 4  d_loss: -6.189708  g_loss: 32.118263
+Elapsed: [7:37:16.693764]  batch: 5  d_loss: -10.592093  g_loss: -7.974260
+Elapsed: [7:37:23.686114]  batch: 6  d_loss: -3.236188  g_loss: 35.403877
+Elapsed: [7:37:30.674002]  batch: 7  d_loss: -5.322450  g_loss: 22.993828
+Elapsed: [7:37:37.646341]  batch: 8  d_loss: -10.746182  g_loss: 19.675447
+Elapsed: [7:37:43.405130]  batch: 9  d_loss: -5.386758  g_loss: 19.943752
+Time taken for epoch: 64.621 secs
+
+Epoch: 295
+Time taken for epoch: 47.122 secs
+
+Epoch: 296
+Time taken for epoch: 47.030 secs
+
+Epoch: 297
+Time taken for epoch: 47.262 secs
+
+Epoch: 298
+Time taken for epoch: 47.297 secs
+
+Epoch: 299
+Time taken for epoch: 47.392 secs
+
+Epoch: 300
+Time taken for epoch: 47.324 secs
+
+Epoch: 301
+Elapsed: [7:42:44.335051]  batch: 1  d_loss: -7.829554  g_loss: 20.406176
+Elapsed: [7:42:51.326338]  batch: 2  d_loss: -4.868917  g_loss: 46.476768
+Elapsed: [7:42:58.297758]  batch: 3  d_loss: -2.408243  g_loss: -34.812008
+Elapsed: [7:43:05.266956]  batch: 4  d_loss: -1.118146  g_loss: 25.470634
+Elapsed: [7:43:12.225483]  batch: 5  d_loss: -4.932220  g_loss: 11.499779
+Elapsed: [7:43:19.191173]  batch: 6  d_loss: -8.994678  g_loss: 19.795803
+Elapsed: [7:43:26.159280]  batch: 7  d_loss: -3.999023  g_loss: 18.811628
+Elapsed: [7:43:33.116613]  batch: 8  d_loss: -8.842592  g_loss: 3.988675
+Elapsed: [7:43:38.870590]  batch: 9  d_loss: -7.202160  g_loss: 15.056595
+Time taken for epoch: 64.385 secs
+
+Epoch: 302
+Time taken for epoch: 47.034 secs
+
+Epoch: 303
+Time taken for epoch: 47.144 secs
+
+Epoch: 304
+Time taken for epoch: 47.275 secs
+
+Epoch: 305
+Time taken for epoch: 47.335 secs
+
+Epoch: 306
+Time taken for epoch: 47.173 secs
+
+Epoch: 307
+Time taken for epoch: 47.267 secs
+
+Epoch: 308
+Elapsed: [7:48:35.797965]  batch: 1  d_loss: -10.660011  g_loss: 17.414925
+Elapsed: [7:48:42.829662]  batch: 2  d_loss: -5.525485  g_loss: 21.322842
+Elapsed: [7:48:49.817802]  batch: 3  d_loss: -10.661897  g_loss: 18.930592
+Elapsed: [7:48:56.797488]  batch: 4  d_loss: -2.453635  g_loss: 3.716820
+Elapsed: [7:49:03.771456]  batch: 5  d_loss: -10.240829  g_loss: 22.726025
+Elapsed: [7:49:10.740204]  batch: 6  d_loss: -5.848083  g_loss: 6.361757
+Elapsed: [7:49:17.710028]  batch: 7  d_loss: -7.050238  g_loss: 7.846068
+Elapsed: [7:49:24.684454]  batch: 8  d_loss: -2.666669  g_loss: 27.548874
+Elapsed: [7:49:30.432489]  batch: 9  d_loss: -6.456762  g_loss: 29.827663
+Time taken for epoch: 64.505 secs
+
+Epoch: 309
+Time taken for epoch: 46.983 secs
+
+Epoch: 310
+Time taken for epoch: 47.804 secs
+
+Epoch: 311
+Time taken for epoch: 47.114 secs
+
+Epoch: 312
+Time taken for epoch: 47.200 secs
+
+Epoch: 313
+Time taken for epoch: 47.262 secs
+
+Epoch: 314
+Time taken for epoch: 47.405 secs
+
+Epoch: 315
+Elapsed: [7:54:27.917140]  batch: 1  d_loss: -5.124714  g_loss: 28.002651
+Elapsed: [7:54:34.929834]  batch: 2  d_loss: 1.575367  g_loss: -19.108898
+Elapsed: [7:54:41.927664]  batch: 3  d_loss: -6.599489  g_loss: -0.644389
+Elapsed: [7:54:48.918147]  batch: 4  d_loss: -1.148066  g_loss: 22.034245
+Elapsed: [7:54:55.910620]  batch: 5  d_loss: -5.524864  g_loss: 20.798136
+Elapsed: [7:55:02.893787]  batch: 6  d_loss: -3.350835  g_loss: -0.641712
+Elapsed: [7:55:09.872765]  batch: 7  d_loss: -6.352581  g_loss: 10.825496
+Elapsed: [7:55:16.844883]  batch: 8  d_loss: -2.575877  g_loss: 32.471634
+Elapsed: [7:55:22.599900]  batch: 9  d_loss: -7.280244  g_loss: 17.113827
+Time taken for epoch: 64.564 secs
+
+Epoch: 316
+Time taken for epoch: 46.864 secs
+
+Epoch: 317
+Time taken for epoch: 47.087 secs
+
+Epoch: 318
+Time taken for epoch: 47.201 secs
+
+Epoch: 319
+Time taken for epoch: 47.343 secs
+
+Epoch: 320
+Time taken for epoch: 47.387 secs
+
+Epoch: 321
+Time taken for epoch: 47.252 secs
+
+Epoch: 322
+Elapsed: [8:00:23.295794]  batch: 1  d_loss: -11.341055  g_loss: 26.376040
+Elapsed: [8:00:30.296461]  batch: 2  d_loss: -5.693591  g_loss: 12.875854
+Elapsed: [8:00:37.276295]  batch: 3  d_loss: -5.297776  g_loss: 15.446161
+Elapsed: [8:00:44.257394]  batch: 4  d_loss: -6.693699  g_loss: 38.747898
+Elapsed: [8:00:51.227983]  batch: 5  d_loss: -5.518932  g_loss: 23.307652
+Elapsed: [8:00:58.203804]  batch: 6  d_loss: -7.959785  g_loss: 37.262325
+Elapsed: [8:01:05.189148]  batch: 7  d_loss: 0.049340  g_loss: -23.167084
+Elapsed: [8:01:12.180847]  batch: 8  d_loss: -4.516361  g_loss: 7.382457
+Elapsed: [8:01:17.934165]  batch: 9  d_loss: -9.713007  g_loss: 9.087133
+Time taken for epoch: 64.535 secs
+
+Epoch: 323
+Time taken for epoch: 47.022 secs
+
+Epoch: 324
+Time taken for epoch: 47.189 secs
+
+Epoch: 325
+Time taken for epoch: 47.333 secs
+
+Epoch: 326
+Time taken for epoch: 47.180 secs
+
+Epoch: 327
+Time taken for epoch: 47.325 secs
+
+Epoch: 328
+Time taken for epoch: 47.418 secs
+
+Epoch: 329
+Elapsed: [8:06:15.346799]  batch: 1  d_loss: -6.415041  g_loss: 19.668400
+Elapsed: [8:06:22.397600]  batch: 2  d_loss: -6.620588  g_loss: 8.198322
+Elapsed: [8:06:29.416468]  batch: 3  d_loss: -2.686764  g_loss: 8.886728
+Elapsed: [8:06:36.430852]  batch: 4  d_loss: -5.332791  g_loss: 24.405304
+Elapsed: [8:06:43.442915]  batch: 5  d_loss: -9.405238  g_loss: 15.813842
+Elapsed: [8:06:50.454921]  batch: 6  d_loss: -5.627468  g_loss: -4.141803
+Elapsed: [8:06:57.451831]  batch: 7  d_loss: -5.880620  g_loss: 17.555687
+Elapsed: [8:07:04.448216]  batch: 8  d_loss: -5.343760  g_loss: -6.563326
+Elapsed: [8:07:10.224418]  batch: 9  d_loss: -6.156971  g_loss: 32.801247
+Time taken for epoch: 65.007 secs
+
+Epoch: 330
+Time taken for epoch: 47.058 secs
+
+Epoch: 331
+Time taken for epoch: 47.080 secs
+
+Epoch: 332
+Time taken for epoch: 47.211 secs
+
+Epoch: 333
+Time taken for epoch: 47.344 secs
+
+Epoch: 334
+Time taken for epoch: 47.446 secs
+
+Epoch: 335
+Time taken for epoch: 47.435 secs
+
+Epoch: 336
+Elapsed: [8:12:11.336198]  batch: 1  d_loss: -9.619809  g_loss: 22.757097
+Elapsed: [8:12:18.357496]  batch: 2  d_loss: -7.119559  g_loss: 23.469408
+Elapsed: [8:12:25.341011]  batch: 3  d_loss: -8.050114  g_loss: 13.691109
+Elapsed: [8:12:32.334475]  batch: 4  d_loss: -4.162604  g_loss: 8.473150
+Elapsed: [8:12:39.331658]  batch: 5  d_loss: -8.232985  g_loss: 23.461845
+Elapsed: [8:12:46.327368]  batch: 6  d_loss: -7.137692  g_loss: 19.301085
+Elapsed: [8:12:53.314806]  batch: 7  d_loss: -5.410087  g_loss: 14.673338
+Elapsed: [8:13:00.303955]  batch: 8  d_loss: -9.457009  g_loss: 20.779718
+Elapsed: [8:13:06.078307]  batch: 9  d_loss: -10.351986  g_loss: 22.897421
+Time taken for epoch: 64.609 secs
+
+Epoch: 337
+Time taken for epoch: 46.930 secs
+
+Epoch: 338
+Time taken for epoch: 47.130 secs
+
+Epoch: 339
+Time taken for epoch: 47.216 secs
+
+Epoch: 340
+Time taken for epoch: 47.393 secs
+
+Epoch: 341
+Time taken for epoch: 47.214 secs
+
+Epoch: 342
+Time taken for epoch: 47.274 secs
+
+Epoch: 343
+Elapsed: [8:18:02.952387]  batch: 1  d_loss: -7.464770  g_loss: 26.775978
+Elapsed: [8:18:09.963076]  batch: 2  d_loss: -7.939429  g_loss: 1.093948
+Elapsed: [8:18:16.958823]  batch: 3  d_loss: -4.134501  g_loss: 21.898918
+Elapsed: [8:18:23.948120]  batch: 4  d_loss: -4.965088  g_loss: 8.742817
+Elapsed: [8:18:30.936004]  batch: 5  d_loss: -4.679191  g_loss: 19.857750
+Elapsed: [8:18:37.925520]  batch: 6  d_loss: -8.007903  g_loss: 18.490334
+Elapsed: [8:18:44.907805]  batch: 7  d_loss: 0.332633  g_loss: -6.823776
+Elapsed: [8:18:51.897706]  batch: 8  d_loss: -7.371410  g_loss: 37.647087
+Elapsed: [8:18:57.659990]  batch: 9  d_loss: -4.205455  g_loss: -21.683437
+Time taken for epoch: 64.589 secs
+
+Epoch: 344
+Time taken for epoch: 47.079 secs
+
+Epoch: 345
+Time taken for epoch: 47.232 secs
+
+Epoch: 346
+Time taken for epoch: 47.095 secs
+
+Epoch: 347
+Time taken for epoch: 47.243 secs
+
+Epoch: 348
+Time taken for epoch: 47.278 secs
+
+Epoch: 349
+Time taken for epoch: 47.379 secs
+
+Epoch: 350
+Elapsed: [8:23:54.653687]  batch: 1  d_loss: -5.233083  g_loss: 20.376701
+Elapsed: [8:24:01.706158]  batch: 2  d_loss: -4.278008  g_loss: 17.626545
+Elapsed: [8:24:08.697392]  batch: 3  d_loss: -7.238984  g_loss: 31.554487
+Elapsed: [8:24:15.693879]  batch: 4  d_loss: 0.986514  g_loss: -7.881640
+Elapsed: [8:24:22.679340]  batch: 5  d_loss: -3.007257  g_loss: 15.128386
+Elapsed: [8:24:29.668016]  batch: 6  d_loss: -5.343418  g_loss: 18.266117
+Elapsed: [8:24:36.663351]  batch: 7  d_loss: -5.824707  g_loss: 12.221013
+Elapsed: [8:24:43.653239]  batch: 8  d_loss: -3.797202  g_loss: 15.826506
+Elapsed: [8:24:49.409868]  batch: 9  d_loss: -7.057384  g_loss: -2.689587
+Time taken for epoch: 64.613 secs
+
+
+Currently working on Depth:  6
+Current resolution: 256 x 256
+
+Epoch: 1
+Traceback (most recent call last):
+  File "train.py", line 144, in <module>
+    main(parse_arguments())
+  File "train.py", line 138, in main
+    save_dir=config.save_dir,
+  File "/home/ubuntu/pro_gan_pytorch/pro_gan_pytorch/PRO_GAN.py", line 612, in train
+    current_depth, alpha)
+  File "/home/ubuntu/pro_gan_pytorch/pro_gan_pytorch/PRO_GAN.py", line 474, in optimize_discriminator
+    loss = self.loss.dis_loss(real_samples, fake_samples, depth, alpha)
+  File "/home/ubuntu/pro_gan_pytorch/pro_gan_pytorch/Losses.py", line 154, in dis_loss
+    gp = self.__gradient_penalty(real_samps, fake_samps, height, alpha)
+  File "/home/ubuntu/pro_gan_pytorch/pro_gan_pytorch/Losses.py", line 135, in __gradient_penalty
+    retain_graph=True, only_inputs=True)[0]
+  File "/home/ubuntu/anaconda3/envs/pytorch_p36/lib/python3.6/site-packages/torch/autograd/__init__.py", line 157, in grad
+    inputs, allow_unused)
+RuntimeError: CUDA out of memory. Tried to allocate 616.00 MiB (GPU 0; 14.73 GiB total capacity; 12.87 GiB already allocated; 617.88 MiB free; 562.55 MiB cached)

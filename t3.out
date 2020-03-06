@@ -1,0 +1,2924 @@
+config/textile.conf
+Current Configuration: {'images_dir': 'data/mudo-proc-resized', 'log_dir': 'outputs/logs/', 'sample_dir': 'outputs/generated/', 'save_dir': 'outputs/saved/', 'img_dims': [1024, 1024], 'folder_distributed': False, 'use_eql': True, 'depth': 9, 'latent_size': 512, 'learning_rate': 0.001, 'beta_1': 0, 'beta_2': 0.99, 'eps': 1e-08, 'drift': 0.001, 'n_critic': 1, 'use_ema': True, 'ema_decay': 0.999, 'epochs': [100, 100, 100, 140, 200, 350, 800, 800, 800], 'fade_in_percentage': [50, 50, 50, 50, 50, 50, 50, 50, 50], 'batch_sizes': [512, 512, 512, 100, 64, 32, 8, 6, 3], 'num_samples': 36, 'loss_function': 'wgan-gp', 'num_workers': 3, 'feedback_factor': 7, 'checkpoint_factor': 5}
+total examples in training:  284
+Loading generator from: outputs/saved/GAN_GEN_6.pth
+Loading discriminator from: outputs/saved/GAN_DIS_6.pth
+Loading shadow generator from: outputs/saved/GAN_GEN_SHADOW_6.pth
+Loading generator optimizer from: outputs/saved/GAN_GEN_OPTIM_6.pth
+Loading discriminator optimizer from: outputs/saved/GAN_DIS_OPTIM_6.pth
+Generator_configuration:
+DataParallel(
+  (module): Generator(
+    (initial_block): GenInitialBlock(
+      (conv_1): _equalized_deconv2d(512, 512, 4, 4)
+      (conv_2): _equalized_conv2d(512, 512, 3, 3)
+      (pixNorm): PixelwiseNorm()
+      (lrelu): LeakyReLU(negative_slope=0.2)
+    )
+    (layers): ModuleList(
+      (0): GenGeneralConvBlock(
+        (conv_1): _equalized_conv2d(512, 512, 3, 3)
+        (conv_2): _equalized_conv2d(512, 512, 3, 3)
+        (pixNorm): PixelwiseNorm()
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (1): GenGeneralConvBlock(
+        (conv_1): _equalized_conv2d(512, 512, 3, 3)
+        (conv_2): _equalized_conv2d(512, 512, 3, 3)
+        (pixNorm): PixelwiseNorm()
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (2): GenGeneralConvBlock(
+        (conv_1): _equalized_conv2d(512, 512, 3, 3)
+        (conv_2): _equalized_conv2d(512, 512, 3, 3)
+        (pixNorm): PixelwiseNorm()
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (3): GenGeneralConvBlock(
+        (conv_1): _equalized_conv2d(256, 512, 3, 3)
+        (conv_2): _equalized_conv2d(256, 256, 3, 3)
+        (pixNorm): PixelwiseNorm()
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (4): GenGeneralConvBlock(
+        (conv_1): _equalized_conv2d(128, 256, 3, 3)
+        (conv_2): _equalized_conv2d(128, 128, 3, 3)
+        (pixNorm): PixelwiseNorm()
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (5): GenGeneralConvBlock(
+        (conv_1): _equalized_conv2d(64, 128, 3, 3)
+        (conv_2): _equalized_conv2d(64, 64, 3, 3)
+        (pixNorm): PixelwiseNorm()
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (6): GenGeneralConvBlock(
+        (conv_1): _equalized_conv2d(32, 64, 3, 3)
+        (conv_2): _equalized_conv2d(32, 32, 3, 3)
+        (pixNorm): PixelwiseNorm()
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (7): GenGeneralConvBlock(
+        (conv_1): _equalized_conv2d(16, 32, 3, 3)
+        (conv_2): _equalized_conv2d(16, 16, 3, 3)
+        (pixNorm): PixelwiseNorm()
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+    )
+    (rgb_converters): ModuleList(
+      (0): _equalized_conv2d(3, 512, 1, 1)
+      (1): _equalized_conv2d(3, 512, 1, 1)
+      (2): _equalized_conv2d(3, 512, 1, 1)
+      (3): _equalized_conv2d(3, 512, 1, 1)
+      (4): _equalized_conv2d(3, 256, 1, 1)
+      (5): _equalized_conv2d(3, 128, 1, 1)
+      (6): _equalized_conv2d(3, 64, 1, 1)
+      (7): _equalized_conv2d(3, 32, 1, 1)
+      (8): _equalized_conv2d(3, 16, 1, 1)
+    )
+  )
+)
+Discriminator_configuration:
+DataParallel(
+  (module): Discriminator(
+    (final_block): DisFinalBlock(
+      (batch_discriminator): MinibatchStdDev()
+      (conv_1): _equalized_conv2d(512, 513, 3, 3)
+      (conv_2): _equalized_conv2d(512, 512, 4, 4)
+      (conv_3): _equalized_conv2d(1, 512, 1, 1)
+      (lrelu): LeakyReLU(negative_slope=0.2)
+    )
+    (layers): ModuleList(
+      (0): DisGeneralConvBlock(
+        (conv_1): _equalized_conv2d(512, 512, 3, 3)
+        (conv_2): _equalized_conv2d(512, 512, 3, 3)
+        (downSampler): AvgPool2d(kernel_size=2, stride=2, padding=0)
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (1): DisGeneralConvBlock(
+        (conv_1): _equalized_conv2d(512, 512, 3, 3)
+        (conv_2): _equalized_conv2d(512, 512, 3, 3)
+        (downSampler): AvgPool2d(kernel_size=2, stride=2, padding=0)
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (2): DisGeneralConvBlock(
+        (conv_1): _equalized_conv2d(512, 512, 3, 3)
+        (conv_2): _equalized_conv2d(512, 512, 3, 3)
+        (downSampler): AvgPool2d(kernel_size=2, stride=2, padding=0)
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (3): DisGeneralConvBlock(
+        (conv_1): _equalized_conv2d(256, 256, 3, 3)
+        (conv_2): _equalized_conv2d(512, 256, 3, 3)
+        (downSampler): AvgPool2d(kernel_size=2, stride=2, padding=0)
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (4): DisGeneralConvBlock(
+        (conv_1): _equalized_conv2d(128, 128, 3, 3)
+        (conv_2): _equalized_conv2d(256, 128, 3, 3)
+        (downSampler): AvgPool2d(kernel_size=2, stride=2, padding=0)
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (5): DisGeneralConvBlock(
+        (conv_1): _equalized_conv2d(64, 64, 3, 3)
+        (conv_2): _equalized_conv2d(128, 64, 3, 3)
+        (downSampler): AvgPool2d(kernel_size=2, stride=2, padding=0)
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (6): DisGeneralConvBlock(
+        (conv_1): _equalized_conv2d(32, 32, 3, 3)
+        (conv_2): _equalized_conv2d(64, 32, 3, 3)
+        (downSampler): AvgPool2d(kernel_size=2, stride=2, padding=0)
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+      (7): DisGeneralConvBlock(
+        (conv_1): _equalized_conv2d(16, 16, 3, 3)
+        (conv_2): _equalized_conv2d(32, 16, 3, 3)
+        (downSampler): AvgPool2d(kernel_size=2, stride=2, padding=0)
+        (lrelu): LeakyReLU(negative_slope=0.2)
+      )
+    )
+    (rgb_to_features): ModuleList(
+      (0): _equalized_conv2d(512, 3, 1, 1)
+      (1): _equalized_conv2d(512, 3, 1, 1)
+      (2): _equalized_conv2d(512, 3, 1, 1)
+      (3): _equalized_conv2d(512, 3, 1, 1)
+      (4): _equalized_conv2d(256, 3, 1, 1)
+      (5): _equalized_conv2d(128, 3, 1, 1)
+      (6): _equalized_conv2d(64, 3, 1, 1)
+      (7): _equalized_conv2d(32, 3, 1, 1)
+      (8): _equalized_conv2d(16, 3, 1, 1)
+    )
+    (temporaryDownsampler): AvgPool2d(kernel_size=2, stride=2, padding=0)
+  )
+)
+Starting the training process ... 
+
+
+Currently working on Depth:  7
+Current resolution: 512 x 512
+
+Epoch: 1
+Time taken for epoch: 148.282 secs
+
+Epoch: 2
+Time taken for epoch: 136.951 secs
+
+Epoch: 3
+Time taken for epoch: 139.501 secs
+
+Epoch: 4
+Time taken for epoch: 140.731 secs
+
+Epoch: 5
+Time taken for epoch: 141.108 secs
+
+Epoch: 6
+Time taken for epoch: 141.114 secs
+
+Epoch: 7
+Elapsed: [0:14:14.485396]  batch: 1  d_loss: -102.493088  g_loss: 152.097626
+Elapsed: [0:14:27.469918]  batch: 2  d_loss: 90.348885  g_loss: -9.387305
+Elapsed: [0:14:33.982185]  batch: 3  d_loss: 34.589554  g_loss: 8.337293
+Elapsed: [0:14:40.305426]  batch: 4  d_loss: 13.996363  g_loss: -86.896347
+Elapsed: [0:14:46.603444]  batch: 5  d_loss: 29.570015  g_loss: 10.951350
+Elapsed: [0:14:52.885520]  batch: 6  d_loss: -4.421881  g_loss: 34.184780
+Elapsed: [0:14:59.148463]  batch: 7  d_loss: -19.176468  g_loss: 51.840385
+Elapsed: [0:15:05.518558]  batch: 8  d_loss: 26.760544  g_loss: 10.881816
+Elapsed: [0:15:11.823812]  batch: 9  d_loss: -20.747463  g_loss: 43.894562
+Elapsed: [0:15:18.077343]  batch: 10  d_loss: -20.060280  g_loss: 53.175179
+Elapsed: [0:15:24.331177]  batch: 11  d_loss: 1.238348  g_loss: 35.112984
+Elapsed: [0:15:30.574126]  batch: 12  d_loss: -3.581792  g_loss: 46.638180
+Elapsed: [0:15:36.807070]  batch: 13  d_loss: -31.688726  g_loss: 97.312218
+Elapsed: [0:15:43.045792]  batch: 14  d_loss: -36.621475  g_loss: 86.287506
+Elapsed: [0:15:49.293192]  batch: 15  d_loss: 8.187338  g_loss: 83.622208
+Elapsed: [0:15:55.569127]  batch: 16  d_loss: 28.493938  g_loss: -15.861710
+Elapsed: [0:16:01.803303]  batch: 17  d_loss: -50.230164  g_loss: 59.541729
+Elapsed: [0:16:08.035341]  batch: 18  d_loss: -62.500015  g_loss: 78.025177
+Elapsed: [0:16:14.271442]  batch: 19  d_loss: -34.144192  g_loss: 67.607376
+Elapsed: [0:16:20.508228]  batch: 20  d_loss: -23.313389  g_loss: 71.919586
+Elapsed: [0:16:26.746604]  batch: 21  d_loss: 7.453973  g_loss: 1.783168
+Elapsed: [0:16:33.049694]  batch: 22  d_loss: -6.721808  g_loss: 11.078831
+Elapsed: [0:16:39.275130]  batch: 23  d_loss: -38.719330  g_loss: 65.837433
+Elapsed: [0:16:45.511961]  batch: 24  d_loss: -35.093437  g_loss: -4.848255
+Elapsed: [0:16:51.749035]  batch: 25  d_loss: -117.870956  g_loss: 213.764526
+Elapsed: [0:16:57.982708]  batch: 26  d_loss: 60.603802  g_loss: 13.040335
+Elapsed: [0:17:04.197272]  batch: 27  d_loss: -20.370146  g_loss: 44.418327
+Elapsed: [0:17:10.405648]  batch: 28  d_loss: 56.793465  g_loss: 29.133291
+Elapsed: [0:17:16.620731]  batch: 29  d_loss: -20.265144  g_loss: 41.330566
+Elapsed: [0:17:22.836115]  batch: 30  d_loss: -39.838421  g_loss: 42.935131
+Elapsed: [0:17:29.066433]  batch: 31  d_loss: 8.808697  g_loss: 25.470867
+Elapsed: [0:17:35.301799]  batch: 32  d_loss: -6.743851  g_loss: 9.692669
+Elapsed: [0:17:41.518075]  batch: 33  d_loss: 19.596466  g_loss: 24.750097
+Elapsed: [0:17:47.716633]  batch: 34  d_loss: -26.946880  g_loss: 35.504219
+Elapsed: [0:17:53.931848]  batch: 35  d_loss: -25.926836  g_loss: 61.619873
+Elapsed: [0:18:00.151596]  batch: 36  d_loss: -45.604504  g_loss: 103.964958
+Elapsed: [0:18:06.376889]  batch: 37  d_loss: 3.346469  g_loss: 42.127239
+Elapsed: [0:18:12.616559]  batch: 38  d_loss: -34.395966  g_loss: 61.683575
+Elapsed: [0:18:18.831455]  batch: 39  d_loss: -31.403679  g_loss: 62.767632
+Elapsed: [0:18:25.018277]  batch: 40  d_loss: -8.304605  g_loss: 36.625408
+Elapsed: [0:18:31.219953]  batch: 41  d_loss: 9.530697  g_loss: 43.880119
+Elapsed: [0:18:37.435385]  batch: 42  d_loss: -15.870588  g_loss: 42.887566
+Elapsed: [0:18:43.647272]  batch: 43  d_loss: -8.332604  g_loss: 37.730312
+Elapsed: [0:18:49.836831]  batch: 44  d_loss: -43.707226  g_loss: 43.312481
+Elapsed: [0:18:56.053776]  batch: 45  d_loss: -14.057230  g_loss: 104.570724
+Elapsed: [0:19:02.269149]  batch: 46  d_loss: -25.451843  g_loss: 80.844925
+Elapsed: [0:19:08.483531]  batch: 47  d_loss: 5.130345  g_loss: -3.869489
+Elapsed: [0:19:12.902828]  batch: 48  d_loss: -11.734318  g_loss: 155.879181
+Time taken for epoch: 305.520 secs
+
+Epoch: 8
+Time taken for epoch: 137.100 secs
+
+Epoch: 9
+Time taken for epoch: 139.687 secs
+
+Epoch: 10
+Time taken for epoch: 140.829 secs
+
+Epoch: 11
+Time taken for epoch: 141.045 secs
+
+Epoch: 12
+Time taken for epoch: 141.193 secs
+
+Epoch: 13
+Time taken for epoch: 141.408 secs
+
+Epoch: 14
+Elapsed: [0:33:22.846409]  batch: 1  d_loss: 7.843809  g_loss: 77.294731
+Elapsed: [0:33:29.349759]  batch: 2  d_loss: 9.352035  g_loss: -4.091859
+Elapsed: [0:33:35.842780]  batch: 3  d_loss: -10.245312  g_loss: 81.557831
+Elapsed: [0:33:42.308851]  batch: 4  d_loss: -54.001778  g_loss: 74.768585
+Elapsed: [0:33:48.760179]  batch: 5  d_loss: -27.312370  g_loss: 9.961962
+Elapsed: [0:33:55.267831]  batch: 6  d_loss: 5.363853  g_loss: 120.650291
+Elapsed: [0:34:01.744735]  batch: 7  d_loss: -19.006702  g_loss: 1.263040
+Elapsed: [0:34:08.203559]  batch: 8  d_loss: -0.051238  g_loss: 71.564552
+Elapsed: [0:34:14.657118]  batch: 9  d_loss: -16.325628  g_loss: 9.649469
+Elapsed: [0:34:21.094034]  batch: 10  d_loss: 28.112902  g_loss: 63.176525
+Elapsed: [0:34:27.531868]  batch: 11  d_loss: -53.849236  g_loss: 85.644615
+Elapsed: [0:34:33.969247]  batch: 12  d_loss: 26.236345  g_loss: 25.230732
+Elapsed: [0:34:40.381698]  batch: 13  d_loss: -47.506947  g_loss: 126.750877
+Elapsed: [0:34:46.781001]  batch: 14  d_loss: -1.211316  g_loss: 23.314697
+Elapsed: [0:34:53.191875]  batch: 15  d_loss: 1.655408  g_loss: 16.863014
+Elapsed: [0:34:59.609912]  batch: 16  d_loss: 2.722435  g_loss: 17.363729
+Elapsed: [0:35:06.028054]  batch: 17  d_loss: -2.513883  g_loss: 33.850609
+Elapsed: [0:35:12.407641]  batch: 18  d_loss: -19.252764  g_loss: 69.836151
+Elapsed: [0:35:18.804259]  batch: 19  d_loss: -30.823540  g_loss: 79.786201
+Elapsed: [0:35:25.219932]  batch: 20  d_loss: -32.922230  g_loss: 24.450977
+Elapsed: [0:35:31.633965]  batch: 21  d_loss: -23.799040  g_loss: 81.297150
+Elapsed: [0:35:38.010071]  batch: 22  d_loss: -22.110573  g_loss: 56.029526
+Elapsed: [0:35:44.418337]  batch: 23  d_loss: 52.876499  g_loss: -63.458233
+Elapsed: [0:35:50.817722]  batch: 24  d_loss: 4.982052  g_loss: -2.418044
+Elapsed: [0:35:57.189120]  batch: 25  d_loss: 0.820933  g_loss: 32.837852
+Elapsed: [0:36:03.579782]  batch: 26  d_loss: -27.794043  g_loss: 35.256992
+Elapsed: [0:36:09.977983]  batch: 27  d_loss: -45.961006  g_loss: 108.498688
+Elapsed: [0:36:16.350464]  batch: 28  d_loss: -33.972836  g_loss: 39.463421
+Elapsed: [0:36:22.724962]  batch: 29  d_loss: -49.276207  g_loss: 97.164825
+Elapsed: [0:36:29.116116]  batch: 30  d_loss: 16.771114  g_loss: 49.794231
+Elapsed: [0:36:35.475494]  batch: 31  d_loss: -49.569439  g_loss: 102.048401
+Elapsed: [0:36:41.868040]  batch: 32  d_loss: -87.674789  g_loss: 188.832123
+Elapsed: [0:36:48.266465]  batch: 33  d_loss: 33.736511  g_loss: -96.814903
+Elapsed: [0:36:54.677417]  batch: 34  d_loss: -8.006250  g_loss: 97.657043
+Elapsed: [0:37:01.054328]  batch: 35  d_loss: -70.739273  g_loss: 123.221176
+Elapsed: [0:37:07.427849]  batch: 36  d_loss: 7.393448  g_loss: 5.912832
+Elapsed: [0:37:13.801447]  batch: 37  d_loss: -62.475380  g_loss: 116.966812
+Elapsed: [0:37:20.175976]  batch: 38  d_loss: -12.771257  g_loss: 137.107712
+Elapsed: [0:37:26.568466]  batch: 39  d_loss: -27.019833  g_loss: 78.609512
+Elapsed: [0:37:32.925343]  batch: 40  d_loss: -16.116070  g_loss: 67.822845
+Elapsed: [0:37:39.297761]  batch: 41  d_loss: -16.586733  g_loss: 41.404583
+Elapsed: [0:37:45.658470]  batch: 42  d_loss: -57.042858  g_loss: 94.975052
+Elapsed: [0:37:52.024859]  batch: 43  d_loss: -62.180183  g_loss: 196.597870
+Elapsed: [0:37:58.396985]  batch: 44  d_loss: 144.595917  g_loss: -75.578896
+Elapsed: [0:38:04.751175]  batch: 45  d_loss: 4.708620  g_loss: 5.922932
+Elapsed: [0:38:11.129788]  batch: 46  d_loss: 5.505371  g_loss: 8.514592
+Elapsed: [0:38:17.477887]  batch: 47  d_loss: -23.388826  g_loss: 43.712708
+Elapsed: [0:38:22.062453]  batch: 48  d_loss: -22.687662  g_loss: 79.309265
+Time taken for epoch: 306.517 secs
+
+Epoch: 15
+Time taken for epoch: 136.954 secs
+
+Epoch: 16
+Time taken for epoch: 139.370 secs
+
+Epoch: 17
+Time taken for epoch: 140.864 secs
+
+Epoch: 18
+Time taken for epoch: 141.179 secs
+
+Epoch: 19
+Time taken for epoch: 141.350 secs
+
+Epoch: 20
+Time taken for epoch: 141.551 secs
+
+Epoch: 21
+Elapsed: [0:52:33.648501]  batch: 1  d_loss: -16.028187  g_loss: 135.115280
+Elapsed: [0:52:40.290081]  batch: 2  d_loss: -15.713782  g_loss: 40.804222
+Elapsed: [0:52:47.366002]  batch: 3  d_loss: -44.695225  g_loss: 180.192688
+Elapsed: [0:52:53.976286]  batch: 4  d_loss: -84.778412  g_loss: 228.159576
+Elapsed: [0:53:00.588618]  batch: 5  d_loss: 479.001801  g_loss: -159.662537
+Elapsed: [0:53:07.649159]  batch: 6  d_loss: 11.767778  g_loss: -60.933819
+Elapsed: [0:53:14.685468]  batch: 7  d_loss: -34.022686  g_loss: -39.354134
+Elapsed: [0:53:21.724538]  batch: 8  d_loss: -7.925773  g_loss: -39.673042
+Elapsed: [0:53:28.761991]  batch: 9  d_loss: -41.460983  g_loss: -30.459021
+Elapsed: [0:53:35.795749]  batch: 10  d_loss: -61.504749  g_loss: -6.399095
+Elapsed: [0:53:42.810555]  batch: 11  d_loss: -48.231319  g_loss: 6.450124
+Elapsed: [0:53:49.814586]  batch: 12  d_loss: -33.547230  g_loss: 25.531418
+Elapsed: [0:53:56.833904]  batch: 13  d_loss: -46.950394  g_loss: 5.861507
+Elapsed: [0:54:03.848574]  batch: 14  d_loss: -32.935692  g_loss: 33.915573
+Elapsed: [0:54:10.872034]  batch: 15  d_loss: -33.276535  g_loss: 49.050076
+Elapsed: [0:54:17.872168]  batch: 16  d_loss: -9.381051  g_loss: 51.102486
+Elapsed: [0:54:24.851179]  batch: 17  d_loss: 1.596633  g_loss: 33.424530
+Elapsed: [0:54:31.386314]  batch: 18  d_loss: 5.374115  g_loss: 41.411449
+Elapsed: [0:54:37.915828]  batch: 19  d_loss: -29.386034  g_loss: 74.412376
+Elapsed: [0:54:44.910631]  batch: 20  d_loss: -23.964970  g_loss: 73.689621
+Elapsed: [0:54:51.427098]  batch: 21  d_loss: -37.775787  g_loss: 22.909918
+Elapsed: [0:54:57.926199]  batch: 22  d_loss: -35.329994  g_loss: 70.000580
+Elapsed: [0:55:04.454982]  batch: 23  d_loss: 0.033192  g_loss: 58.433422
+Elapsed: [0:55:11.414376]  batch: 24  d_loss: -45.005207  g_loss: 42.089287
+Elapsed: [0:55:17.931214]  batch: 25  d_loss: -18.091810  g_loss: 124.013474
+Elapsed: [0:55:24.904814]  batch: 26  d_loss: -29.431845  g_loss: 173.624069
+Elapsed: [0:55:31.399069]  batch: 27  d_loss: -28.069870  g_loss: 135.961227
+Elapsed: [0:55:38.373423]  batch: 28  d_loss: -4.336988  g_loss: 65.685799
+Elapsed: [0:55:45.337532]  batch: 29  d_loss: -50.256527  g_loss: 136.097076
+Elapsed: [0:55:52.290464]  batch: 30  d_loss: -123.061005  g_loss: 210.368271
+Elapsed: [0:55:58.780456]  batch: 31  d_loss: 112.815819  g_loss: -81.546310
+Elapsed: [0:56:05.264225]  batch: 32  d_loss: -21.268301  g_loss: -18.631443
+Elapsed: [0:56:11.784953]  batch: 33  d_loss: -27.318026  g_loss: -29.406914
+Elapsed: [0:56:18.285448]  batch: 34  d_loss: -0.765365  g_loss: -33.933678
+Elapsed: [0:56:25.232554]  batch: 35  d_loss: -8.422249  g_loss: 4.073463
+Elapsed: [0:56:32.189266]  batch: 36  d_loss: -18.237644  g_loss: -4.549416
+Elapsed: [0:56:38.687243]  batch: 37  d_loss: 58.115696  g_loss: -33.738281
+Elapsed: [0:56:45.155554]  batch: 38  d_loss: -4.108386  g_loss: -23.379019
+Elapsed: [0:56:52.117996]  batch: 39  d_loss: -3.338134  g_loss: -6.222618
+Elapsed: [0:56:59.051451]  batch: 40  d_loss: 2.710474  g_loss: 16.351357
+Elapsed: [0:57:05.523153]  batch: 41  d_loss: -38.435192  g_loss: 36.086327
+Elapsed: [0:57:12.473625]  batch: 42  d_loss: -7.546305  g_loss: 23.515858
+Elapsed: [0:57:19.400177]  batch: 43  d_loss: -5.869635  g_loss: 62.258934
+Elapsed: [0:57:26.361703]  batch: 44  d_loss: -12.836506  g_loss: 49.905041
+Elapsed: [0:57:33.294775]  batch: 45  d_loss: 19.180235  g_loss: 48.439434
+Elapsed: [0:57:39.764426]  batch: 46  d_loss: -2.102352  g_loss: 16.883251
+Elapsed: [0:57:46.713686]  batch: 47  d_loss: -2.163575  g_loss: 13.795821
+Elapsed: [0:57:51.861728]  batch: 48  d_loss: -5.386559  g_loss: 40.614735
+Time taken for epoch: 326.122 secs
+
+Epoch: 22
+Time taken for epoch: 136.253 secs
+
+Epoch: 23
+Time taken for epoch: 139.201 secs
+
+Epoch: 24
+Time taken for epoch: 140.708 secs
+
+Epoch: 25
+Time taken for epoch: 141.174 secs
+
+Epoch: 26
+Time taken for epoch: 141.212 secs
+
+Epoch: 27
+Time taken for epoch: 141.424 secs
+
+Epoch: 28
+Elapsed: [1:12:01.252522]  batch: 1  d_loss: -15.723879  g_loss: 52.463387
+Elapsed: [1:12:08.044620]  batch: 2  d_loss: -10.931090  g_loss: 48.408611
+Elapsed: [1:12:14.848377]  batch: 3  d_loss: -21.501932  g_loss: 30.720488
+Elapsed: [1:12:21.640920]  batch: 4  d_loss: -56.748158  g_loss: 62.735298
+Elapsed: [1:12:28.519939]  batch: 5  d_loss: 19.931166  g_loss: 35.737190
+Elapsed: [1:12:35.387148]  batch: 6  d_loss: -20.629919  g_loss: 120.064598
+Elapsed: [1:12:42.130893]  batch: 7  d_loss: 21.822161  g_loss: 57.954693
+Elapsed: [1:12:48.867747]  batch: 8  d_loss: -43.656071  g_loss: 72.119934
+Elapsed: [1:12:55.628464]  batch: 9  d_loss: -3.598259  g_loss: 53.550438
+Elapsed: [1:13:02.445710]  batch: 10  d_loss: -24.969238  g_loss: 30.908163
+Elapsed: [1:13:09.182865]  batch: 11  d_loss: -41.921150  g_loss: 92.584183
+Elapsed: [1:13:15.892787]  batch: 12  d_loss: -3.146111  g_loss: 42.365749
+Elapsed: [1:13:22.714015]  batch: 13  d_loss: -121.518219  g_loss: 168.311127
+Elapsed: [1:13:29.407912]  batch: 14  d_loss: -19.203846  g_loss: 31.612768
+Elapsed: [1:13:36.230415]  batch: 15  d_loss: -63.047722  g_loss: 144.082260
+Elapsed: [1:13:43.051625]  batch: 16  d_loss: 47.279289  g_loss: 37.394558
+Elapsed: [1:13:49.824337]  batch: 17  d_loss: 10.831278  g_loss: 41.206326
+Elapsed: [1:13:56.724671]  batch: 18  d_loss: -11.425386  g_loss: 53.111584
+Elapsed: [1:14:03.416600]  batch: 19  d_loss: -34.059410  g_loss: 71.754494
+Elapsed: [1:14:10.169098]  batch: 20  d_loss: -41.732224  g_loss: 78.004272
+Elapsed: [1:14:16.857067]  batch: 21  d_loss: -29.172005  g_loss: 61.102795
+Elapsed: [1:14:23.611151]  batch: 22  d_loss: 53.208984  g_loss: 254.859116
+Elapsed: [1:14:30.407383]  batch: 23  d_loss: -33.841179  g_loss: 41.315369
+Elapsed: [1:14:37.084735]  batch: 24  d_loss: -57.952442  g_loss: 137.485474
+Elapsed: [1:14:43.753543]  batch: 25  d_loss: -80.026154  g_loss: 134.979126
+Elapsed: [1:14:50.555580]  batch: 26  d_loss: 27.554413  g_loss: 22.701712
+Elapsed: [1:14:57.227556]  batch: 27  d_loss: 10.966740  g_loss: 92.577545
+Elapsed: [1:15:03.889896]  batch: 28  d_loss: -23.566021  g_loss: 35.444046
+Elapsed: [1:15:10.544184]  batch: 29  d_loss: -49.906109  g_loss: 29.769878
+Elapsed: [1:15:17.316947]  batch: 30  d_loss: -23.787905  g_loss: 161.816772
+Elapsed: [1:15:23.993359]  batch: 31  d_loss: -18.363901  g_loss: 42.771454
+Elapsed: [1:15:30.661170]  batch: 32  d_loss: -23.415951  g_loss: 26.617306
+Elapsed: [1:15:37.315681]  batch: 33  d_loss: 23.392948  g_loss: 43.250790
+Elapsed: [1:15:44.057340]  batch: 34  d_loss: -32.893833  g_loss: 121.160324
+Elapsed: [1:15:50.827676]  batch: 35  d_loss: -55.321438  g_loss: 180.333252
+Elapsed: [1:15:57.478295]  batch: 36  d_loss: 27.767303  g_loss: -30.526539
+Elapsed: [1:16:04.138640]  batch: 37  d_loss: -2.369310  g_loss: 62.648323
+Elapsed: [1:16:10.787385]  batch: 38  d_loss: 15.182933  g_loss: 15.204452
+Elapsed: [1:16:17.434133]  batch: 39  d_loss: -9.172854  g_loss: 6.611030
+Elapsed: [1:16:24.089261]  batch: 40  d_loss: -52.659798  g_loss: 64.831284
+Elapsed: [1:16:30.735478]  batch: 41  d_loss: -69.544746  g_loss: 82.513443
+Elapsed: [1:16:37.470187]  batch: 42  d_loss: -74.805412  g_loss: 151.501678
+Elapsed: [1:16:44.103177]  batch: 43  d_loss: 8.800961  g_loss: 92.700119
+Elapsed: [1:16:50.877869]  batch: 44  d_loss: -18.909296  g_loss: 141.269058
+Elapsed: [1:16:57.618266]  batch: 45  d_loss: 18.317871  g_loss: -40.220150
+Elapsed: [1:17:04.252672]  batch: 46  d_loss: -33.517384  g_loss: 90.296707
+Elapsed: [1:17:10.890871]  batch: 47  d_loss: -80.344261  g_loss: 77.705429
+Elapsed: [1:17:15.745512]  batch: 48  d_loss: -32.548294  g_loss: 37.047894
+Time taken for epoch: 322.137 secs
+
+Epoch: 29
+Time taken for epoch: 136.644 secs
+
+Epoch: 30
+Time taken for epoch: 139.351 secs
+
+Epoch: 31
+Time taken for epoch: 140.693 secs
+
+Epoch: 32
+Time taken for epoch: 141.006 secs
+
+Epoch: 33
+Time taken for epoch: 141.494 secs
+
+Epoch: 34
+Time taken for epoch: 141.439 secs
+
+Epoch: 35
+Elapsed: [1:31:25.523209]  batch: 1  d_loss: -74.613274  g_loss: 132.251312
+Elapsed: [1:31:32.451487]  batch: 2  d_loss: 0.813358  g_loss: 48.389782
+Elapsed: [1:31:39.377213]  batch: 3  d_loss: -111.683411  g_loss: 265.928986
+Elapsed: [1:31:46.286083]  batch: 4  d_loss: -98.121208  g_loss: 29.412504
+Elapsed: [1:31:53.149282]  batch: 5  d_loss: 95.185616  g_loss: 34.009972
+Elapsed: [1:32:00.010779]  batch: 6  d_loss: -72.922905  g_loss: 144.660461
+Elapsed: [1:32:06.863301]  batch: 7  d_loss: -76.678352  g_loss: 208.596741
+Elapsed: [1:32:13.694715]  batch: 8  d_loss: -87.148842  g_loss: 11.804308
+Elapsed: [1:32:20.527555]  batch: 9  d_loss: -128.450119  g_loss: 590.608337
+Elapsed: [1:32:27.364506]  batch: 10  d_loss: 248.368942  g_loss: -196.956299
+Elapsed: [1:32:34.196149]  batch: 11  d_loss: 43.819687  g_loss: -79.544914
+Elapsed: [1:32:41.035045]  batch: 12  d_loss: 16.993172  g_loss: -60.945457
+Elapsed: [1:32:47.867590]  batch: 13  d_loss: -49.870251  g_loss: -35.963898
+Elapsed: [1:32:54.709053]  batch: 14  d_loss: -28.624073  g_loss: -18.638794
+Elapsed: [1:33:01.548609]  batch: 15  d_loss: -2.397640  g_loss: -15.195478
+Elapsed: [1:33:08.384124]  batch: 16  d_loss: -55.030022  g_loss: 3.389449
+Elapsed: [1:33:15.207064]  batch: 17  d_loss: -11.087473  g_loss: -9.435738
+Elapsed: [1:33:22.000942]  batch: 18  d_loss: -40.496288  g_loss: 4.968863
+Elapsed: [1:33:28.803650]  batch: 19  d_loss: -50.184750  g_loss: 4.062479
+Elapsed: [1:33:35.622023]  batch: 20  d_loss: -6.838098  g_loss: -3.412467
+Elapsed: [1:33:42.440136]  batch: 21  d_loss: 50.969585  g_loss: 27.575226
+Elapsed: [1:33:49.218863]  batch: 22  d_loss: -1.187143  g_loss: 24.093367
+Elapsed: [1:33:56.045757]  batch: 23  d_loss: -28.557671  g_loss: 40.658630
+Elapsed: [1:34:02.840858]  batch: 24  d_loss: -17.976294  g_loss: 27.880682
+Elapsed: [1:34:09.639286]  batch: 25  d_loss: -62.799660  g_loss: 66.548180
+Elapsed: [1:34:16.398901]  batch: 26  d_loss: -6.419730  g_loss: 26.424940
+Elapsed: [1:34:23.184963]  batch: 27  d_loss: 0.546909  g_loss: 25.040478
+Elapsed: [1:34:29.965669]  batch: 28  d_loss: 7.437008  g_loss: 32.789444
+Elapsed: [1:34:36.741259]  batch: 29  d_loss: -20.677528  g_loss: 22.936005
+Elapsed: [1:34:43.538630]  batch: 30  d_loss: -38.621105  g_loss: 41.587975
+Elapsed: [1:34:50.317799]  batch: 31  d_loss: -31.529305  g_loss: 56.716301
+Elapsed: [1:34:57.088758]  batch: 32  d_loss: -33.824745  g_loss: 65.695686
+Elapsed: [1:35:03.868855]  batch: 33  d_loss: -12.548018  g_loss: 43.533112
+Elapsed: [1:35:10.619344]  batch: 34  d_loss: -18.962429  g_loss: 56.466167
+Elapsed: [1:35:17.395612]  batch: 35  d_loss: -41.105553  g_loss: 62.005333
+Elapsed: [1:35:24.137263]  batch: 36  d_loss: -22.835096  g_loss: 84.302383
+Elapsed: [1:35:30.906955]  batch: 37  d_loss: 22.280264  g_loss: 8.147165
+Elapsed: [1:35:37.653321]  batch: 38  d_loss: -63.851646  g_loss: 45.109905
+Elapsed: [1:35:44.421537]  batch: 39  d_loss: -18.361176  g_loss: 21.323502
+Elapsed: [1:35:51.171038]  batch: 40  d_loss: -34.041592  g_loss: 47.752342
+Elapsed: [1:35:57.932132]  batch: 41  d_loss: -25.676502  g_loss: 45.340149
+Elapsed: [1:36:04.685527]  batch: 42  d_loss: -103.033295  g_loss: 99.852654
+Elapsed: [1:36:11.437830]  batch: 43  d_loss: -78.372849  g_loss: 84.062805
+Elapsed: [1:36:18.183960]  batch: 44  d_loss: -21.265551  g_loss: 51.835869
+Elapsed: [1:36:24.930467]  batch: 45  d_loss: 6.077791  g_loss: 10.913067
+Elapsed: [1:36:31.690192]  batch: 46  d_loss: -98.223785  g_loss: 99.222595
+Elapsed: [1:36:38.445666]  batch: 47  d_loss: 0.607998  g_loss: 16.352867
+Elapsed: [1:36:43.423358]  batch: 48  d_loss: -20.663919  g_loss: 75.043388
+Time taken for epoch: 325.525 secs
+
+Epoch: 36
+Time taken for epoch: 136.381 secs
+
+Epoch: 37
+Time taken for epoch: 139.359 secs
+
+Epoch: 38
+Time taken for epoch: 140.729 secs
+
+Epoch: 39
+Time taken for epoch: 141.094 secs
+
+Epoch: 40
+Time taken for epoch: 141.524 secs
+
+Epoch: 41
+Time taken for epoch: 141.249 secs
+
+Epoch: 42
+Elapsed: [1:50:54.431798]  batch: 1  d_loss: -23.150124  g_loss: 25.892803
+Elapsed: [1:51:01.428169]  batch: 2  d_loss: -63.928535  g_loss: 64.163902
+Elapsed: [1:51:08.513119]  batch: 3  d_loss: -54.038414  g_loss: 93.126732
+Elapsed: [1:51:15.488776]  batch: 4  d_loss: -60.514957  g_loss: 104.533997
+Elapsed: [1:51:22.520679]  batch: 5  d_loss: -1.854126  g_loss: -15.918325
+Elapsed: [1:51:29.646543]  batch: 6  d_loss: -64.590645  g_loss: 166.381683
+Elapsed: [1:51:36.540226]  batch: 7  d_loss: -30.987988  g_loss: 140.020966
+Elapsed: [1:51:43.556299]  batch: 8  d_loss: -41.230072  g_loss: 134.707489
+Elapsed: [1:51:50.432993]  batch: 9  d_loss: -41.541157  g_loss: 232.977036
+Elapsed: [1:51:57.430379]  batch: 10  d_loss: -2.782149  g_loss: 130.345352
+Elapsed: [1:52:04.418622]  batch: 11  d_loss: 71.017441  g_loss: -29.572887
+Elapsed: [1:52:11.506399]  batch: 12  d_loss: -34.856850  g_loss: 9.739161
+Elapsed: [1:52:18.441547]  batch: 13  d_loss: -8.297050  g_loss: 6.540268
+Elapsed: [1:52:25.311927]  batch: 14  d_loss: 29.353943  g_loss: 4.398205
+Elapsed: [1:52:32.175999]  batch: 15  d_loss: -24.348051  g_loss: 78.689896
+Elapsed: [1:52:39.055390]  batch: 16  d_loss: 3.936184  g_loss: 39.959801
+Elapsed: [1:52:46.009262]  batch: 17  d_loss: -82.372070  g_loss: 173.511520
+Elapsed: [1:52:52.959874]  batch: 18  d_loss: 35.100887  g_loss: -30.557989
+Elapsed: [1:52:59.912476]  batch: 19  d_loss: -61.099739  g_loss: 82.807541
+Elapsed: [1:53:06.809570]  batch: 20  d_loss: -19.280235  g_loss: 9.451700
+Elapsed: [1:53:13.649763]  batch: 21  d_loss: 5.744184  g_loss: 38.503521
+Elapsed: [1:53:20.497502]  batch: 22  d_loss: 39.893883  g_loss: 96.481644
+Elapsed: [1:53:27.337514]  batch: 23  d_loss: -2.852906  g_loss: 10.487759
+Elapsed: [1:53:34.317035]  batch: 24  d_loss: -67.044678  g_loss: 118.438263
+Elapsed: [1:53:41.175434]  batch: 25  d_loss: -114.768158  g_loss: 267.387573
+Elapsed: [1:53:48.032759]  batch: 26  d_loss: 131.593872  g_loss: 24.500973
+Elapsed: [1:53:54.884004]  batch: 27  d_loss: -67.516113  g_loss: 118.042160
+Elapsed: [1:54:01.735739]  batch: 28  d_loss: 15.960347  g_loss: 26.742702
+Elapsed: [1:54:08.576210]  batch: 29  d_loss: 80.910210  g_loss: 3.621680
+Elapsed: [1:54:15.427088]  batch: 30  d_loss: -15.712749  g_loss: 35.225609
+Elapsed: [1:54:22.271897]  batch: 31  d_loss: -27.541616  g_loss: 78.644279
+Elapsed: [1:54:29.202371]  batch: 32  d_loss: -64.732620  g_loss: 132.884827
+Elapsed: [1:54:36.023898]  batch: 33  d_loss: 3.033186  g_loss: 83.312683
+Elapsed: [1:54:42.936043]  batch: 34  d_loss: -74.946899  g_loss: 177.243271
+Elapsed: [1:54:49.743693]  batch: 35  d_loss: 84.096039  g_loss: -53.862518
+Elapsed: [1:54:56.736756]  batch: 36  d_loss: 32.785366  g_loss: 9.679474
+Elapsed: [1:55:03.652976]  batch: 37  d_loss: -2.514739  g_loss: 44.740643
+Elapsed: [1:55:10.467963]  batch: 38  d_loss: -64.071571  g_loss: 55.493439
+Elapsed: [1:55:17.295665]  batch: 39  d_loss: -47.795216  g_loss: 103.935364
+Elapsed: [1:55:24.102130]  batch: 40  d_loss: 0.226191  g_loss: 49.245220
+Elapsed: [1:55:31.019942]  batch: 41  d_loss: -48.285488  g_loss: 101.623657
+Elapsed: [1:55:37.837023]  batch: 42  d_loss: -36.486450  g_loss: 92.147728
+Elapsed: [1:55:44.745461]  batch: 43  d_loss: -62.830086  g_loss: 108.371307
+Elapsed: [1:55:51.643183]  batch: 44  d_loss: -78.538490  g_loss: 127.192108
+Elapsed: [1:55:58.440638]  batch: 45  d_loss: -11.611425  g_loss: 30.149384
+Elapsed: [1:56:05.255084]  batch: 46  d_loss: 12.787943  g_loss: 36.484039
+Elapsed: [1:56:12.050239]  batch: 47  d_loss: -19.949757  g_loss: 17.169100
+Elapsed: [1:56:17.046142]  batch: 48  d_loss: 2.937599  g_loss: 19.136164
+Time taken for epoch: 330.276 secs
+
+Epoch: 43
+Time taken for epoch: 136.609 secs
+
+Epoch: 44
+Time taken for epoch: 139.763 secs
+
+Epoch: 45
+Time taken for epoch: 140.974 secs
+
+Epoch: 46
+Time taken for epoch: 141.614 secs
+
+Epoch: 47
+Time taken for epoch: 141.896 secs
+
+Epoch: 48
+Time taken for epoch: 142.027 secs
+
+Epoch: 49
+Elapsed: [2:10:29.141017]  batch: 1  d_loss: -32.057564  g_loss: 36.980309
+Elapsed: [2:10:36.095179]  batch: 2  d_loss: -78.556816  g_loss: 174.277100
+Elapsed: [2:10:43.071922]  batch: 3  d_loss: -56.662975  g_loss: 118.657730
+Elapsed: [2:10:50.003534]  batch: 4  d_loss: -48.929092  g_loss: 149.344925
+Elapsed: [2:10:56.938458]  batch: 5  d_loss: -90.218048  g_loss: 163.745102
+Elapsed: [2:11:03.849242]  batch: 6  d_loss: -7.315059  g_loss: 93.258293
+Elapsed: [2:11:10.730823]  batch: 7  d_loss: -28.859724  g_loss: 107.526085
+Elapsed: [2:11:17.626499]  batch: 8  d_loss: -67.343117  g_loss: 185.824432
+Elapsed: [2:11:24.535749]  batch: 9  d_loss: -18.728245  g_loss: 91.530197
+Elapsed: [2:11:31.420595]  batch: 10  d_loss: -6.654478  g_loss: 44.798233
+Elapsed: [2:11:38.295492]  batch: 11  d_loss: -43.653271  g_loss: 99.677658
+Elapsed: [2:11:45.156248]  batch: 12  d_loss: -53.379627  g_loss: 137.178284
+Elapsed: [2:11:52.013727]  batch: 13  d_loss: -34.805607  g_loss: 107.106407
+Elapsed: [2:11:58.865936]  batch: 14  d_loss: -48.898460  g_loss: 109.156548
+Elapsed: [2:12:05.722387]  batch: 15  d_loss: 17.839102  g_loss: -1.914409
+Elapsed: [2:12:12.584433]  batch: 16  d_loss: -10.033810  g_loss: 42.229939
+Elapsed: [2:12:19.438854]  batch: 17  d_loss: -33.945808  g_loss: 73.335251
+Elapsed: [2:12:26.282693]  batch: 18  d_loss: -41.317966  g_loss: 70.557068
+Elapsed: [2:12:33.126752]  batch: 19  d_loss: -88.088799  g_loss: 97.929108
+Elapsed: [2:12:39.968334]  batch: 20  d_loss: -79.539024  g_loss: 109.489830
+Elapsed: [2:12:46.808316]  batch: 21  d_loss: 15.083757  g_loss: 13.306295
+Elapsed: [2:12:53.657383]  batch: 22  d_loss: -37.437641  g_loss: 187.752243
+Elapsed: [2:13:00.493944]  batch: 23  d_loss: -88.531921  g_loss: 51.899284
+Elapsed: [2:13:07.332964]  batch: 24  d_loss: -78.417686  g_loss: 155.291565
+Elapsed: [2:13:14.164921]  batch: 25  d_loss: 55.165466  g_loss: 149.039108
+Elapsed: [2:13:21.002815]  batch: 26  d_loss: -110.193626  g_loss: 182.077637
+Elapsed: [2:13:27.840894]  batch: 27  d_loss: -32.159622  g_loss: 51.978943
+Elapsed: [2:13:34.650311]  batch: 28  d_loss: 32.277191  g_loss: 48.520672
+Elapsed: [2:13:41.459476]  batch: 29  d_loss: -35.687149  g_loss: 78.995941
+Elapsed: [2:13:48.286186]  batch: 30  d_loss: -134.030960  g_loss: 271.940002
+Elapsed: [2:13:55.116287]  batch: 31  d_loss: -27.130577  g_loss: 54.020706
+Elapsed: [2:14:01.940187]  batch: 32  d_loss: -74.798111  g_loss: 160.516678
+Elapsed: [2:14:08.775419]  batch: 33  d_loss: 57.344265  g_loss: 121.688583
+Elapsed: [2:14:15.607743]  batch: 34  d_loss: -20.763397  g_loss: 98.583855
+Elapsed: [2:14:22.419713]  batch: 35  d_loss: -46.560406  g_loss: 106.096054
+Elapsed: [2:14:29.218412]  batch: 36  d_loss: -14.301902  g_loss: 22.170767
+Elapsed: [2:14:36.032076]  batch: 37  d_loss: -81.209335  g_loss: 161.106430
+Elapsed: [2:14:42.845890]  batch: 38  d_loss: -71.177780  g_loss: 76.795830
+Elapsed: [2:14:49.657919]  batch: 39  d_loss: -128.169708  g_loss: 180.182053
+Elapsed: [2:14:56.447653]  batch: 40  d_loss: -8.755319  g_loss: -3.425496
+Elapsed: [2:15:03.253626]  batch: 41  d_loss: -20.794277  g_loss: 363.313232
+Elapsed: [2:15:10.066779]  batch: 42  d_loss: 103.450439  g_loss: -25.309561
+Elapsed: [2:15:16.837165]  batch: 43  d_loss: -4.704052  g_loss: -5.717025
+Elapsed: [2:15:23.590695]  batch: 44  d_loss: -52.706932  g_loss: 22.765751
+Elapsed: [2:15:30.309842]  batch: 45  d_loss: -3.363475  g_loss: 23.470037
+Elapsed: [2:15:37.065314]  batch: 46  d_loss: -34.373543  g_loss: 49.218456
+Elapsed: [2:15:43.786682]  batch: 47  d_loss: -5.659491  g_loss: 44.419037
+Elapsed: [2:15:48.740644]  batch: 48  d_loss: 7.749335  g_loss: 127.103912
+Time taken for epoch: 327.274 secs
+
+Epoch: 50
+Time taken for epoch: 136.710 secs
+
+Epoch: 51
+Time taken for epoch: 139.872 secs
+
+Epoch: 52
+Time taken for epoch: 141.136 secs
+
+Epoch: 53
+Time taken for epoch: 141.741 secs
+
+Epoch: 54
+Time taken for epoch: 141.939 secs
+
+Epoch: 55
+Time taken for epoch: 142.014 secs
+
+Epoch: 56
+Elapsed: [2:30:02.822023]  batch: 1  d_loss: -30.225557  g_loss: 148.386108
+Elapsed: [2:30:09.816773]  batch: 2  d_loss: -19.580956  g_loss: 79.799530
+Elapsed: [2:30:16.765792]  batch: 3  d_loss: -39.043190  g_loss: 78.239944
+Elapsed: [2:30:23.728566]  batch: 4  d_loss: -35.003819  g_loss: 109.215294
+Elapsed: [2:30:30.652513]  batch: 5  d_loss: -40.344311  g_loss: 60.931850
+Elapsed: [2:30:37.568526]  batch: 6  d_loss: -66.413811  g_loss: 100.238846
+Elapsed: [2:30:44.469890]  batch: 7  d_loss: -90.895409  g_loss: 116.977112
+Elapsed: [2:30:51.364282]  batch: 8  d_loss: -38.705135  g_loss: 116.060028
+Elapsed: [2:30:58.338562]  batch: 9  d_loss: -29.669495  g_loss: 58.505398
+Elapsed: [2:31:05.219054]  batch: 10  d_loss: 4.636498  g_loss: 73.962898
+Elapsed: [2:31:12.093728]  batch: 11  d_loss: -89.967896  g_loss: 154.410690
+Elapsed: [2:31:18.950900]  batch: 12  d_loss: -55.751793  g_loss: 102.542076
+Elapsed: [2:31:25.804690]  batch: 13  d_loss: -37.481983  g_loss: 68.986526
+Elapsed: [2:31:32.665879]  batch: 14  d_loss: 24.174381  g_loss: -0.919955
+Elapsed: [2:31:39.526813]  batch: 15  d_loss: -27.083975  g_loss: 74.896881
+Elapsed: [2:31:46.381359]  batch: 16  d_loss: -76.817322  g_loss: 202.849350
+Elapsed: [2:31:53.235919]  batch: 17  d_loss: -59.224476  g_loss: 116.964294
+Elapsed: [2:32:00.081222]  batch: 18  d_loss: -88.231934  g_loss: 122.744858
+Elapsed: [2:32:06.927715]  batch: 19  d_loss: -66.494926  g_loss: 172.228607
+Elapsed: [2:32:13.764737]  batch: 20  d_loss: -15.783777  g_loss: 89.018555
+Elapsed: [2:32:20.600613]  batch: 21  d_loss: -208.657028  g_loss: 304.714844
+Elapsed: [2:32:27.436372]  batch: 22  d_loss: 3.644613  g_loss: -94.060326
+Elapsed: [2:32:34.281867]  batch: 23  d_loss: 83.758598  g_loss: 256.800476
+Elapsed: [2:32:41.195912]  batch: 24  d_loss: -62.613892  g_loss: 96.552383
+Elapsed: [2:32:48.084061]  batch: 25  d_loss: -24.165649  g_loss: 95.434525
+Elapsed: [2:32:54.906703]  batch: 26  d_loss: -41.500908  g_loss: 125.432312
+Elapsed: [2:33:01.720723]  batch: 27  d_loss: 44.637878  g_loss: 82.828278
+Elapsed: [2:33:08.536023]  batch: 28  d_loss: -92.579895  g_loss: 188.928879
+Elapsed: [2:33:15.356580]  batch: 29  d_loss: -28.545174  g_loss: 31.885666
+Elapsed: [2:33:22.256328]  batch: 30  d_loss: -22.190609  g_loss: 102.854240
+Elapsed: [2:33:29.146946]  batch: 31  d_loss: -97.473236  g_loss: 188.530212
+Elapsed: [2:33:36.022016]  batch: 32  d_loss: -148.394272  g_loss: 218.355042
+Elapsed: [2:33:42.896811]  batch: 33  d_loss: -10.771900  g_loss: 146.456024
+Elapsed: [2:33:49.772409]  batch: 34  d_loss: -191.737045  g_loss: 269.596008
+Elapsed: [2:33:56.599110]  batch: 35  d_loss: 1.390984  g_loss: 128.573013
+Elapsed: [2:34:03.404632]  batch: 36  d_loss: 178.936111  g_loss: -82.859665
+Elapsed: [2:34:10.214855]  batch: 37  d_loss: -11.127052  g_loss: 118.802368
+Elapsed: [2:34:16.998237]  batch: 38  d_loss: -5.943272  g_loss: 46.821968
+Elapsed: [2:34:23.786213]  batch: 39  d_loss: -86.893623  g_loss: 129.038513
+Elapsed: [2:34:30.582526]  batch: 40  d_loss: -95.379524  g_loss: 117.438499
+Elapsed: [2:34:37.370348]  batch: 41  d_loss: -15.610842  g_loss: 58.090553
+Elapsed: [2:34:44.154749]  batch: 42  d_loss: 18.088531  g_loss: 51.721809
+Elapsed: [2:34:50.937410]  batch: 43  d_loss: -56.049324  g_loss: 96.937309
+Elapsed: [2:34:57.705689]  batch: 44  d_loss: 85.373886  g_loss: -14.758990
+Elapsed: [2:35:04.488745]  batch: 45  d_loss: -86.432526  g_loss: 144.224655
+Elapsed: [2:35:11.282651]  batch: 46  d_loss: -62.847244  g_loss: 88.232170
+Elapsed: [2:35:18.036011]  batch: 47  d_loss: 109.985298  g_loss: -42.886200
+Elapsed: [2:35:23.030679]  batch: 48  d_loss: 74.697586  g_loss: 11.339355
+Time taken for epoch: 327.808 secs
+
+Epoch: 57
+Time taken for epoch: 136.855 secs
+
+Epoch: 58
+Time taken for epoch: 140.038 secs
+
+Epoch: 59
+Time taken for epoch: 141.228 secs
+
+Epoch: 60
+Time taken for epoch: 141.897 secs
+
+Epoch: 61
+Time taken for epoch: 141.876 secs
+
+Epoch: 62
+Time taken for epoch: 141.960 secs
+
+Epoch: 63
+Elapsed: [2:49:36.055195]  batch: 1  d_loss: 33.243073  g_loss: 5.712182
+Elapsed: [2:49:43.130187]  batch: 2  d_loss: -28.967600  g_loss: 81.620430
+Elapsed: [2:49:50.182429]  batch: 3  d_loss: -62.163746  g_loss: 126.731796
+Elapsed: [2:49:57.136812]  batch: 4  d_loss: -155.153976  g_loss: 291.364685
+Elapsed: [2:50:04.051455]  batch: 5  d_loss: 30.138210  g_loss: 22.168768
+Elapsed: [2:50:11.045928]  batch: 6  d_loss: -40.876427  g_loss: 47.521465
+Elapsed: [2:50:18.017925]  batch: 7  d_loss: 19.049927  g_loss: 18.913151
+Elapsed: [2:50:24.918285]  batch: 8  d_loss: -15.375947  g_loss: 105.406250
+Elapsed: [2:50:31.797146]  batch: 9  d_loss: -4.433861  g_loss: 55.514130
+Elapsed: [2:50:38.674145]  batch: 10  d_loss: -68.408279  g_loss: 104.561203
+Elapsed: [2:50:45.533042]  batch: 11  d_loss: -103.815720  g_loss: 143.523560
+Elapsed: [2:50:52.389215]  batch: 12  d_loss: -45.025845  g_loss: 179.426392
+Elapsed: [2:50:59.348119]  batch: 13  d_loss: -159.477493  g_loss: 125.432304
+Elapsed: [2:51:06.194671]  batch: 14  d_loss: 212.489410  g_loss: 54.122231
+Elapsed: [2:51:13.039689]  batch: 15  d_loss: 33.887531  g_loss: 35.392612
+Elapsed: [2:51:19.876599]  batch: 16  d_loss: -63.774582  g_loss: 60.934017
+Elapsed: [2:51:26.706474]  batch: 17  d_loss: -28.611683  g_loss: 61.596893
+Elapsed: [2:51:33.664355]  batch: 18  d_loss: -31.940331  g_loss: 37.883293
+Elapsed: [2:51:40.595213]  batch: 19  d_loss: -17.268251  g_loss: 72.938469
+Elapsed: [2:51:47.416691]  batch: 20  d_loss: 1.175225  g_loss: 29.130445
+Elapsed: [2:51:54.353777]  batch: 21  d_loss: -19.700249  g_loss: 85.571228
+Elapsed: [2:52:01.153182]  batch: 22  d_loss: -95.501495  g_loss: 83.869705
+Elapsed: [2:52:07.964951]  batch: 23  d_loss: -37.832966  g_loss: 66.641289
+Elapsed: [2:52:14.878191]  batch: 24  d_loss: 34.115791  g_loss: 33.247238
+Elapsed: [2:52:21.816877]  batch: 25  d_loss: -51.949268  g_loss: 85.288406
+Elapsed: [2:52:28.634854]  batch: 26  d_loss: 52.979015  g_loss: -27.394085
+Elapsed: [2:52:35.545397]  batch: 27  d_loss: -24.008659  g_loss: 39.906902
+Elapsed: [2:52:42.359444]  batch: 28  d_loss: -51.219982  g_loss: 117.914536
+Elapsed: [2:52:49.159329]  batch: 29  d_loss: 26.874987  g_loss: 58.278740
+Elapsed: [2:52:56.074062]  batch: 30  d_loss: -26.124924  g_loss: 79.045135
+Elapsed: [2:53:02.882621]  batch: 31  d_loss: -58.653835  g_loss: 105.292374
+Elapsed: [2:53:09.660388]  batch: 32  d_loss: -132.856598  g_loss: 222.915573
+Elapsed: [2:53:16.450257]  batch: 33  d_loss: 9.380259  g_loss: 34.197407
+Elapsed: [2:53:23.251760]  batch: 34  d_loss: -38.897816  g_loss: 72.313751
+Elapsed: [2:53:30.155354]  batch: 35  d_loss: -22.289894  g_loss: 62.976593
+Elapsed: [2:53:36.944002]  batch: 36  d_loss: -66.107056  g_loss: 122.791885
+Elapsed: [2:53:43.714667]  batch: 37  d_loss: -39.913628  g_loss: 105.866058
+Elapsed: [2:53:50.508587]  batch: 38  d_loss: -77.880592  g_loss: 146.468857
+Elapsed: [2:53:57.297226]  batch: 39  d_loss: 131.456772  g_loss: -168.667557
+Elapsed: [2:54:04.195347]  batch: 40  d_loss: -22.073584  g_loss: 66.772095
+Elapsed: [2:54:11.085249]  batch: 41  d_loss: -70.406441  g_loss: 88.830650
+Elapsed: [2:54:17.963149]  batch: 42  d_loss: -19.083853  g_loss: 74.062859
+Elapsed: [2:54:24.755455]  batch: 43  d_loss: -53.008621  g_loss: 112.999359
+Elapsed: [2:54:31.517120]  batch: 44  d_loss: -92.052589  g_loss: 104.714828
+Elapsed: [2:54:38.395398]  batch: 45  d_loss: 25.077003  g_loss: 39.846996
+Elapsed: [2:54:45.295147]  batch: 46  d_loss: -60.834457  g_loss: 103.784233
+Elapsed: [2:54:52.058224]  batch: 47  d_loss: 0.845752  g_loss: 62.520153
+Elapsed: [2:54:57.051632]  batch: 48  d_loss: 15.833675  g_loss: 46.302380
+Time taken for epoch: 328.646 secs
+
+Epoch: 64
+Time taken for epoch: 136.579 secs
+
+Epoch: 65
+Time taken for epoch: 139.829 secs
+
+Epoch: 66
+Time taken for epoch: 141.224 secs
+
+Epoch: 67
+Time taken for epoch: 141.788 secs
+
+Epoch: 68
+Time taken for epoch: 142.059 secs
+
+Epoch: 69
+Time taken for epoch: 142.456 secs
+
+Epoch: 70
+Elapsed: [3:09:10.147404]  batch: 1  d_loss: -86.062927  g_loss: 160.502167
+Elapsed: [3:09:17.291773]  batch: 2  d_loss: 8.763983  g_loss: 33.589764
+Elapsed: [3:09:24.401371]  batch: 3  d_loss: -71.043388  g_loss: 127.142029
+Elapsed: [3:09:31.483729]  batch: 4  d_loss: -72.057243  g_loss: 100.749466
+Elapsed: [3:09:38.541599]  batch: 5  d_loss: -7.995950  g_loss: 81.618500
+Elapsed: [3:09:45.596704]  batch: 6  d_loss: -20.754843  g_loss: 79.688675
+Elapsed: [3:09:52.624851]  batch: 7  d_loss: 26.536062  g_loss: 36.969505
+Elapsed: [3:09:59.648187]  batch: 8  d_loss: 18.793056  g_loss: 43.490337
+Elapsed: [3:10:06.676352]  batch: 9  d_loss: -52.163250  g_loss: 38.456345
+Elapsed: [3:10:13.695801]  batch: 10  d_loss: -74.812637  g_loss: 168.498474
+Elapsed: [3:10:20.713077]  batch: 11  d_loss: -24.297436  g_loss: 65.500076
+Elapsed: [3:10:27.705422]  batch: 12  d_loss: -13.147315  g_loss: 51.006847
+Elapsed: [3:10:34.700418]  batch: 13  d_loss: -8.614449  g_loss: 49.729870
+Elapsed: [3:10:41.697798]  batch: 14  d_loss: -35.108253  g_loss: 60.837776
+Elapsed: [3:10:48.684410]  batch: 15  d_loss: -26.918930  g_loss: 71.393005
+Elapsed: [3:10:55.673554]  batch: 16  d_loss: -112.355789  g_loss: 154.680328
+Elapsed: [3:11:02.669682]  batch: 17  d_loss: -17.466722  g_loss: -0.889282
+Elapsed: [3:11:09.672778]  batch: 18  d_loss: -47.422726  g_loss: 126.918724
+Elapsed: [3:11:16.641466]  batch: 19  d_loss: -59.175316  g_loss: 90.333145
+Elapsed: [3:11:23.622260]  batch: 20  d_loss: -16.734440  g_loss: 144.087692
+Elapsed: [3:11:30.596503]  batch: 21  d_loss: -71.126740  g_loss: 145.065521
+Elapsed: [3:11:37.561136]  batch: 22  d_loss: -15.516701  g_loss: 93.767639
+Elapsed: [3:11:44.546908]  batch: 23  d_loss: -11.489768  g_loss: 75.087219
+Elapsed: [3:11:51.494048]  batch: 24  d_loss: -15.409026  g_loss: 18.429546
+Elapsed: [3:11:58.459212]  batch: 25  d_loss: -60.380833  g_loss: 43.823364
+Elapsed: [3:12:05.398616]  batch: 26  d_loss: -28.441742  g_loss: 94.027039
+Elapsed: [3:12:12.363156]  batch: 27  d_loss: -40.595093  g_loss: 32.612183
+Elapsed: [3:12:19.295430]  batch: 28  d_loss: -21.245792  g_loss: 101.059715
+Elapsed: [3:12:26.251081]  batch: 29  d_loss: -34.065247  g_loss: 164.362549
+Elapsed: [3:12:33.191031]  batch: 30  d_loss: -46.864918  g_loss: 79.200745
+Elapsed: [3:12:40.143872]  batch: 31  d_loss: -59.989239  g_loss: 188.369247
+Elapsed: [3:12:47.077218]  batch: 32  d_loss: 83.492645  g_loss: -20.866428
+Elapsed: [3:12:54.032536]  batch: 33  d_loss: -100.045456  g_loss: 98.651001
+Elapsed: [3:13:00.976787]  batch: 34  d_loss: -25.060280  g_loss: 114.405212
+Elapsed: [3:13:07.905566]  batch: 35  d_loss: -30.459503  g_loss: 88.712845
+Elapsed: [3:13:14.851968]  batch: 36  d_loss: 33.213192  g_loss: 13.215773
+Elapsed: [3:13:21.771686]  batch: 37  d_loss: -27.482576  g_loss: 89.503868
+Elapsed: [3:13:28.722998]  batch: 38  d_loss: 82.579933  g_loss: -15.524757
+Elapsed: [3:13:35.647079]  batch: 39  d_loss: -56.381546  g_loss: 76.571335
+Elapsed: [3:13:42.563463]  batch: 40  d_loss: 19.873852  g_loss: 31.951710
+Elapsed: [3:13:49.499361]  batch: 41  d_loss: -7.990031  g_loss: 80.681808
+Elapsed: [3:13:56.412721]  batch: 42  d_loss: 5.120568  g_loss: 61.247677
+Elapsed: [3:14:03.340579]  batch: 43  d_loss: -52.446621  g_loss: 58.878174
+Elapsed: [3:14:10.264886]  batch: 44  d_loss: -51.257797  g_loss: 159.790161
+Elapsed: [3:14:17.178156]  batch: 45  d_loss: -43.820065  g_loss: 59.268379
+Elapsed: [3:14:24.095498]  batch: 46  d_loss: -30.376040  g_loss: 61.359772
+Elapsed: [3:14:31.028889]  batch: 47  d_loss: 60.193748  g_loss: 47.532570
+Elapsed: [3:14:36.149964]  batch: 48  d_loss: -20.674198  g_loss: 80.416809
+Time taken for epoch: 333.777 secs
+
+Epoch: 71
+Time taken for epoch: 136.884 secs
+
+Epoch: 72
+Time taken for epoch: 140.204 secs
+
+Epoch: 73
+Time taken for epoch: 141.704 secs
+
+Epoch: 74
+Time taken for epoch: 142.208 secs
+
+Epoch: 75
+Time taken for epoch: 142.508 secs
+
+Epoch: 76
+Time taken for epoch: 142.506 secs
+
+Epoch: 77
+Elapsed: [3:28:53.147102]  batch: 1  d_loss: -10.957107  g_loss: 59.550289
+Elapsed: [3:29:00.306080]  batch: 2  d_loss: -26.549944  g_loss: 29.926109
+Elapsed: [3:29:07.437575]  batch: 3  d_loss: -74.087799  g_loss: 86.489838
+Elapsed: [3:29:14.544556]  batch: 4  d_loss: -71.190147  g_loss: 71.731804
+Elapsed: [3:29:21.658947]  batch: 5  d_loss: -50.987923  g_loss: 79.691650
+Elapsed: [3:29:28.757929]  batch: 6  d_loss: -66.182541  g_loss: 248.598083
+Elapsed: [3:29:35.834279]  batch: 7  d_loss: 10.370703  g_loss: 26.851284
+Elapsed: [3:29:42.891096]  batch: 8  d_loss: -6.166760  g_loss: 30.179428
+Elapsed: [3:29:49.949059]  batch: 9  d_loss: -0.781987  g_loss: 12.831588
+Elapsed: [3:29:56.988138]  batch: 10  d_loss: -39.492569  g_loss: 71.667084
+Elapsed: [3:30:04.030645]  batch: 11  d_loss: 12.794032  g_loss: 32.453320
+Elapsed: [3:30:11.062150]  batch: 12  d_loss: -13.302735  g_loss: 51.093437
+Elapsed: [3:30:18.101321]  batch: 13  d_loss: -110.238983  g_loss: 140.863327
+Elapsed: [3:30:25.140219]  batch: 14  d_loss: -18.254723  g_loss: 58.497784
+Elapsed: [3:30:32.177246]  batch: 15  d_loss: -91.917274  g_loss: 120.041718
+Elapsed: [3:30:39.216674]  batch: 16  d_loss: -28.655703  g_loss: 22.145681
+Elapsed: [3:30:46.234280]  batch: 17  d_loss: -29.205006  g_loss: 51.943161
+Elapsed: [3:30:53.229726]  batch: 18  d_loss: -66.948723  g_loss: 126.211815
+Elapsed: [3:31:00.241571]  batch: 19  d_loss: -28.290318  g_loss: 53.636536
+Elapsed: [3:31:07.256809]  batch: 20  d_loss: -41.024658  g_loss: 105.357300
+Elapsed: [3:31:14.274814]  batch: 21  d_loss: -72.479523  g_loss: 200.480637
+Elapsed: [3:31:21.252208]  batch: 22  d_loss: -76.714737  g_loss: 183.351913
+Elapsed: [3:31:28.246707]  batch: 23  d_loss: -50.129929  g_loss: 52.415844
+Elapsed: [3:31:35.253233]  batch: 24  d_loss: -141.582489  g_loss: 430.088562
+Elapsed: [3:31:42.237708]  batch: 25  d_loss: 17.701073  g_loss: -81.463699
+Elapsed: [3:31:49.221982]  batch: 26  d_loss: 141.873428  g_loss: -13.278873
+Elapsed: [3:31:56.212891]  batch: 27  d_loss: 20.992718  g_loss: 9.653546
+Elapsed: [3:32:03.189566]  batch: 28  d_loss: 11.694378  g_loss: 40.679863
+Elapsed: [3:32:10.165005]  batch: 29  d_loss: -40.880402  g_loss: 53.081978
+Elapsed: [3:32:17.164915]  batch: 30  d_loss: -17.608932  g_loss: 92.794449
+Elapsed: [3:32:24.118046]  batch: 31  d_loss: 8.197620  g_loss: 56.579571
+Elapsed: [3:32:31.096882]  batch: 32  d_loss: -0.463567  g_loss: 20.868303
+Elapsed: [3:32:38.068659]  batch: 33  d_loss: 0.127201  g_loss: 22.328314
+Elapsed: [3:32:45.029746]  batch: 34  d_loss: -47.981812  g_loss: 34.084724
+Elapsed: [3:32:52.019557]  batch: 35  d_loss: -33.202866  g_loss: 60.026276
+Elapsed: [3:32:58.965455]  batch: 36  d_loss: 30.645599  g_loss: 43.666351
+Elapsed: [3:33:05.939945]  batch: 37  d_loss: -7.651799  g_loss: 49.577942
+Elapsed: [3:33:12.879867]  batch: 38  d_loss: -30.036575  g_loss: 97.599716
+Elapsed: [3:33:19.846565]  batch: 39  d_loss: 0.809700  g_loss: 29.666790
+Elapsed: [3:33:26.788560]  batch: 40  d_loss: -43.240860  g_loss: 74.971466
+Elapsed: [3:33:33.754252]  batch: 41  d_loss: -14.403986  g_loss: 54.112801
+Elapsed: [3:33:40.689263]  batch: 42  d_loss: -63.340076  g_loss: 74.274506
+Elapsed: [3:33:47.649786]  batch: 43  d_loss: -53.257473  g_loss: 66.812408
+Elapsed: [3:33:54.595718]  batch: 44  d_loss: -69.835922  g_loss: 121.105797
+Elapsed: [3:34:01.560602]  batch: 45  d_loss: 47.737495  g_loss: 40.712940
+Elapsed: [3:34:08.497447]  batch: 46  d_loss: -12.642138  g_loss: 47.221588
+Elapsed: [3:34:15.454653]  batch: 47  d_loss: -56.830669  g_loss: 51.775627
+Elapsed: [3:34:20.604192]  batch: 48  d_loss: 38.677582  g_loss: 20.741886
+Time taken for epoch: 335.416 secs
+
+Epoch: 78
+Time taken for epoch: 136.953 secs
+
+Epoch: 79
+Time taken for epoch: 140.217 secs
+
+Epoch: 80
+Time taken for epoch: 141.572 secs
+
+Epoch: 81
+Time taken for epoch: 142.130 secs
+
+Epoch: 82
+Time taken for epoch: 142.643 secs
+
+Epoch: 83
+Time taken for epoch: 142.658 secs
+
+Epoch: 84
+Elapsed: [3:48:36.165396]  batch: 1  d_loss: -8.291107  g_loss: 55.863289
+Elapsed: [3:48:43.335562]  batch: 2  d_loss: -132.776321  g_loss: 676.675964
+Elapsed: [3:48:50.517801]  batch: 3  d_loss: -54.900742  g_loss: -245.188110
+Elapsed: [3:48:57.676011]  batch: 4  d_loss: 165.569977  g_loss: 11.569109
+Elapsed: [3:49:04.807133]  batch: 5  d_loss: 27.279482  g_loss: -9.821568
+Elapsed: [3:49:11.904325]  batch: 6  d_loss: -20.347107  g_loss: -5.128468
+Elapsed: [3:49:19.015183]  batch: 7  d_loss: -40.570442  g_loss: -9.160900
+Elapsed: [3:49:26.117025]  batch: 8  d_loss: 20.141037  g_loss: 9.854679
+Elapsed: [3:49:33.196631]  batch: 9  d_loss: -7.918823  g_loss: 19.104994
+Elapsed: [3:49:40.272989]  batch: 10  d_loss: 18.429806  g_loss: 21.149529
+Elapsed: [3:49:47.331072]  batch: 11  d_loss: -56.749466  g_loss: 49.800488
+Elapsed: [3:49:54.385797]  batch: 12  d_loss: 4.548449  g_loss: 4.139394
+Elapsed: [3:50:01.427262]  batch: 13  d_loss: -2.403611  g_loss: 43.884232
+Elapsed: [3:50:08.462691]  batch: 14  d_loss: 2.467471  g_loss: 28.302420
+Elapsed: [3:50:15.504710]  batch: 15  d_loss: 7.493855  g_loss: 2.206969
+Elapsed: [3:50:22.541646]  batch: 16  d_loss: -10.403451  g_loss: 4.501161
+Elapsed: [3:50:29.601331]  batch: 17  d_loss: -25.480991  g_loss: 62.367672
+Elapsed: [3:50:36.653079]  batch: 18  d_loss: -17.189726  g_loss: 28.718655
+Elapsed: [3:50:43.695980]  batch: 19  d_loss: -24.227226  g_loss: 38.488373
+Elapsed: [3:50:50.731371]  batch: 20  d_loss: 2.717433  g_loss: 28.771908
+Elapsed: [3:50:57.775278]  batch: 21  d_loss: -10.673576  g_loss: 22.446850
+Elapsed: [3:51:04.816265]  batch: 22  d_loss: 7.409886  g_loss: 26.212204
+Elapsed: [3:51:11.832618]  batch: 23  d_loss: -30.947145  g_loss: 41.610893
+Elapsed: [3:51:18.827296]  batch: 24  d_loss: -33.225948  g_loss: 39.269444
+Elapsed: [3:51:25.833256]  batch: 25  d_loss: -0.830649  g_loss: 42.772778
+Elapsed: [3:51:32.842418]  batch: 26  d_loss: -44.111504  g_loss: 62.325401
+Elapsed: [3:51:39.855489]  batch: 27  d_loss: -53.823872  g_loss: 54.920757
+Elapsed: [3:51:46.836522]  batch: 28  d_loss: -52.134373  g_loss: 79.076508
+Elapsed: [3:51:53.833340]  batch: 29  d_loss: -30.112120  g_loss: 71.836319
+Elapsed: [3:52:00.848777]  batch: 30  d_loss: -5.303370  g_loss: 19.851553
+Elapsed: [3:52:07.837541]  batch: 31  d_loss: -119.962021  g_loss: 158.830139
+Elapsed: [3:52:14.809471]  batch: 32  d_loss: -76.696823  g_loss: 131.447037
+Elapsed: [3:52:21.800770]  batch: 33  d_loss: -82.521179  g_loss: 129.312469
+Elapsed: [3:52:28.869572]  batch: 34  d_loss: -40.740696  g_loss: 111.303452
+Elapsed: [3:52:35.842515]  batch: 35  d_loss: -46.677734  g_loss: 33.251076
+Elapsed: [3:52:42.855258]  batch: 36  d_loss: -152.120682  g_loss: 297.742737
+Elapsed: [3:52:49.836060]  batch: 37  d_loss: 26.809834  g_loss: 52.663712
+Elapsed: [3:52:56.789817]  batch: 38  d_loss: -50.320698  g_loss: 45.309357
+Elapsed: [3:53:03.760610]  batch: 39  d_loss: 27.223042  g_loss: 59.581814
+Elapsed: [3:53:10.738456]  batch: 40  d_loss: -51.477436  g_loss: 50.740921
+Elapsed: [3:53:17.691849]  batch: 41  d_loss: -28.394201  g_loss: 51.651085
+Elapsed: [3:53:24.670125]  batch: 42  d_loss: -77.249199  g_loss: 79.101700
+Elapsed: [3:53:31.611572]  batch: 43  d_loss: 49.091297  g_loss: 7.835899
+Elapsed: [3:53:38.586843]  batch: 44  d_loss: 13.184469  g_loss: 42.855042
+Elapsed: [3:53:45.526775]  batch: 45  d_loss: -110.890404  g_loss: 164.371552
+Elapsed: [3:53:52.498271]  batch: 46  d_loss: 37.116249  g_loss: 164.634705
+Elapsed: [3:53:59.437675]  batch: 47  d_loss: -153.154205  g_loss: 162.784119
+Elapsed: [3:54:04.624461]  batch: 48  d_loss: -66.055801  g_loss: 97.013359
+Time taken for epoch: 336.330 secs
+
+Epoch: 85
+Time taken for epoch: 136.833 secs
+
+Epoch: 86
+Time taken for epoch: 140.122 secs
+
+Epoch: 87
+Time taken for epoch: 141.706 secs
+
+Epoch: 88
+Time taken for epoch: 142.230 secs
+
+Epoch: 89
+Time taken for epoch: 142.643 secs
+
+Epoch: 90
+Time taken for epoch: 142.845 secs
+
+Epoch: 91
+Elapsed: [4:08:21.927675]  batch: 1  d_loss: -55.762016  g_loss: 136.678619
+Elapsed: [4:08:29.140647]  batch: 2  d_loss: -81.208038  g_loss: 273.758026
+Elapsed: [4:08:36.228549]  batch: 3  d_loss: 233.676910  g_loss: -129.311737
+Elapsed: [4:08:43.407380]  batch: 4  d_loss: 6.325686  g_loss: 8.346508
+Elapsed: [4:08:50.480085]  batch: 5  d_loss: -26.989487  g_loss: 14.086243
+Elapsed: [4:08:57.638636]  batch: 6  d_loss: -22.717924  g_loss: 25.326414
+Elapsed: [4:09:04.697528]  batch: 7  d_loss: -51.509113  g_loss: 40.899548
+Elapsed: [4:09:11.818143]  batch: 8  d_loss: -47.235153  g_loss: 63.846542
+Elapsed: [4:09:18.854425]  batch: 9  d_loss: -25.994341  g_loss: 53.155174
+Elapsed: [4:09:25.934884]  batch: 10  d_loss: -34.191578  g_loss: 55.986214
+Elapsed: [4:09:32.948354]  batch: 11  d_loss: -97.321098  g_loss: 120.937248
+Elapsed: [4:09:39.962956]  batch: 12  d_loss: -3.424471  g_loss: 53.530312
+Elapsed: [4:09:46.975250]  batch: 13  d_loss: -99.003227  g_loss: 155.750702
+Elapsed: [4:09:53.960167]  batch: 14  d_loss: -13.890497  g_loss: 78.893127
+Elapsed: [4:10:00.956802]  batch: 15  d_loss: -87.168518  g_loss: 151.057068
+Elapsed: [4:10:07.975623]  batch: 16  d_loss: -6.635233  g_loss: 84.015770
+Elapsed: [4:10:15.049083]  batch: 17  d_loss: -32.259464  g_loss: 54.282227
+Elapsed: [4:10:22.047215]  batch: 18  d_loss: -32.671062  g_loss: 58.728344
+Elapsed: [4:10:29.126168]  batch: 19  d_loss: -92.611504  g_loss: 181.205612
+Elapsed: [4:10:36.099299]  batch: 20  d_loss: -72.500610  g_loss: 92.574265
+Elapsed: [4:10:43.073090]  batch: 21  d_loss: -58.926083  g_loss: 147.178345
+Elapsed: [4:10:50.069403]  batch: 22  d_loss: -138.482742  g_loss: 166.832794
+Elapsed: [4:10:57.024319]  batch: 23  d_loss: -96.787224  g_loss: 449.018494
+Elapsed: [4:11:03.998116]  batch: 24  d_loss: 185.383789  g_loss: -85.171738
+Elapsed: [4:11:10.952803]  batch: 25  d_loss: -20.951471  g_loss: -23.778992
+Elapsed: [4:11:17.914059]  batch: 26  d_loss: -28.132668  g_loss: 19.777325
+Elapsed: [4:11:24.871418]  batch: 27  d_loss: -65.935318  g_loss: 30.625092
+Elapsed: [4:11:31.822196]  batch: 28  d_loss: -40.755795  g_loss: 42.896938
+Elapsed: [4:11:38.765221]  batch: 29  d_loss: 7.887520  g_loss: 38.686089
+Elapsed: [4:11:45.713788]  batch: 30  d_loss: -20.316757  g_loss: 25.162069
+Elapsed: [4:11:52.647584]  batch: 31  d_loss: -50.992294  g_loss: 42.373947
+Elapsed: [4:11:59.604312]  batch: 32  d_loss: -30.351669  g_loss: 54.723213
+Elapsed: [4:12:06.525513]  batch: 33  d_loss: -47.500706  g_loss: 47.744366
+Elapsed: [4:12:13.482470]  batch: 34  d_loss: -62.095547  g_loss: 75.420349
+Elapsed: [4:12:20.417603]  batch: 35  d_loss: -51.616280  g_loss: 95.594589
+Elapsed: [4:12:27.363676]  batch: 36  d_loss: -41.850250  g_loss: 71.432968
+Elapsed: [4:12:34.290519]  batch: 37  d_loss: -30.605495  g_loss: 63.814587
+Elapsed: [4:12:41.203957]  batch: 38  d_loss: -78.554893  g_loss: 106.319695
+Elapsed: [4:12:48.149702]  batch: 39  d_loss: 18.182755  g_loss: 45.741558
+Elapsed: [4:12:55.339289]  batch: 40  d_loss: 17.430929  g_loss: 8.766314
+Elapsed: [4:13:02.283130]  batch: 41  d_loss: 16.378010  g_loss: 58.860138
+Elapsed: [4:13:09.200597]  batch: 42  d_loss: -41.528526  g_loss: 68.064285
+Elapsed: [4:13:16.141456]  batch: 43  d_loss: -16.958052  g_loss: 61.466919
+Elapsed: [4:13:23.060302]  batch: 44  d_loss: -53.780033  g_loss: 85.270638
+Elapsed: [4:13:29.964683]  batch: 45  d_loss: -61.296684  g_loss: 86.752869
+Elapsed: [4:13:36.903248]  batch: 46  d_loss: -35.232704  g_loss: 108.986511
+Elapsed: [4:13:43.820459]  batch: 47  d_loss: -47.084953  g_loss: 107.225769
+Elapsed: [4:13:48.936341]  batch: 48  d_loss: 27.578714  g_loss: 204.523849
+Time taken for epoch: 334.840 secs
+
+Epoch: 92
+Time taken for epoch: 137.092 secs
+
+Epoch: 93
+Time taken for epoch: 140.378 secs
+
+Epoch: 94
+Time taken for epoch: 141.887 secs
+
+Epoch: 95
+Time taken for epoch: 142.595 secs
+
+Epoch: 96
+Time taken for epoch: 142.669 secs
+
+Epoch: 97
+Time taken for epoch: 142.688 secs
+
+Epoch: 98
+Elapsed: [4:28:05.611661]  batch: 1  d_loss: 12.736622  g_loss: 3.597804
+Elapsed: [4:28:12.722143]  batch: 2  d_loss: -91.639755  g_loss: 63.399639
+Elapsed: [4:28:19.811597]  batch: 3  d_loss: -37.986595  g_loss: 60.466515
+Elapsed: [4:28:26.878746]  batch: 4  d_loss: -41.644295  g_loss: 30.840176
+Elapsed: [4:28:33.920600]  batch: 5  d_loss: -16.546890  g_loss: 66.455727
+Elapsed: [4:28:40.952241]  batch: 6  d_loss: -31.904278  g_loss: 36.735699
+Elapsed: [4:28:47.972704]  batch: 7  d_loss: -88.468826  g_loss: 116.551292
+Elapsed: [4:28:55.004099]  batch: 8  d_loss: -22.679047  g_loss: 52.020264
+Elapsed: [4:29:02.009652]  batch: 9  d_loss: -32.975010  g_loss: 67.548813
+Elapsed: [4:29:08.983792]  batch: 10  d_loss: 3.268232  g_loss: 104.300400
+Elapsed: [4:29:15.979556]  batch: 11  d_loss: -69.614510  g_loss: 110.274826
+Elapsed: [4:29:22.975079]  batch: 12  d_loss: -71.631752  g_loss: 84.080872
+Elapsed: [4:29:29.931942]  batch: 13  d_loss: -43.880943  g_loss: 85.581589
+Elapsed: [4:29:36.912527]  batch: 14  d_loss: -50.434093  g_loss: 50.191055
+Elapsed: [4:29:43.847676]  batch: 15  d_loss: -18.964079  g_loss: 84.452187
+Elapsed: [4:29:50.808077]  batch: 16  d_loss: 12.836739  g_loss: 50.038620
+Elapsed: [4:29:57.745009]  batch: 17  d_loss: -1.678528  g_loss: 225.876205
+Elapsed: [4:30:04.698323]  batch: 18  d_loss: -13.729101  g_loss: 129.026794
+Elapsed: [4:30:11.627334]  batch: 19  d_loss: 143.502930  g_loss: -26.052069
+Elapsed: [4:30:18.564722]  batch: 20  d_loss: -44.226814  g_loss: 27.718908
+Elapsed: [4:30:25.499065]  batch: 21  d_loss: -83.469505  g_loss: 90.834862
+Elapsed: [4:30:32.415654]  batch: 22  d_loss: -15.573778  g_loss: 28.722296
+Elapsed: [4:30:39.355628]  batch: 23  d_loss: -29.096605  g_loss: 25.924704
+Elapsed: [4:30:46.271097]  batch: 24  d_loss: -74.635284  g_loss: 96.334030
+Elapsed: [4:30:53.165231]  batch: 25  d_loss: 12.856218  g_loss: 38.130474
+Elapsed: [4:31:00.092855]  batch: 26  d_loss: -58.123993  g_loss: 92.254883
+Elapsed: [4:31:07.007075]  batch: 27  d_loss: 38.090332  g_loss: 113.363434
+Elapsed: [4:31:13.912027]  batch: 28  d_loss: -51.217072  g_loss: 137.275635
+Elapsed: [4:31:20.816935]  batch: 29  d_loss: 53.924099  g_loss: 44.066658
+Elapsed: [4:31:27.731324]  batch: 30  d_loss: 9.901696  g_loss: 37.960968
+Elapsed: [4:31:34.632710]  batch: 31  d_loss: 15.409648  g_loss: 35.462795
+Elapsed: [4:31:41.522255]  batch: 32  d_loss: -31.525406  g_loss: 32.524826
+Elapsed: [4:31:48.404099]  batch: 33  d_loss: -1.094129  g_loss: 74.650620
+Elapsed: [4:31:55.310486]  batch: 34  d_loss: -26.713417  g_loss: 69.236679
+Elapsed: [4:32:02.210675]  batch: 35  d_loss: -129.709534  g_loss: 137.247223
+Elapsed: [4:32:09.105066]  batch: 36  d_loss: -67.127144  g_loss: 137.297455
+Elapsed: [4:32:15.981103]  batch: 37  d_loss: -35.413754  g_loss: 65.007782
+Elapsed: [4:32:22.851926]  batch: 38  d_loss: -39.055046  g_loss: 80.734131
+Elapsed: [4:32:29.733568]  batch: 39  d_loss: 27.572866  g_loss: 31.971405
+Elapsed: [4:32:36.639927]  batch: 40  d_loss: -61.245121  g_loss: 115.228821
+Elapsed: [4:32:43.536677]  batch: 41  d_loss: 21.528921  g_loss: -3.988595
+Elapsed: [4:32:50.414555]  batch: 42  d_loss: -33.080818  g_loss: 147.333679
+Elapsed: [4:32:57.280921]  batch: 43  d_loss: 6.332736  g_loss: 17.870321
+Elapsed: [4:33:04.147432]  batch: 44  d_loss: -55.446938  g_loss: 37.814552
+Elapsed: [4:33:11.012655]  batch: 45  d_loss: -22.244162  g_loss: 20.679131
+Elapsed: [4:33:17.864862]  batch: 46  d_loss: -73.831001  g_loss: 97.737732
+Elapsed: [4:33:24.717069]  batch: 47  d_loss: -24.850637  g_loss: 78.529892
+Elapsed: [4:33:29.798033]  batch: 48  d_loss: 162.579941  g_loss: 49.717613
+Time taken for epoch: 331.977 secs
+
+Epoch: 99
+Time taken for epoch: 136.740 secs
+
+Epoch: 100
+Time taken for epoch: 140.273 secs
+
+Epoch: 101
+Time taken for epoch: 141.518 secs
+
+Epoch: 102
+Time taken for epoch: 142.296 secs
+
+Epoch: 103
+Time taken for epoch: 142.536 secs
+
+Epoch: 104
+Time taken for epoch: 142.456 secs
+
+Epoch: 105
+Elapsed: [4:47:44.907544]  batch: 1  d_loss: -58.703327  g_loss: 179.774658
+Elapsed: [4:47:51.961618]  batch: 2  d_loss: -76.859459  g_loss: -53.560680
+Elapsed: [4:47:58.996985]  batch: 3  d_loss: 0.599531  g_loss: 144.112976
+Elapsed: [4:48:06.028592]  batch: 4  d_loss: -18.506897  g_loss: 37.929768
+Elapsed: [4:48:13.012696]  batch: 5  d_loss: 14.722868  g_loss: 141.966858
+Elapsed: [4:48:19.989873]  batch: 6  d_loss: -53.468029  g_loss: -7.911189
+Elapsed: [4:48:26.963437]  batch: 7  d_loss: -14.049671  g_loss: 210.678696
+Elapsed: [4:48:33.906128]  batch: 8  d_loss: 62.242485  g_loss: -39.556808
+Elapsed: [4:48:40.867595]  batch: 9  d_loss: -88.150192  g_loss: 147.703552
+Elapsed: [4:48:47.805718]  batch: 10  d_loss: -196.690735  g_loss: 240.929626
+Elapsed: [4:48:54.764546]  batch: 11  d_loss: -12.482735  g_loss: 13.446590
+Elapsed: [4:49:01.695817]  batch: 12  d_loss: -86.729401  g_loss: 231.047577
+Elapsed: [4:49:08.631315]  batch: 13  d_loss: -127.550201  g_loss: 148.440369
+Elapsed: [4:49:15.553209]  batch: 14  d_loss: 51.307518  g_loss: 131.848618
+Elapsed: [4:49:22.449779]  batch: 15  d_loss: -9.193174  g_loss: 23.624741
+Elapsed: [4:49:29.338647]  batch: 16  d_loss: 44.311172  g_loss: 69.282501
+Elapsed: [4:49:36.251777]  batch: 17  d_loss: -74.783691  g_loss: 91.453186
+Elapsed: [4:49:43.148011]  batch: 18  d_loss: -7.869183  g_loss: 65.446068
+Elapsed: [4:49:50.042452]  batch: 19  d_loss: -1.305267  g_loss: 27.333731
+Elapsed: [4:49:56.917845]  batch: 20  d_loss: -13.140073  g_loss: 38.309013
+Elapsed: [4:50:03.790912]  batch: 21  d_loss: -37.494473  g_loss: 32.643234
+Elapsed: [4:50:10.689064]  batch: 22  d_loss: 13.157667  g_loss: 29.345272
+Elapsed: [4:50:17.580671]  batch: 23  d_loss: -32.787399  g_loss: 70.595047
+Elapsed: [4:50:24.462156]  batch: 24  d_loss: -30.280085  g_loss: 43.440750
+Elapsed: [4:50:31.326322]  batch: 25  d_loss: -76.533127  g_loss: 110.199677
+Elapsed: [4:50:38.192678]  batch: 26  d_loss: -26.131451  g_loss: 125.123497
+Elapsed: [4:50:45.049309]  batch: 27  d_loss: 7.074225  g_loss: 15.184927
+Elapsed: [4:50:51.900337]  batch: 28  d_loss: -57.375702  g_loss: 113.261597
+Elapsed: [4:50:58.754028]  batch: 29  d_loss: -70.212738  g_loss: 132.998962
+Elapsed: [4:51:05.603394]  batch: 30  d_loss: 5.245975  g_loss: 32.817638
+Elapsed: [4:51:12.459451]  batch: 31  d_loss: 24.803797  g_loss: 19.258999
+Elapsed: [4:51:19.311710]  batch: 32  d_loss: -60.788055  g_loss: 174.140625
+Elapsed: [4:51:26.153305]  batch: 33  d_loss: -9.480602  g_loss: 37.498718
+Elapsed: [4:51:32.997128]  batch: 34  d_loss: 20.322113  g_loss: 51.306076
+Elapsed: [4:51:39.840379]  batch: 35  d_loss: -3.114954  g_loss: 21.568077
+Elapsed: [4:51:46.688956]  batch: 36  d_loss: -2.279282  g_loss: 25.941723
+Elapsed: [4:51:53.528322]  batch: 37  d_loss: -21.935181  g_loss: 38.650040
+Elapsed: [4:52:00.378213]  batch: 38  d_loss: -92.437370  g_loss: 112.253036
+Elapsed: [4:52:07.223425]  batch: 39  d_loss: -30.510666  g_loss: 109.466942
+Elapsed: [4:52:14.072726]  batch: 40  d_loss: 15.339270  g_loss: 53.393444
+Elapsed: [4:52:20.923166]  batch: 41  d_loss: -19.731276  g_loss: 43.118958
+Elapsed: [4:52:27.776250]  batch: 42  d_loss: -2.665256  g_loss: 51.090191
+Elapsed: [4:52:34.622350]  batch: 43  d_loss: 6.057348  g_loss: 37.394135
+Elapsed: [4:52:41.476172]  batch: 44  d_loss: -8.875782  g_loss: 1.305854
+Elapsed: [4:52:48.331120]  batch: 45  d_loss: -27.853813  g_loss: 19.806166
+Elapsed: [4:52:55.183418]  batch: 46  d_loss: -17.915539  g_loss: 40.098221
+Elapsed: [4:53:02.039124]  batch: 47  d_loss: -10.374929  g_loss: 137.593857
+Elapsed: [4:53:07.112030]  batch: 48  d_loss: 34.200474  g_loss: -2.586549
+Time taken for epoch: 329.937 secs
+
+Epoch: 106
+Time taken for epoch: 136.397 secs
+
+Epoch: 107
+Time taken for epoch: 140.122 secs
+
+Epoch: 108
+Time taken for epoch: 141.508 secs
+
+Epoch: 109
+Time taken for epoch: 141.827 secs
+
+Epoch: 110
+Time taken for epoch: 142.241 secs
+
+Epoch: 111
+Time taken for epoch: 142.291 secs
+
+Epoch: 112
+Elapsed: [5:07:22.317729]  batch: 1  d_loss: 45.931808  g_loss: 4.436941
+Elapsed: [5:07:29.413858]  batch: 2  d_loss: 12.437359  g_loss: 4.503613
+Elapsed: [5:07:36.514809]  batch: 3  d_loss: -9.362355  g_loss: 21.475073
+Elapsed: [5:07:43.618456]  batch: 4  d_loss: 7.234710  g_loss: 19.451063
+Elapsed: [5:07:50.692072]  batch: 5  d_loss: -60.688091  g_loss: 30.083023
+Elapsed: [5:07:57.750225]  batch: 6  d_loss: -8.217217  g_loss: 41.656475
+Elapsed: [5:08:04.710872]  batch: 7  d_loss: 2.391687  g_loss: 2.365641
+Elapsed: [5:08:11.661698]  batch: 8  d_loss: 4.913198  g_loss: 30.498302
+Elapsed: [5:08:18.678952]  batch: 9  d_loss: -20.519493  g_loss: 78.294449
+Elapsed: [5:08:25.596733]  batch: 10  d_loss: 0.149511  g_loss: 17.372725
+Elapsed: [5:08:32.604559]  batch: 11  d_loss: -26.888603  g_loss: 60.141472
+Elapsed: [5:08:39.529896]  batch: 12  d_loss: -17.451500  g_loss: 35.187939
+Elapsed: [5:08:46.520390]  batch: 13  d_loss: -17.569414  g_loss: 22.841253
+Elapsed: [5:08:53.421068]  batch: 14  d_loss: -13.680343  g_loss: 32.710278
+Elapsed: [5:09:00.401120]  batch: 15  d_loss: -43.034233  g_loss: 72.224365
+Elapsed: [5:09:07.292202]  batch: 16  d_loss: -54.615570  g_loss: 111.047791
+Elapsed: [5:09:14.184784]  batch: 17  d_loss: -13.896753  g_loss: 84.853874
+Elapsed: [5:09:21.093631]  batch: 18  d_loss: -26.349838  g_loss: 100.616226
+Elapsed: [5:09:27.982559]  batch: 19  d_loss: -35.386997  g_loss: 52.678436
+Elapsed: [5:09:34.857988]  batch: 20  d_loss: -11.038959  g_loss: 54.948242
+Elapsed: [5:09:41.732500]  batch: 21  d_loss: -27.823807  g_loss: 87.757690
+Elapsed: [5:09:48.594638]  batch: 22  d_loss: -3.807415  g_loss: 66.561020
+Elapsed: [5:09:55.523423]  batch: 23  d_loss: -74.341469  g_loss: 135.756409
+Elapsed: [5:10:02.416417]  batch: 24  d_loss: -159.400024  g_loss: 217.263718
+Elapsed: [5:10:09.286870]  batch: 25  d_loss: -4.548180  g_loss: 29.290077
+Elapsed: [5:10:16.153077]  batch: 26  d_loss: 32.721252  g_loss: 48.454033
+Elapsed: [5:10:23.014076]  batch: 27  d_loss: 27.076069  g_loss: 212.838181
+Elapsed: [5:10:29.872781]  batch: 28  d_loss: -74.594925  g_loss: 157.354324
+Elapsed: [5:10:36.725992]  batch: 29  d_loss: -33.601151  g_loss: 26.579983
+Elapsed: [5:10:43.575828]  batch: 30  d_loss: -20.058706  g_loss: 71.217010
+Elapsed: [5:10:50.427580]  batch: 31  d_loss: -26.720333  g_loss: 47.996258
+Elapsed: [5:10:57.283395]  batch: 32  d_loss: 16.493345  g_loss: 29.154221
+Elapsed: [5:11:04.135478]  batch: 33  d_loss: -7.754853  g_loss: 25.211926
+Elapsed: [5:11:10.977328]  batch: 34  d_loss: -34.572723  g_loss: 104.877106
+Elapsed: [5:11:17.824796]  batch: 35  d_loss: -90.613487  g_loss: 127.918381
+Elapsed: [5:11:24.665538]  batch: 36  d_loss: -39.772339  g_loss: 56.603436
+Elapsed: [5:11:31.513803]  batch: 37  d_loss: -9.657853  g_loss: 58.889183
+Elapsed: [5:11:38.361825]  batch: 38  d_loss: -87.705383  g_loss: 146.319611
+Elapsed: [5:11:45.210715]  batch: 39  d_loss: 2.395081  g_loss: 39.964157
+Elapsed: [5:11:52.058867]  batch: 40  d_loss: -2.605442  g_loss: 118.604156
+Elapsed: [5:11:58.905165]  batch: 41  d_loss: -52.171139  g_loss: 139.905273
+Elapsed: [5:12:05.753772]  batch: 42  d_loss: -17.564655  g_loss: 66.933716
+Elapsed: [5:12:12.605223]  batch: 43  d_loss: -48.149872  g_loss: 67.267387
+Elapsed: [5:12:19.460969]  batch: 44  d_loss: -34.239952  g_loss: 116.482300
+Elapsed: [5:12:26.319654]  batch: 45  d_loss: 3.276468  g_loss: 116.465759
+Elapsed: [5:12:33.172765]  batch: 46  d_loss: -48.972488  g_loss: 202.038742
+Elapsed: [5:12:40.026254]  batch: 47  d_loss: -18.736780  g_loss: -0.732707
+Elapsed: [5:12:45.099630]  batch: 48  d_loss: -64.704330  g_loss: 198.966599
+Time taken for epoch: 330.549 secs
+
+Epoch: 113
+Time taken for epoch: 136.627 secs
+
+Epoch: 114
+Time taken for epoch: 139.982 secs
+
+Epoch: 115
+Time taken for epoch: 141.525 secs
+
+Epoch: 116
+Time taken for epoch: 142.051 secs
+
+Epoch: 117
+Time taken for epoch: 142.236 secs
+
+Epoch: 118
+Time taken for epoch: 142.418 secs
+
+Epoch: 119
+Elapsed: [5:26:59.254542]  batch: 1  d_loss: -137.454956  g_loss: 197.813522
+Elapsed: [5:27:06.413289]  batch: 2  d_loss: -135.787552  g_loss: 252.879562
+Elapsed: [5:27:13.592123]  batch: 3  d_loss: 122.550362  g_loss: 62.055946
+Elapsed: [5:27:20.722842]  batch: 4  d_loss: -88.318245  g_loss: 210.531891
+Elapsed: [5:27:27.832879]  batch: 5  d_loss: 46.854740  g_loss: -19.592957
+Elapsed: [5:27:34.886553]  batch: 6  d_loss: 12.605446  g_loss: -18.605453
+Elapsed: [5:27:41.904341]  batch: 7  d_loss: -57.336250  g_loss: 160.413788
+Elapsed: [5:27:48.901493]  batch: 8  d_loss: -56.303238  g_loss: 83.665329
+Elapsed: [5:27:55.929060]  batch: 9  d_loss: 5.250002  g_loss: 72.059372
+Elapsed: [5:28:02.927339]  batch: 10  d_loss: -88.963448  g_loss: 252.861618
+Elapsed: [5:28:09.916199]  batch: 11  d_loss: -86.754570  g_loss: 85.693314
+Elapsed: [5:28:16.886842]  batch: 12  d_loss: -38.414742  g_loss: 359.094604
+Elapsed: [5:28:23.861693]  batch: 13  d_loss: -47.418221  g_loss: 11.869223
+Elapsed: [5:28:30.817803]  batch: 14  d_loss: -61.736763  g_loss: 425.720795
+Elapsed: [5:28:37.775996]  batch: 15  d_loss: 248.040878  g_loss: -173.979797
+Elapsed: [5:28:44.722700]  batch: 16  d_loss: -68.114586  g_loss: 20.234598
+Elapsed: [5:28:51.679876]  batch: 17  d_loss: -21.137903  g_loss: 21.845455
+Elapsed: [5:28:58.605038]  batch: 18  d_loss: 35.791218  g_loss: 41.512863
+Elapsed: [5:29:05.561421]  batch: 19  d_loss: -94.847305  g_loss: 137.872421
+Elapsed: [5:29:12.480891]  batch: 20  d_loss: -9.496617  g_loss: 56.160397
+Elapsed: [5:29:19.440197]  batch: 21  d_loss: -30.464560  g_loss: 114.458923
+Elapsed: [5:29:26.375070]  batch: 22  d_loss: 26.017761  g_loss: 24.779356
+Elapsed: [5:29:33.300867]  batch: 23  d_loss: -30.920595  g_loss: 55.321472
+Elapsed: [5:29:40.230595]  batch: 24  d_loss: -42.457531  g_loss: 33.127987
+Elapsed: [5:29:47.142714]  batch: 25  d_loss: -4.896338  g_loss: 41.946075
+Elapsed: [5:29:54.079764]  batch: 26  d_loss: -94.807785  g_loss: 120.680176
+Elapsed: [5:30:00.995448]  batch: 27  d_loss: -45.939266  g_loss: 1.354812
+Elapsed: [5:30:07.902458]  batch: 28  d_loss: 28.124161  g_loss: 92.320374
+Elapsed: [5:30:14.822985]  batch: 29  d_loss: -30.554201  g_loss: 101.067032
+Elapsed: [5:30:21.735722]  batch: 30  d_loss: -105.428024  g_loss: 75.573975
+Elapsed: [5:30:28.629863]  batch: 31  d_loss: -29.708399  g_loss: 96.261627
+Elapsed: [5:30:35.508940]  batch: 32  d_loss: -38.941292  g_loss: 57.415661
+Elapsed: [5:30:42.404599]  batch: 33  d_loss: -55.667496  g_loss: 93.449020
+Elapsed: [5:30:49.324887]  batch: 34  d_loss: 24.185272  g_loss: 45.378288
+Elapsed: [5:30:56.241380]  batch: 35  d_loss: -61.548294  g_loss: 53.462791
+Elapsed: [5:31:03.120477]  batch: 36  d_loss: -89.755554  g_loss: 186.738312
+Elapsed: [5:31:10.004894]  batch: 37  d_loss: -56.096565  g_loss: 78.701630
+Elapsed: [5:31:16.923024]  batch: 38  d_loss: -31.067999  g_loss: 52.581997
+Elapsed: [5:31:23.820275]  batch: 39  d_loss: -37.604176  g_loss: 127.557678
+Elapsed: [5:31:30.702521]  batch: 40  d_loss: -20.718220  g_loss: 17.980850
+Elapsed: [5:31:37.579558]  batch: 41  d_loss: -127.816467  g_loss: 95.204765
+Elapsed: [5:31:44.452639]  batch: 42  d_loss: -170.315979  g_loss: 210.250122
+Elapsed: [5:31:51.345597]  batch: 43  d_loss: 14.056232  g_loss: -42.230911
+Elapsed: [5:31:58.246731]  batch: 44  d_loss: 38.987614  g_loss: 283.115479
+Elapsed: [5:32:05.141726]  batch: 45  d_loss: 25.703407  g_loss: 97.526505
+Elapsed: [5:32:12.031639]  batch: 46  d_loss: -24.144363  g_loss: 58.075241
+Elapsed: [5:32:18.912453]  batch: 47  d_loss: -14.687866  g_loss: 31.442169
+Elapsed: [5:32:24.105031]  batch: 48  d_loss: -125.817841  g_loss: 210.014923
+Time taken for epoch: 332.770 secs
+
+Epoch: 120
+Time taken for epoch: 136.497 secs
+
+Epoch: 121
+Time taken for epoch: 140.186 secs
+
+Epoch: 122
+Time taken for epoch: 141.511 secs
+
+Epoch: 123
+Time taken for epoch: 142.139 secs
+
+Epoch: 124
+Time taken for epoch: 142.279 secs
+
+Epoch: 125
+Time taken for epoch: 142.595 secs
+
+Epoch: 126
+Elapsed: [5:46:40.143327]  batch: 1  d_loss: -87.612999  g_loss: 184.427704
+Elapsed: [5:46:47.358610]  batch: 2  d_loss: -31.548859  g_loss: -5.006054
+Elapsed: [5:46:54.472020]  batch: 3  d_loss: -62.532791  g_loss: 276.325623
+Elapsed: [5:47:01.583187]  batch: 4  d_loss: -112.757767  g_loss: 43.803459
+Elapsed: [5:47:08.673319]  batch: 5  d_loss: 55.184868  g_loss: 122.644714
+Elapsed: [5:47:15.739046]  batch: 6  d_loss: -11.068426  g_loss: 91.737030
+Elapsed: [5:47:22.800082]  batch: 7  d_loss: -15.538696  g_loss: 147.447662
+Elapsed: [5:47:29.857554]  batch: 8  d_loss: 4.252704  g_loss: 21.837200
+Elapsed: [5:47:36.893189]  batch: 9  d_loss: -34.688259  g_loss: 35.572239
+Elapsed: [5:47:43.926802]  batch: 10  d_loss: -42.769077  g_loss: 48.046982
+Elapsed: [5:47:50.965956]  batch: 11  d_loss: -0.654291  g_loss: 140.425293
+Elapsed: [5:47:57.980844]  batch: 12  d_loss: -20.396597  g_loss: 50.038353
+Elapsed: [5:48:04.975784]  batch: 13  d_loss: -49.473072  g_loss: 100.778503
+Elapsed: [5:48:11.992750]  batch: 14  d_loss: -41.718571  g_loss: 99.914574
+Elapsed: [5:48:18.991072]  batch: 15  d_loss: -18.230755  g_loss: 17.463360
+Elapsed: [5:48:25.974666]  batch: 16  d_loss: -16.982841  g_loss: 49.510036
+Elapsed: [5:48:32.943037]  batch: 17  d_loss: 28.808388  g_loss: 50.279320
+Elapsed: [5:48:39.935670]  batch: 18  d_loss: -58.797817  g_loss: 136.147369
+Elapsed: [5:48:46.891536]  batch: 19  d_loss: 48.275135  g_loss: -50.655178
+Elapsed: [5:48:53.869761]  batch: 20  d_loss: 50.741371  g_loss: 26.532864
+Elapsed: [5:49:00.831285]  batch: 21  d_loss: -31.892998  g_loss: 45.562286
+Elapsed: [5:49:07.801121]  batch: 22  d_loss: -99.144783  g_loss: 102.107224
+Elapsed: [5:49:14.839465]  batch: 23  d_loss: -58.886791  g_loss: 59.794250
+Elapsed: [5:49:21.896847]  batch: 24  d_loss: -45.608688  g_loss: 191.616867
+Elapsed: [5:49:28.850261]  batch: 25  d_loss: -73.284912  g_loss: 105.136284
+Elapsed: [5:49:35.867376]  batch: 26  d_loss: -73.202896  g_loss: 46.650551
+Elapsed: [5:49:42.824351]  batch: 27  d_loss: -8.985897  g_loss: 125.134666
+Elapsed: [5:49:49.860568]  batch: 28  d_loss: -65.015976  g_loss: 96.939560
+Elapsed: [5:49:56.913439]  batch: 29  d_loss: -45.364227  g_loss: 73.814819
+Elapsed: [5:50:03.847643]  batch: 30  d_loss: -86.897247  g_loss: 122.939987
+Elapsed: [5:50:10.884202]  batch: 31  d_loss: -63.634254  g_loss: 75.290634
+Elapsed: [5:50:17.848579]  batch: 32  d_loss: 19.476490  g_loss: 39.221989
+Elapsed: [5:50:24.782179]  batch: 33  d_loss: -25.641350  g_loss: 87.070915
+Elapsed: [5:50:31.804550]  batch: 34  d_loss: -96.155991  g_loss: 140.291672
+Elapsed: [5:50:38.725189]  batch: 35  d_loss: -33.545826  g_loss: 159.769073
+Elapsed: [5:50:45.679244]  batch: 36  d_loss: -8.150336  g_loss: 85.682846
+Elapsed: [5:50:52.596184]  batch: 37  d_loss: -22.276098  g_loss: 70.751282
+Elapsed: [5:50:59.532327]  batch: 38  d_loss: -64.508514  g_loss: 186.494598
+Elapsed: [5:51:06.469927]  batch: 39  d_loss: 19.733078  g_loss: -3.076280
+Elapsed: [5:51:13.376616]  batch: 40  d_loss: 43.464897  g_loss: -45.759193
+Elapsed: [5:51:20.320525]  batch: 41  d_loss: -35.064503  g_loss: 115.741661
+Elapsed: [5:51:27.236867]  batch: 42  d_loss: -99.667900  g_loss: 203.345001
+Elapsed: [5:51:34.176885]  batch: 43  d_loss: -71.505516  g_loss: 168.907455
+Elapsed: [5:51:41.124736]  batch: 44  d_loss: 16.628891  g_loss: -24.082396
+Elapsed: [5:51:48.062112]  batch: 45  d_loss: -26.753197  g_loss: 116.080345
+Elapsed: [5:51:55.047211]  batch: 46  d_loss: -15.805425  g_loss: 110.907349
+Elapsed: [5:52:01.954367]  batch: 47  d_loss: 62.102139  g_loss: -93.594528
+Elapsed: [5:52:07.117447]  batch: 48  d_loss: 32.870415  g_loss: 92.178497
+Time taken for epoch: 334.715 secs
+
+Epoch: 127
+Time taken for epoch: 136.317 secs
+
+Epoch: 128
+Time taken for epoch: 140.085 secs
+
+Epoch: 129
+Time taken for epoch: 141.441 secs
+
+Epoch: 130
+Time taken for epoch: 142.120 secs
+
+Epoch: 131
+Time taken for epoch: 142.109 secs
+
+Epoch: 132
+Time taken for epoch: 142.428 secs
+
+Epoch: 133
+Elapsed: [6:06:21.067609]  batch: 1  d_loss: 15.856603  g_loss: 35.029930
+Elapsed: [6:06:28.242446]  batch: 2  d_loss: 9.395346  g_loss: 62.117443
+Elapsed: [6:06:35.413996]  batch: 3  d_loss: -26.232784  g_loss: 65.387337
+Elapsed: [6:06:42.539573]  batch: 4  d_loss: -12.356516  g_loss: 24.325897
+Elapsed: [6:06:49.677371]  batch: 5  d_loss: -97.485771  g_loss: 120.146660
+Elapsed: [6:06:56.838321]  batch: 6  d_loss: -5.786092  g_loss: 51.144070
+Elapsed: [6:07:03.957692]  batch: 7  d_loss: -54.850689  g_loss: 116.162888
+Elapsed: [6:07:11.050934]  batch: 8  d_loss: -43.187347  g_loss: 54.551483
+Elapsed: [6:07:18.126376]  batch: 9  d_loss: -6.937571  g_loss: 100.908981
+Elapsed: [6:07:25.202944]  batch: 10  d_loss: -3.930001  g_loss: 14.673613
+Elapsed: [6:07:32.267983]  batch: 11  d_loss: 6.599370  g_loss: 69.686569
+Elapsed: [6:07:39.320687]  batch: 12  d_loss: -59.086658  g_loss: 71.859840
+Elapsed: [6:07:46.359746]  batch: 13  d_loss: -1.053415  g_loss: 103.471397
+Elapsed: [6:07:53.393064]  batch: 14  d_loss: -58.123539  g_loss: 99.241783
+Elapsed: [6:08:00.429123]  batch: 15  d_loss: -82.752792  g_loss: 176.369019
+Elapsed: [6:08:07.467061]  batch: 16  d_loss: -74.039368  g_loss: 86.111633
+Elapsed: [6:08:14.501208]  batch: 17  d_loss: -7.205477  g_loss: 88.793266
+Elapsed: [6:08:21.536897]  batch: 18  d_loss: -41.202217  g_loss: 86.477676
+Elapsed: [6:08:28.575501]  batch: 19  d_loss: 9.154266  g_loss: 1.948277
+Elapsed: [6:08:35.610427]  batch: 20  d_loss: -4.405577  g_loss: 0.668846
+Elapsed: [6:08:42.624596]  batch: 21  d_loss: -52.050110  g_loss: 233.673767
+Elapsed: [6:08:49.624175]  batch: 22  d_loss: -33.825325  g_loss: 75.954742
+Elapsed: [6:08:56.634912]  batch: 23  d_loss: 101.046257  g_loss: 45.288902
+Elapsed: [6:09:03.656881]  batch: 24  d_loss: -72.026604  g_loss: 93.046532
+Elapsed: [6:09:10.673226]  batch: 25  d_loss: -19.270725  g_loss: 76.538544
+Elapsed: [6:09:17.668269]  batch: 26  d_loss: -38.939201  g_loss: 114.104210
+Elapsed: [6:09:24.660653]  batch: 27  d_loss: -13.915230  g_loss: 85.314941
+Elapsed: [6:09:31.660937]  batch: 28  d_loss: -38.983463  g_loss: 132.483154
+Elapsed: [6:09:38.669003]  batch: 29  d_loss: 21.807697  g_loss: -20.604294
+Elapsed: [6:09:45.639266]  batch: 30  d_loss: -1.631816  g_loss: 55.687119
+Elapsed: [6:09:52.635345]  batch: 31  d_loss: -3.930301  g_loss: 54.461956
+Elapsed: [6:09:59.634509]  batch: 32  d_loss: -10.523850  g_loss: 56.335949
+Elapsed: [6:10:06.602043]  batch: 33  d_loss: -50.433701  g_loss: 127.528198
+Elapsed: [6:10:13.580862]  batch: 34  d_loss: -35.853710  g_loss: 14.316196
+Elapsed: [6:10:20.562575]  batch: 35  d_loss: -48.690300  g_loss: 117.988388
+Elapsed: [6:10:27.524124]  batch: 36  d_loss: -32.054733  g_loss: 68.555763
+Elapsed: [6:10:34.513000]  batch: 37  d_loss: 16.968750  g_loss: 86.500793
+Elapsed: [6:10:41.459584]  batch: 38  d_loss: -36.232384  g_loss: 129.622131
+Elapsed: [6:10:48.433741]  batch: 39  d_loss: -60.421021  g_loss: 112.685318
+Elapsed: [6:10:55.372941]  batch: 40  d_loss: -35.444981  g_loss: 85.666672
+Elapsed: [6:11:02.345697]  batch: 41  d_loss: -38.624588  g_loss: 51.440712
+Elapsed: [6:11:09.296870]  batch: 42  d_loss: -32.273941  g_loss: 49.242352
+Elapsed: [6:11:16.275663]  batch: 43  d_loss: -14.755660  g_loss: -11.580999
+Elapsed: [6:11:23.249824]  batch: 44  d_loss: 7.586849  g_loss: 47.532543
+Elapsed: [6:11:30.211820]  batch: 45  d_loss: -34.168770  g_loss: 59.765240
+Elapsed: [6:11:37.187299]  batch: 46  d_loss: -45.522850  g_loss: 30.952770
+Elapsed: [6:11:44.129745]  batch: 47  d_loss: -19.618650  g_loss: 66.388069
+Elapsed: [6:11:49.325734]  batch: 48  d_loss: 1.650542  g_loss: 25.581717
+Time taken for epoch: 336.214 secs
+
+Epoch: 134
+Time taken for epoch: 136.440 secs
+
+Epoch: 135
+Time taken for epoch: 140.071 secs
+
+Epoch: 136
+Time taken for epoch: 141.428 secs
+
+Epoch: 137
+Time taken for epoch: 142.211 secs
+
+Epoch: 138
+Time taken for epoch: 142.562 secs
+
+Epoch: 139
+Time taken for epoch: 142.645 secs
+
+Epoch: 140
+Elapsed: [6:26:03.976822]  batch: 1  d_loss: -13.665310  g_loss: 227.798874
+Elapsed: [6:26:11.158761]  batch: 2  d_loss: -100.057617  g_loss: 113.935509
+Elapsed: [6:26:18.284087]  batch: 3  d_loss: 29.553043  g_loss: 75.862946
+Elapsed: [6:26:25.389683]  batch: 4  d_loss: 21.585318  g_loss: 6.438193
+Elapsed: [6:26:32.508806]  batch: 5  d_loss: -74.549820  g_loss: 143.747009
+Elapsed: [6:26:39.594018]  batch: 6  d_loss: 23.951563  g_loss: 48.393463
+Elapsed: [6:26:46.667363]  batch: 7  d_loss: -63.710220  g_loss: 75.022324
+Elapsed: [6:26:53.728153]  batch: 8  d_loss: -40.691345  g_loss: 69.573250
+Elapsed: [6:27:00.770079]  batch: 9  d_loss: -51.827835  g_loss: 86.780273
+Elapsed: [6:27:07.806279]  batch: 10  d_loss: -32.843422  g_loss: 58.573975
+Elapsed: [6:27:14.843782]  batch: 11  d_loss: -8.688133  g_loss: 64.883789
+Elapsed: [6:27:21.879401]  batch: 12  d_loss: 40.094769  g_loss: 62.190384
+Elapsed: [6:27:28.914852]  batch: 13  d_loss: -85.179001  g_loss: 117.194603
+Elapsed: [6:27:35.954800]  batch: 14  d_loss: -37.169289  g_loss: 106.930099
+Elapsed: [6:27:42.992192]  batch: 15  d_loss: 33.279167  g_loss: 29.368650
+Elapsed: [6:27:50.003712]  batch: 16  d_loss: -71.072884  g_loss: 98.710159
+Elapsed: [6:27:56.986766]  batch: 17  d_loss: -37.718319  g_loss: 39.639748
+Elapsed: [6:28:03.994102]  batch: 18  d_loss: -6.759383  g_loss: 5.299267
+Elapsed: [6:28:11.010483]  batch: 19  d_loss: -59.605377  g_loss: 87.577927
+Elapsed: [6:28:17.988383]  batch: 20  d_loss: -84.107224  g_loss: 140.573975
+Elapsed: [6:28:24.962106]  batch: 21  d_loss: -70.875977  g_loss: 217.884766
+Elapsed: [6:28:31.961972]  batch: 22  d_loss: 83.973404  g_loss: -3.897900
+Elapsed: [6:28:38.917386]  batch: 23  d_loss: -46.357483  g_loss: 21.605801
+Elapsed: [6:28:45.893426]  batch: 24  d_loss: -43.679676  g_loss: 38.066574
+Elapsed: [6:28:52.850346]  batch: 25  d_loss: -34.655209  g_loss: 75.041626
+Elapsed: [6:28:59.818114]  batch: 26  d_loss: -51.834213  g_loss: 81.249725
+Elapsed: [6:29:06.783557]  batch: 27  d_loss: -60.620327  g_loss: 154.347504
+Elapsed: [6:29:13.739419]  batch: 28  d_loss: -7.645222  g_loss: 89.590721
+Elapsed: [6:29:20.714757]  batch: 29  d_loss: -4.528575  g_loss: 144.653366
+Elapsed: [6:29:27.665975]  batch: 30  d_loss: -30.818275  g_loss: 33.041306
+Elapsed: [6:29:34.643059]  batch: 31  d_loss: -57.853355  g_loss: 106.962448
+Elapsed: [6:29:41.578182]  batch: 32  d_loss: -21.772064  g_loss: 170.653168
+Elapsed: [6:29:48.536299]  batch: 33  d_loss: 0.162764  g_loss: 61.353069
+Elapsed: [6:29:55.470158]  batch: 34  d_loss: -61.337952  g_loss: 116.872581
+Elapsed: [6:30:02.428277]  batch: 35  d_loss: -30.389111  g_loss: 47.683578
+Elapsed: [6:30:09.366247]  batch: 36  d_loss: -81.439865  g_loss: 117.364098
+Elapsed: [6:30:16.309986]  batch: 37  d_loss: -23.550007  g_loss: 86.642746
+Elapsed: [6:30:23.248913]  batch: 38  d_loss: -0.575779  g_loss: 57.796616
+Elapsed: [6:30:30.171626]  batch: 39  d_loss: 31.738737  g_loss: 79.216568
+Elapsed: [6:30:37.117785]  batch: 40  d_loss: -84.230476  g_loss: 140.078491
+Elapsed: [6:30:44.037451]  batch: 41  d_loss: -153.399200  g_loss: 531.906616
+Elapsed: [6:30:50.972018]  batch: 42  d_loss: -158.256851  g_loss: -125.910141
+Elapsed: [6:30:57.914739]  batch: 43  d_loss: 40.054546  g_loss: 632.376953
+Elapsed: [6:31:04.829355]  batch: 44  d_loss: 63.066422  g_loss: -68.570244
+Elapsed: [6:31:11.776745]  batch: 45  d_loss: -26.514627  g_loss: -10.004447
+Elapsed: [6:31:18.699624]  batch: 46  d_loss: -29.528948  g_loss: -23.993694
+Elapsed: [6:31:25.639747]  batch: 47  d_loss: 44.518734  g_loss: -13.516047
+Elapsed: [6:31:30.789669]  batch: 48  d_loss: -1.883178  g_loss: 53.451401
+Time taken for epoch: 334.552 secs
+
+Epoch: 141
+Time taken for epoch: 136.423 secs
+
+Epoch: 142
+Time taken for epoch: 140.090 secs
+
+Epoch: 143
+Time taken for epoch: 141.501 secs
+
+Epoch: 144
+Time taken for epoch: 142.140 secs
+
+Epoch: 145
+Time taken for epoch: 142.439 secs
+
+Epoch: 146
+Time taken for epoch: 142.362 secs
+
+Epoch: 147
+Elapsed: [6:45:46.666054]  batch: 1  d_loss: -63.454910  g_loss: 122.910202
+Elapsed: [6:45:53.921695]  batch: 2  d_loss: -57.095787  g_loss: 150.539810
+Elapsed: [6:46:01.161433]  batch: 3  d_loss: -26.106794  g_loss: 81.684738
+Elapsed: [6:46:08.387678]  batch: 4  d_loss: -19.189590  g_loss: 36.945461
+Elapsed: [6:46:15.609639]  batch: 5  d_loss: -56.646362  g_loss: 51.108932
+Elapsed: [6:46:22.819167]  batch: 6  d_loss: -46.313812  g_loss: 87.811829
+Elapsed: [6:46:30.024361]  batch: 7  d_loss: -22.693094  g_loss: 33.998013
+Elapsed: [6:46:37.138851]  batch: 8  d_loss: -12.837238  g_loss: 43.126106
+Elapsed: [6:46:44.328961]  batch: 9  d_loss: -24.953650  g_loss: 37.424480
+Elapsed: [6:46:51.493593]  batch: 10  d_loss: -10.269367  g_loss: 46.405006
+Elapsed: [6:46:58.653708]  batch: 11  d_loss: -12.206949  g_loss: 45.157589
+Elapsed: [6:47:05.789076]  batch: 12  d_loss: 58.428200  g_loss: 61.818840
+Elapsed: [6:47:12.946956]  batch: 13  d_loss: -19.445541  g_loss: 7.211526
+Elapsed: [6:47:20.079993]  batch: 14  d_loss: -6.110337  g_loss: 60.629253
+Elapsed: [6:47:27.237295]  batch: 15  d_loss: -43.864048  g_loss: 74.960243
+Elapsed: [6:47:34.350018]  batch: 16  d_loss: 1.744704  g_loss: 74.937172
+Elapsed: [6:47:41.400812]  batch: 17  d_loss: -32.340000  g_loss: 116.124420
+Elapsed: [6:47:48.438419]  batch: 18  d_loss: 35.957588  g_loss: -49.161095
+Elapsed: [6:47:55.478921]  batch: 19  d_loss: 35.193798  g_loss: -7.791466
+Elapsed: [6:48:02.513775]  batch: 20  d_loss: 7.361733  g_loss: 15.406797
+Elapsed: [6:48:09.555510]  batch: 21  d_loss: 0.283497  g_loss: 25.208517
+Elapsed: [6:48:16.606111]  batch: 22  d_loss: -51.572994  g_loss: 106.582443
+Elapsed: [6:48:23.648327]  batch: 23  d_loss: -69.511200  g_loss: 114.768700
+Elapsed: [6:48:30.686185]  batch: 24  d_loss: -81.506989  g_loss: 107.351036
+Elapsed: [6:48:37.713954]  batch: 25  d_loss: 53.779434  g_loss: 52.911499
+Elapsed: [6:48:44.709885]  batch: 26  d_loss: -11.499551  g_loss: 29.309765
+Elapsed: [6:48:51.724033]  batch: 27  d_loss: -9.950850  g_loss: 8.563063
+Elapsed: [6:48:58.739922]  batch: 28  d_loss: -48.634850  g_loss: 62.169678
+Elapsed: [6:49:05.762423]  batch: 29  d_loss: -39.535542  g_loss: 50.374172
+Elapsed: [6:49:12.771062]  batch: 30  d_loss: -60.663334  g_loss: 32.167583
+Elapsed: [6:49:19.758862]  batch: 31  d_loss: -21.574505  g_loss: 94.668137
+Elapsed: [6:49:26.765694]  batch: 32  d_loss: 3.124463  g_loss: 108.833946
+Elapsed: [6:49:33.784860]  batch: 33  d_loss: 25.043598  g_loss: 109.352356
+Elapsed: [6:49:40.788504]  batch: 34  d_loss: -26.585197  g_loss: 73.128601
+Elapsed: [6:49:47.773931]  batch: 35  d_loss: -15.285352  g_loss: 89.644577
+Elapsed: [6:49:54.772629]  batch: 36  d_loss: -99.816269  g_loss: 160.999741
+Elapsed: [6:50:01.783171]  batch: 37  d_loss: -77.881165  g_loss: 188.276978
+Elapsed: [6:50:08.778666]  batch: 38  d_loss: -189.897095  g_loss: 491.399658
+Elapsed: [6:50:15.768080]  batch: 39  d_loss: 348.204102  g_loss: -79.903076
+Elapsed: [6:50:22.776788]  batch: 40  d_loss: -22.677988  g_loss: -25.598618
+Elapsed: [6:50:29.792027]  batch: 41  d_loss: -2.949871  g_loss: -1.932405
+Elapsed: [6:50:36.788543]  batch: 42  d_loss: -25.364262  g_loss: -9.092136
+Elapsed: [6:50:43.778893]  batch: 43  d_loss: -41.191959  g_loss: 22.929676
+Elapsed: [6:50:50.775911]  batch: 44  d_loss: -23.349091  g_loss: 5.947801
+Elapsed: [6:50:57.791719]  batch: 45  d_loss: 10.654781  g_loss: 2.161371
+Elapsed: [6:51:04.775372]  batch: 46  d_loss: -30.555477  g_loss: 29.225933
+Elapsed: [6:51:11.768394]  batch: 47  d_loss: -25.336388  g_loss: 37.260303
+Elapsed: [6:51:16.999363]  batch: 48  d_loss: 44.250637  g_loss: 34.441833
+Time taken for epoch: 338.264 secs
+
+Epoch: 148
+Time taken for epoch: 136.415 secs
+
+Epoch: 149
+Time taken for epoch: 140.229 secs
+
+Epoch: 150
+Time taken for epoch: 141.522 secs
+
+Epoch: 151
+Time taken for epoch: 142.235 secs
+
+Epoch: 152
+Time taken for epoch: 142.497 secs
+
+Epoch: 153
+Time taken for epoch: 142.599 secs
+
+Epoch: 154
+Elapsed: [7:05:31.989226]  batch: 1  d_loss: -131.536591  g_loss: 392.273529
+Elapsed: [7:05:39.206040]  batch: 2  d_loss: 130.049225  g_loss: -53.513657
+Elapsed: [7:05:46.377126]  batch: 3  d_loss: 39.394882  g_loss: -18.751179
+Elapsed: [7:05:53.555336]  batch: 4  d_loss: -24.275063  g_loss: 5.302004
+Elapsed: [7:06:00.693364]  batch: 5  d_loss: 20.326038  g_loss: 13.011775
+Elapsed: [7:06:07.837550]  batch: 6  d_loss: -31.254292  g_loss: 21.302319
+Elapsed: [7:06:14.945732]  batch: 7  d_loss: 8.119608  g_loss: 22.776930
+Elapsed: [7:06:22.067358]  batch: 8  d_loss: -25.678623  g_loss: 25.485060
+Elapsed: [7:06:29.175449]  batch: 9  d_loss: -63.431492  g_loss: 77.690033
+Elapsed: [7:06:36.270632]  batch: 10  d_loss: -33.118271  g_loss: 82.492363
+Elapsed: [7:06:43.344199]  batch: 11  d_loss: -35.398697  g_loss: 96.501724
+Elapsed: [7:06:50.403596]  batch: 12  d_loss: -31.325710  g_loss: 92.440552
+Elapsed: [7:06:57.453061]  batch: 13  d_loss: 25.361629  g_loss: -0.151223
+Elapsed: [7:07:04.497316]  batch: 14  d_loss: -44.056877  g_loss: 32.882469
+Elapsed: [7:07:11.544677]  batch: 15  d_loss: -23.484756  g_loss: 55.289551
+Elapsed: [7:07:18.584349]  batch: 16  d_loss: -43.338425  g_loss: 29.412781
+Elapsed: [7:07:25.622981]  batch: 17  d_loss: 13.844439  g_loss: 66.632294
+Elapsed: [7:07:32.673527]  batch: 18  d_loss: 30.936941  g_loss: 50.029949
+Elapsed: [7:07:39.710953]  batch: 19  d_loss: -33.408066  g_loss: 142.374939
+Elapsed: [7:07:46.749378]  batch: 20  d_loss: -25.554619  g_loss: 81.740219
+Elapsed: [7:07:53.847168]  batch: 21  d_loss: -17.818560  g_loss: 48.416603
+Elapsed: [7:08:00.866937]  batch: 22  d_loss: -77.113335  g_loss: 130.440903
+Elapsed: [7:08:07.958625]  batch: 23  d_loss: -33.439220  g_loss: 67.797516
+Elapsed: [7:08:15.053749]  batch: 24  d_loss: -39.017071  g_loss: 54.596436
+Elapsed: [7:08:22.169491]  batch: 25  d_loss: -63.289089  g_loss: 98.050377
+Elapsed: [7:08:29.267206]  batch: 26  d_loss: -5.320275  g_loss: 202.276611
+Elapsed: [7:08:36.286337]  batch: 27  d_loss: -83.893616  g_loss: 79.996483
+Elapsed: [7:08:43.321107]  batch: 28  d_loss: -127.510086  g_loss: 262.930573
+Elapsed: [7:08:50.322887]  batch: 29  d_loss: 98.158310  g_loss: 189.715698
+Elapsed: [7:08:57.306677]  batch: 30  d_loss: 146.440491  g_loss: -45.199120
+Elapsed: [7:09:04.308325]  batch: 31  d_loss: -42.011345  g_loss: -19.290874
+Elapsed: [7:09:11.320970]  batch: 32  d_loss: 23.575596  g_loss: -25.072067
+Elapsed: [7:09:18.301214]  batch: 33  d_loss: -18.576519  g_loss: 12.259497
+Elapsed: [7:09:25.291531]  batch: 34  d_loss: 3.850099  g_loss: 11.284279
+Elapsed: [7:09:32.288516]  batch: 35  d_loss: -28.653917  g_loss: 53.453930
+Elapsed: [7:09:39.273983]  batch: 36  d_loss: -28.910355  g_loss: 70.201286
+Elapsed: [7:09:46.254397]  batch: 37  d_loss: 18.311823  g_loss: 35.484379
+Elapsed: [7:09:53.248085]  batch: 38  d_loss: -93.067596  g_loss: 65.614975
+Elapsed: [7:10:00.225666]  batch: 39  d_loss: -0.365495  g_loss: 53.903740
+Elapsed: [7:10:07.207840]  batch: 40  d_loss: -16.406939  g_loss: 59.019146
+Elapsed: [7:10:14.203779]  batch: 41  d_loss: -7.167838  g_loss: 49.709244
+Elapsed: [7:10:21.188207]  batch: 42  d_loss: -37.567654  g_loss: 80.975174
+Elapsed: [7:10:28.171141]  batch: 43  d_loss: 15.493293  g_loss: 50.075508
+Elapsed: [7:10:35.168634]  batch: 44  d_loss: -114.321762  g_loss: 111.126968
+Elapsed: [7:10:42.145439]  batch: 45  d_loss: -33.668701  g_loss: 62.617962
+Elapsed: [7:10:49.120672]  batch: 46  d_loss: -23.793537  g_loss: 68.918854
+Elapsed: [7:10:56.114108]  batch: 47  d_loss: 18.452574  g_loss: 19.402376
+Elapsed: [7:11:01.301030]  batch: 48  d_loss: -20.095932  g_loss: 217.544434
+Time taken for epoch: 337.263 secs
+
+Epoch: 155
+Time taken for epoch: 136.416 secs
+
+Epoch: 156
+Time taken for epoch: 140.035 secs
+
+Epoch: 157
+Time taken for epoch: 141.514 secs
+
+Epoch: 158
+Time taken for epoch: 142.175 secs
+
+Epoch: 159
+Time taken for epoch: 142.534 secs
+
+Epoch: 160
+Time taken for epoch: 142.602 secs
+
+Epoch: 161
+Elapsed: [7:25:17.555685]  batch: 1  d_loss: -23.662220  g_loss: 31.374470
+Elapsed: [7:25:24.738784]  batch: 2  d_loss: -66.410500  g_loss: 61.313248
+Elapsed: [7:25:31.919188]  batch: 3  d_loss: -19.411758  g_loss: 32.557800
+Elapsed: [7:25:39.091735]  batch: 4  d_loss: -49.622322  g_loss: 67.224052
+Elapsed: [7:25:46.237056]  batch: 5  d_loss: -30.180233  g_loss: 32.980453
+Elapsed: [7:25:53.371925]  batch: 6  d_loss: -52.768806  g_loss: 25.399345
+Elapsed: [7:26:00.504127]  batch: 7  d_loss: -65.857269  g_loss: 104.305725
+Elapsed: [7:26:07.603502]  batch: 8  d_loss: -51.875076  g_loss: 45.271484
+Elapsed: [7:26:14.706548]  batch: 9  d_loss: -23.824533  g_loss: 77.718887
+Elapsed: [7:26:21.812323]  batch: 10  d_loss: 39.700905  g_loss: 69.218468
+Elapsed: [7:26:28.901316]  batch: 11  d_loss: -42.127613  g_loss: 80.245155
+Elapsed: [7:26:35.978247]  batch: 12  d_loss: -23.686935  g_loss: 59.842010
+Elapsed: [7:26:43.036198]  batch: 13  d_loss: -50.705940  g_loss: 213.849701
+Elapsed: [7:26:50.090428]  batch: 14  d_loss: -22.601589  g_loss: 47.097435
+Elapsed: [7:26:57.145691]  batch: 15  d_loss: 6.037411  g_loss: 113.384392
+Elapsed: [7:27:04.199455]  batch: 16  d_loss: -12.700451  g_loss: 51.596703
+Elapsed: [7:27:11.243689]  batch: 17  d_loss: -62.628345  g_loss: 158.089645
+Elapsed: [7:27:18.297238]  batch: 18  d_loss: 15.260118  g_loss: 27.669371
+Elapsed: [7:27:25.334233]  batch: 19  d_loss: 33.659546  g_loss: 58.810711
+Elapsed: [7:27:32.374894]  batch: 20  d_loss: -5.624852  g_loss: 43.811287
+Elapsed: [7:27:39.425130]  batch: 21  d_loss: -71.829185  g_loss: 101.682785
+Elapsed: [7:27:46.461197]  batch: 22  d_loss: 6.941796  g_loss: 8.882941
+Elapsed: [7:27:53.496534]  batch: 23  d_loss: -79.588295  g_loss: 74.886505
+Elapsed: [7:28:00.534570]  batch: 24  d_loss: -46.659885  g_loss: 133.261703
+Elapsed: [7:28:07.577991]  batch: 25  d_loss: -85.284073  g_loss: 258.746887
+Elapsed: [7:28:14.621365]  batch: 26  d_loss: 9.903857  g_loss: -42.119324
+Elapsed: [7:28:21.662226]  batch: 27  d_loss: -18.351482  g_loss: 32.844383
+Elapsed: [7:28:28.687666]  batch: 28  d_loss: -11.834417  g_loss: 56.464203
+Elapsed: [7:28:35.683730]  batch: 29  d_loss: -124.538147  g_loss: 165.114761
+Elapsed: [7:28:42.691300]  batch: 30  d_loss: -13.642149  g_loss: 72.857735
+Elapsed: [7:28:49.706847]  batch: 31  d_loss: -131.780426  g_loss: 283.493713
+Elapsed: [7:28:56.736934]  batch: 32  d_loss: 22.101990  g_loss: 29.814342
+Elapsed: [7:29:03.751251]  batch: 33  d_loss: -39.544102  g_loss: 69.729645
+Elapsed: [7:29:10.736463]  batch: 34  d_loss: 7.016836  g_loss: 43.225689
+Elapsed: [7:29:17.737403]  batch: 35  d_loss: -10.643141  g_loss: 48.078651
+Elapsed: [7:29:24.752431]  batch: 36  d_loss: -49.568974  g_loss: 55.648186
+Elapsed: [7:29:31.753952]  batch: 37  d_loss: -1.042411  g_loss: 33.345379
+Elapsed: [7:29:38.742123]  batch: 38  d_loss: -90.436241  g_loss: 199.338531
+Elapsed: [7:29:45.747851]  batch: 39  d_loss: -133.198730  g_loss: 129.266769
+Elapsed: [7:29:52.761480]  batch: 40  d_loss: -29.185028  g_loss: 181.051849
+Elapsed: [7:29:59.769725]  batch: 41  d_loss: -19.988163  g_loss: -48.293968
+Elapsed: [7:30:06.754759]  batch: 42  d_loss: 145.824966  g_loss: -21.641869
+Elapsed: [7:30:13.752073]  batch: 43  d_loss: -50.482174  g_loss: 74.538925
+Elapsed: [7:30:20.765807]  batch: 44  d_loss: 5.167924  g_loss: 24.977581
+Elapsed: [7:30:27.759591]  batch: 45  d_loss: -0.494572  g_loss: 32.773495
+Elapsed: [7:30:34.749126]  batch: 46  d_loss: -1.775410  g_loss: 97.162521
+Elapsed: [7:30:41.750928]  batch: 47  d_loss: -75.953590  g_loss: 116.482323
+Elapsed: [7:30:46.989213]  batch: 48  d_loss: -141.549805  g_loss: 90.741821
+Time taken for epoch: 337.358 secs
+
+Epoch: 162
+Time taken for epoch: 136.356 secs
+
+Epoch: 163
+Time taken for epoch: 140.073 secs
+
+Epoch: 164
+Time taken for epoch: 141.648 secs
+
+Epoch: 165
+Time taken for epoch: 141.996 secs
+
+Epoch: 166
+Time taken for epoch: 142.434 secs
+
+Epoch: 167
+Time taken for epoch: 142.665 secs
+
+Epoch: 168
+Elapsed: [7:45:01.596721]  batch: 1  d_loss: 6.788857  g_loss: 49.963631
+Elapsed: [7:45:08.911507]  batch: 2  d_loss: -141.269821  g_loss: 165.794342
+Elapsed: [7:45:16.208702]  batch: 3  d_loss: -49.541168  g_loss: 33.196728
+Elapsed: [7:45:23.495589]  batch: 4  d_loss: -30.968704  g_loss: 161.708679
+Elapsed: [7:45:30.773457]  batch: 5  d_loss: -45.768505  g_loss: 61.333008
+Elapsed: [7:45:38.047077]  batch: 6  d_loss: -89.416077  g_loss: 151.014725
+Elapsed: [7:45:45.293952]  batch: 7  d_loss: -64.933556  g_loss: 86.537094
+Elapsed: [7:45:52.535331]  batch: 8  d_loss: -80.220383  g_loss: 139.521118
+Elapsed: [7:45:59.667512]  batch: 9  d_loss: -142.263428  g_loss: 261.073914
+Elapsed: [7:46:06.806324]  batch: 10  d_loss: 42.156303  g_loss: 17.591820
+Elapsed: [7:46:13.919422]  batch: 11  d_loss: -35.907913  g_loss: 72.875816
+Elapsed: [7:46:21.018137]  batch: 12  d_loss: 5.688088  g_loss: 82.507919
+Elapsed: [7:46:28.115956]  batch: 13  d_loss: -42.037155  g_loss: 76.363617
+Elapsed: [7:46:35.236042]  batch: 14  d_loss: -5.828297  g_loss: 175.048523
+Elapsed: [7:46:42.407336]  batch: 15  d_loss: -79.487656  g_loss: 179.716888
+Elapsed: [7:46:49.504731]  batch: 16  d_loss: -113.680656  g_loss: 164.957306
+Elapsed: [7:46:56.601837]  batch: 17  d_loss: -69.967407  g_loss: 135.076874
+Elapsed: [7:47:03.691153]  batch: 18  d_loss: -29.359610  g_loss: 56.746925
+Elapsed: [7:47:10.763306]  batch: 19  d_loss: -61.376591  g_loss: 135.701904
+Elapsed: [7:47:17.827212]  batch: 20  d_loss: -16.932976  g_loss: 24.270063
+Elapsed: [7:47:24.884040]  batch: 21  d_loss: -40.319725  g_loss: 138.401398
+Elapsed: [7:47:31.941036]  batch: 22  d_loss: 5.498910  g_loss: 131.536499
+Elapsed: [7:47:38.996155]  batch: 23  d_loss: -37.357166  g_loss: 160.674957
+Elapsed: [7:47:46.044889]  batch: 24  d_loss: -14.326745  g_loss: 67.146179
+Elapsed: [7:47:53.093199]  batch: 25  d_loss: -40.477306  g_loss: 187.488327
+Elapsed: [7:48:00.135027]  batch: 26  d_loss: -40.254547  g_loss: 28.065472
+Elapsed: [7:48:07.186955]  batch: 27  d_loss: -184.259705  g_loss: 327.061005
+Elapsed: [7:48:14.229930]  batch: 28  d_loss: 57.354847  g_loss: -54.560966
+Elapsed: [7:48:21.275235]  batch: 29  d_loss: -32.647251  g_loss: 54.501751
+Elapsed: [7:48:28.321109]  batch: 30  d_loss: -51.164730  g_loss: 81.362640
+Elapsed: [7:48:35.368063]  batch: 31  d_loss: -47.075645  g_loss: 21.187014
+Elapsed: [7:48:42.464833]  batch: 32  d_loss: -64.048218  g_loss: 141.088684
+Elapsed: [7:48:49.500551]  batch: 33  d_loss: 9.927275  g_loss: 41.291893
+Elapsed: [7:48:56.593055]  batch: 34  d_loss: 47.236275  g_loss: 25.397869
+Elapsed: [7:49:03.613909]  batch: 35  d_loss: 38.104752  g_loss: 39.637772
+Elapsed: [7:49:10.652271]  batch: 36  d_loss: 10.554899  g_loss: 32.231033
+Elapsed: [7:49:17.695857]  batch: 37  d_loss: -76.545731  g_loss: 83.067200
+Elapsed: [7:49:24.731649]  batch: 38  d_loss: 41.300346  g_loss: 56.501762
+Elapsed: [7:49:31.777869]  batch: 39  d_loss: -10.000754  g_loss: 58.686089
+Elapsed: [7:49:38.838072]  batch: 40  d_loss: -31.158964  g_loss: 35.688858
+Elapsed: [7:49:45.881983]  batch: 41  d_loss: -58.812237  g_loss: 59.183666
+Elapsed: [7:49:52.931616]  batch: 42  d_loss: -2.117939  g_loss: 62.650383
+Elapsed: [7:49:59.985015]  batch: 43  d_loss: -34.945171  g_loss: 52.563614
+Elapsed: [7:50:07.024740]  batch: 44  d_loss: -71.956291  g_loss: 81.654251
+Elapsed: [7:50:14.078452]  batch: 45  d_loss: -44.711548  g_loss: 48.314751
+Elapsed: [7:50:21.133497]  batch: 46  d_loss: -74.743530  g_loss: 83.032303
+Elapsed: [7:50:28.177202]  batch: 47  d_loss: -34.580250  g_loss: 91.566124
+Elapsed: [7:50:33.450935]  batch: 48  d_loss: 40.948959  g_loss: 49.753666
+Time taken for epoch: 339.799 secs
+
+Epoch: 169
+Time taken for epoch: 136.356 secs
+
+Epoch: 170
+Time taken for epoch: 140.020 secs
+
+Epoch: 171
+Time taken for epoch: 141.488 secs
+
+Epoch: 172
+Time taken for epoch: 142.094 secs
+
+Epoch: 173
+Time taken for epoch: 142.504 secs
+
+Epoch: 174
+Time taken for epoch: 142.556 secs
+
+Epoch: 175
+Elapsed: [8:04:47.939444]  batch: 1  d_loss: -130.830933  g_loss: 219.835205
+Elapsed: [8:04:55.215540]  batch: 2  d_loss: 0.910271  g_loss: 58.830612
+Elapsed: [8:05:02.493612]  batch: 3  d_loss: -4.511332  g_loss: 122.191299
+Elapsed: [8:05:09.765247]  batch: 4  d_loss: -5.697223  g_loss: 21.929291
+Elapsed: [8:05:17.034710]  batch: 5  d_loss: -82.991333  g_loss: 115.737389
+Elapsed: [8:05:24.287243]  batch: 6  d_loss: -24.140289  g_loss: 46.464565
+Elapsed: [8:05:31.528528]  batch: 7  d_loss: -58.068310  g_loss: 80.572037
+Elapsed: [8:05:38.731212]  batch: 8  d_loss: -36.643856  g_loss: 108.039513
+Elapsed: [8:05:45.926192]  batch: 9  d_loss: 1.663927  g_loss: 76.681946
+Elapsed: [8:05:53.126331]  batch: 10  d_loss: -77.035355  g_loss: 104.385208
+Elapsed: [8:06:00.324528]  batch: 11  d_loss: -58.206467  g_loss: 139.304779
+Elapsed: [8:06:07.489649]  batch: 12  d_loss: -21.899609  g_loss: 81.669128
+Elapsed: [8:06:14.670570]  batch: 13  d_loss: -31.608412  g_loss: 98.780334
+Elapsed: [8:06:21.833188]  batch: 14  d_loss: -121.974480  g_loss: 222.256744
+Elapsed: [8:06:28.990610]  batch: 15  d_loss: -57.779430  g_loss: 129.522400
+Elapsed: [8:06:36.142475]  batch: 16  d_loss: -49.927284  g_loss: 101.525436
+Elapsed: [8:06:43.295583]  batch: 17  d_loss: -22.447083  g_loss: 54.286201
+Elapsed: [8:06:50.439599]  batch: 18  d_loss: -116.490608  g_loss: 288.346741
+Elapsed: [8:06:57.650626]  batch: 19  d_loss: -22.154346  g_loss: 28.631012
+Elapsed: [8:07:04.806595]  batch: 20  d_loss: 93.693283  g_loss: 69.839935
+Elapsed: [8:07:11.936249]  batch: 21  d_loss: -2.434986  g_loss: 73.134689
+Elapsed: [8:07:19.096230]  batch: 22  d_loss: -89.140816  g_loss: 362.653564
+Elapsed: [8:07:26.218698]  batch: 23  d_loss: 19.883701  g_loss: 31.863388
+Elapsed: [8:07:33.330282]  batch: 24  d_loss: -31.317726  g_loss: 95.507774
+Elapsed: [8:07:40.465027]  batch: 25  d_loss: -88.427315  g_loss: 306.528931
+Elapsed: [8:07:47.583874]  batch: 26  d_loss: -57.806236  g_loss: 130.011688
+Elapsed: [8:07:54.700701]  batch: 27  d_loss: -26.622791  g_loss: 28.476219
+Elapsed: [8:08:01.830851]  batch: 28  d_loss: -26.050604  g_loss: 21.170599
+Elapsed: [8:08:09.026957]  batch: 29  d_loss: -100.823418  g_loss: 164.533844
+Elapsed: [8:08:16.205045]  batch: 30  d_loss: -64.926064  g_loss: -19.624035
+Elapsed: [8:08:23.402503]  batch: 31  d_loss: 36.482964  g_loss: 108.476463
+Elapsed: [8:08:30.605218]  batch: 32  d_loss: 57.407391  g_loss: 22.597050
+Elapsed: [8:08:37.780990]  batch: 33  d_loss: -30.460709  g_loss: 87.224091
+Elapsed: [8:08:44.974126]  batch: 34  d_loss: -51.664764  g_loss: 105.122437
+Elapsed: [8:08:52.070983]  batch: 35  d_loss: -45.750469  g_loss: 61.853722
+Elapsed: [8:08:59.270170]  batch: 36  d_loss: -35.134983  g_loss: 124.229065
+Elapsed: [8:09:06.369768]  batch: 37  d_loss: -3.911378  g_loss: 49.097107
+Elapsed: [8:09:13.563753]  batch: 38  d_loss: -15.704097  g_loss: 40.910244
+Elapsed: [8:09:20.672664]  batch: 39  d_loss: -22.943184  g_loss: 25.637869
+Elapsed: [8:09:27.778823]  batch: 40  d_loss: -43.310188  g_loss: 152.442917
+Elapsed: [8:09:34.908006]  batch: 41  d_loss: -22.350721  g_loss: 86.278458
+Elapsed: [8:09:42.006662]  batch: 42  d_loss: -47.153660  g_loss: 129.910370
+Elapsed: [8:09:49.103127]  batch: 43  d_loss: 29.603317  g_loss: 50.389488
+Elapsed: [8:09:56.279842]  batch: 44  d_loss: -16.381170  g_loss: 34.244255
+Elapsed: [8:10:03.478657]  batch: 45  d_loss: -41.694813  g_loss: 51.698181
+Elapsed: [8:10:10.594644]  batch: 46  d_loss: -82.205132  g_loss: 96.029709
+Elapsed: [8:10:17.690438]  batch: 47  d_loss: -91.721611  g_loss: 93.688400
+Elapsed: [8:10:23.005821]  batch: 48  d_loss: -55.764790  g_loss: -30.595398
+Time taken for epoch: 343.087 secs
+
+Epoch: 176
+Time taken for epoch: 136.202 secs
+
+Epoch: 177
+Time taken for epoch: 139.961 secs
+
+Epoch: 178
+Time taken for epoch: 141.487 secs
+
+Epoch: 179
+Time taken for epoch: 142.017 secs
+
+Epoch: 180
+Time taken for epoch: 142.603 secs
+
+Epoch: 181
+Time taken for epoch: 142.394 secs
+
+Epoch: 182
+Elapsed: [8:24:38.852123]  batch: 1  d_loss: -161.824661  g_loss: 308.347137
+Elapsed: [8:24:46.323938]  batch: 2  d_loss: -23.726791  g_loss: 42.524448
+Elapsed: [8:24:53.705926]  batch: 3  d_loss: -9.775009  g_loss: 155.611298
+Elapsed: [8:25:01.079439]  batch: 4  d_loss: -61.508324  g_loss: 51.967651
+Elapsed: [8:25:08.455616]  batch: 5  d_loss: -91.421204  g_loss: 141.795914
+Elapsed: [8:25:15.782759]  batch: 6  d_loss: -77.415260  g_loss: 96.206482
+Elapsed: [8:25:23.118692]  batch: 7  d_loss: -110.181091  g_loss: 170.723022
+Elapsed: [8:25:30.435986]  batch: 8  d_loss: -59.959045  g_loss: 127.951294
+Elapsed: [8:25:37.734547]  batch: 9  d_loss: 9.614799  g_loss: 81.300262
+Elapsed: [8:25:45.027706]  batch: 10  d_loss: -82.170067  g_loss: 105.400108
+Elapsed: [8:25:52.342116]  batch: 11  d_loss: -26.868038  g_loss: 62.338264
+Elapsed: [8:25:59.640324]  batch: 12  d_loss: -99.897339  g_loss: 210.220871
+Elapsed: [8:26:06.918442]  batch: 13  d_loss: -57.809334  g_loss: 91.205589
+Elapsed: [8:26:14.177941]  batch: 14  d_loss: -80.953964  g_loss: 134.195419
+Elapsed: [8:26:21.435417]  batch: 15  d_loss: 61.460716  g_loss: 100.804932
+Elapsed: [8:26:28.690677]  batch: 16  d_loss: -37.611191  g_loss: 73.320663
+Elapsed: [8:26:35.927581]  batch: 17  d_loss: 3.211891  g_loss: 97.326065
+Elapsed: [8:26:43.164523]  batch: 18  d_loss: -10.385738  g_loss: 95.880478
+Elapsed: [8:26:50.402297]  batch: 19  d_loss: 15.346449  g_loss: 124.778076
+Elapsed: [8:26:57.648021]  batch: 20  d_loss: -33.855297  g_loss: 59.779114
+Elapsed: [8:27:04.892093]  batch: 21  d_loss: -20.932470  g_loss: 87.524307
+Elapsed: [8:27:12.133553]  batch: 22  d_loss: -29.475231  g_loss: 82.701012
+Elapsed: [8:27:19.370619]  batch: 23  d_loss: -124.388069  g_loss: 149.074432
+Elapsed: [8:27:26.623657]  batch: 24  d_loss: -30.983458  g_loss: 109.009422
+Elapsed: [8:27:33.865152]  batch: 25  d_loss: -24.511791  g_loss: 55.542187
+Elapsed: [8:27:41.097459]  batch: 26  d_loss: -53.983803  g_loss: 108.094864
+Elapsed: [8:27:48.302038]  batch: 27  d_loss: -29.117634  g_loss: 58.498100
+Elapsed: [8:27:55.527085]  batch: 28  d_loss: 13.682423  g_loss: -8.635747
+Elapsed: [8:28:02.766239]  batch: 29  d_loss: -84.819305  g_loss: 170.376053
+Elapsed: [8:28:09.977294]  batch: 30  d_loss: -194.452164  g_loss: 224.151428
+Elapsed: [8:28:17.196897]  batch: 31  d_loss: 33.731384  g_loss: -17.543423
+Elapsed: [8:28:24.408122]  batch: 32  d_loss: -2.639973  g_loss: 129.404297
+Elapsed: [8:28:31.600397]  batch: 33  d_loss: -50.499062  g_loss: 190.164963
+Elapsed: [8:28:38.802820]  batch: 34  d_loss: -5.615795  g_loss: 74.938492
+Elapsed: [8:28:46.013790]  batch: 35  d_loss: -76.689728  g_loss: 138.471710
+Elapsed: [8:28:53.240415]  batch: 36  d_loss: -98.324890  g_loss: 126.464859
+Elapsed: [8:29:00.441367]  batch: 37  d_loss: -128.585541  g_loss: 215.014999
+Elapsed: [8:29:07.630980]  batch: 38  d_loss: -32.794083  g_loss: 161.423737
+Elapsed: [8:29:14.826230]  batch: 39  d_loss: -98.415100  g_loss: 282.626373
+Elapsed: [8:29:22.022580]  batch: 40  d_loss: 102.853180  g_loss: -85.110016
+Elapsed: [8:29:29.312235]  batch: 41  d_loss: 20.001122  g_loss: 159.534760
+Elapsed: [8:29:36.588718]  batch: 42  d_loss: -34.942871  g_loss: 138.232727
+Elapsed: [8:29:43.786100]  batch: 43  d_loss: -21.735594  g_loss: 99.750755
+Elapsed: [8:29:51.061514]  batch: 44  d_loss: -22.505129  g_loss: 141.164200
+Elapsed: [8:29:58.219863]  batch: 45  d_loss: 5.557305  g_loss: -24.685406
+Elapsed: [8:30:05.473638]  batch: 46  d_loss: 23.327980  g_loss: 62.646721
+Elapsed: [8:30:12.667472]  batch: 47  d_loss: 36.254925  g_loss: -21.889935
+Elapsed: [8:30:18.154133]  batch: 48  d_loss: -40.769787  g_loss: 109.893982
+Time taken for epoch: 347.511 secs
+
+Epoch: 183
+Time taken for epoch: 135.973 secs
+
+Epoch: 184
+Time taken for epoch: 140.067 secs
+
+Epoch: 185
+Time taken for epoch: 141.474 secs
+
+Epoch: 186
+Time taken for epoch: 141.938 secs
+
+Epoch: 187
+Time taken for epoch: 142.336 secs
+
+Epoch: 188
+Time taken for epoch: 142.632 secs
+
+Epoch: 189
+Elapsed: [8:44:32.189301]  batch: 1  d_loss: 36.975136  g_loss: 29.936275
+Elapsed: [8:44:39.603661]  batch: 2  d_loss: -14.557592  g_loss: 72.086815
+Elapsed: [8:44:47.016110]  batch: 3  d_loss: 21.024338  g_loss: 41.442795
+Elapsed: [8:44:54.411641]  batch: 4  d_loss: -4.955832  g_loss: 71.699982
+Elapsed: [8:45:01.768276]  batch: 5  d_loss: -1.364136  g_loss: 13.314329
+Elapsed: [8:45:09.141907]  batch: 6  d_loss: -58.211632  g_loss: 101.375938
+Elapsed: [8:45:16.481383]  batch: 7  d_loss: -28.365337  g_loss: 70.660248
+Elapsed: [8:45:23.823032]  batch: 8  d_loss: -16.595484  g_loss: 69.133934
+Elapsed: [8:45:31.136789]  batch: 9  d_loss: -94.414917  g_loss: 93.251335
+Elapsed: [8:45:38.533312]  batch: 10  d_loss: -85.625870  g_loss: 138.263306
+Elapsed: [8:45:45.832592]  batch: 11  d_loss: -103.116982  g_loss: 207.785095
+Elapsed: [8:45:53.230827]  batch: 12  d_loss: -16.090580  g_loss: 114.815727
+Elapsed: [8:46:00.524665]  batch: 13  d_loss: 32.988548  g_loss: -31.068029
+Elapsed: [8:46:07.799943]  batch: 14  d_loss: -8.133078  g_loss: 14.055340
+Elapsed: [8:46:15.077791]  batch: 15  d_loss: -34.956863  g_loss: 103.668724
+Elapsed: [8:46:22.369534]  batch: 16  d_loss: -105.633125  g_loss: 136.266586
+Elapsed: [8:46:29.654449]  batch: 17  d_loss: -0.824987  g_loss: 14.050444
+Elapsed: [8:46:36.930528]  batch: 18  d_loss: -60.344368  g_loss: 113.637863
+Elapsed: [8:46:44.191778]  batch: 19  d_loss: -64.093262  g_loss: 118.298668
+Elapsed: [8:46:51.459197]  batch: 20  d_loss: -111.110458  g_loss: 246.160080
+Elapsed: [8:46:58.715645]  batch: 21  d_loss: -61.085949  g_loss: 77.960960
+Elapsed: [8:47:05.970577]  batch: 22  d_loss: -8.302641  g_loss: 21.482901
+Elapsed: [8:47:13.225085]  batch: 23  d_loss: 59.677605  g_loss: 5.732993
+Elapsed: [8:47:20.474265]  batch: 24  d_loss: -51.405170  g_loss: 106.676865
+Elapsed: [8:47:27.724570]  batch: 25  d_loss: -4.291199  g_loss: 63.256454
+Elapsed: [8:47:34.965814]  batch: 26  d_loss: -15.561232  g_loss: 5.660896
+Elapsed: [8:47:42.213770]  batch: 27  d_loss: -92.450172  g_loss: 124.619217
+Elapsed: [8:47:49.515703]  batch: 28  d_loss: 9.910838  g_loss: 50.339157
+Elapsed: [8:47:56.810181]  batch: 29  d_loss: -107.320114  g_loss: 114.789902
+Elapsed: [8:48:04.028727]  batch: 30  d_loss: 26.466658  g_loss: 89.281601
+Elapsed: [8:48:11.249355]  batch: 31  d_loss: -26.910995  g_loss: 41.817993
+Elapsed: [8:48:18.546969]  batch: 32  d_loss: -40.149693  g_loss: 55.838768
+Elapsed: [8:48:25.848694]  batch: 33  d_loss: -102.773628  g_loss: 91.676926
+Elapsed: [8:48:33.164777]  batch: 34  d_loss: -22.955215  g_loss: 38.533764
+Elapsed: [8:48:40.457165]  batch: 35  d_loss: -36.575333  g_loss: 94.387024
+Elapsed: [8:48:47.692845]  batch: 36  d_loss: -42.151077  g_loss: 97.658264
+Elapsed: [8:48:54.927352]  batch: 37  d_loss: -111.139023  g_loss: 163.549820
+Elapsed: [8:49:02.224594]  batch: 38  d_loss: 42.313347  g_loss: 39.686050
+Elapsed: [8:49:09.445062]  batch: 39  d_loss: -108.828926  g_loss: 121.225906
+Elapsed: [8:49:16.678273]  batch: 40  d_loss: 21.892368  g_loss: -40.896088
+Elapsed: [8:49:23.975889]  batch: 41  d_loss: -17.632484  g_loss: 243.183701
+Elapsed: [8:49:31.260512]  batch: 42  d_loss: -20.501354  g_loss: 36.305450
+Elapsed: [8:49:38.474469]  batch: 43  d_loss: -61.981972  g_loss: 105.944183
+Elapsed: [8:49:45.754283]  batch: 44  d_loss: 1.983473  g_loss: 70.878075
+Elapsed: [8:49:52.968494]  batch: 45  d_loss: -79.478279  g_loss: 104.266861
+Elapsed: [8:50:00.262685]  batch: 46  d_loss: -82.405716  g_loss: 164.797592
+Elapsed: [8:50:07.481956]  batch: 47  d_loss: 8.813711  g_loss: 65.262207
+Elapsed: [8:50:12.938479]  batch: 48  d_loss: -70.477203  g_loss: 192.267059
+Time taken for epoch: 348.874 secs
+
+Epoch: 190
+Time taken for epoch: 136.001 secs
+
+Epoch: 191
+Time taken for epoch: 139.812 secs
+
+Epoch: 192
+Time taken for epoch: 141.425 secs
+
+Epoch: 193
+Time taken for epoch: 142.103 secs
+
+Epoch: 194
+Time taken for epoch: 142.411 secs
+
+Epoch: 195
+Time taken for epoch: 142.615 secs
+
+Epoch: 196
+Elapsed: [9:04:28.520384]  batch: 1  d_loss: -9.145827  g_loss: -7.991904
+Elapsed: [9:04:36.068686]  batch: 2  d_loss: -61.973057  g_loss: 18.478764
+Elapsed: [9:04:43.607687]  batch: 3  d_loss: -27.040440  g_loss: 38.195137
+Elapsed: [9:04:51.113138]  batch: 4  d_loss: -36.069626  g_loss: 40.891151
+Elapsed: [9:04:58.689793]  batch: 5  d_loss: -21.638172  g_loss: 30.514654
+Elapsed: [9:05:06.158498]  batch: 6  d_loss: -19.487617  g_loss: 51.765930
+Elapsed: [9:05:13.619266]  batch: 7  d_loss: 17.348774  g_loss: 23.770855
+Elapsed: [9:05:21.075441]  batch: 8  d_loss: -79.795334  g_loss: 74.532242
+Elapsed: [9:05:28.587798]  batch: 9  d_loss: 12.838271  g_loss: 30.382599
+Elapsed: [9:05:36.004719]  batch: 10  d_loss: -14.451376  g_loss: 29.651302
+Elapsed: [9:05:43.486207]  batch: 11  d_loss: 12.598637  g_loss: 39.221535
+Elapsed: [9:05:50.900614]  batch: 12  d_loss: 44.958836  g_loss: 55.926449
+Elapsed: [9:05:58.372907]  batch: 13  d_loss: 17.977726  g_loss: 53.698692
+Elapsed: [9:06:05.836107]  batch: 14  d_loss: -22.032787  g_loss: 43.484978
+Elapsed: [9:06:13.319214]  batch: 15  d_loss: -7.299630  g_loss: 57.123718
+Elapsed: [9:06:20.711574]  batch: 16  d_loss: 15.164423  g_loss: 71.530472
+Elapsed: [9:06:28.168607]  batch: 17  d_loss: -34.072166  g_loss: 111.357117
+Elapsed: [9:06:35.565145]  batch: 18  d_loss: -70.046051  g_loss: 154.490936
+Elapsed: [9:06:43.046484]  batch: 19  d_loss: 19.073149  g_loss: 25.318329
+Elapsed: [9:06:50.501458]  batch: 20  d_loss: -9.217866  g_loss: 18.153894
+Elapsed: [9:06:57.944184]  batch: 21  d_loss: -23.016470  g_loss: 50.618877
+Elapsed: [9:07:05.408267]  batch: 22  d_loss: -33.374023  g_loss: 42.775925
+Elapsed: [9:07:12.862449]  batch: 23  d_loss: -30.430428  g_loss: 69.999763
+Elapsed: [9:07:20.303735]  batch: 24  d_loss: -60.585037  g_loss: 56.959251
+Elapsed: [9:07:27.751334]  batch: 25  d_loss: -125.179993  g_loss: 108.113022
+Elapsed: [9:07:35.098945]  batch: 26  d_loss: -5.994952  g_loss: 40.169388
+Elapsed: [9:07:42.465026]  batch: 27  d_loss: -1.361068  g_loss: 30.693508
+Elapsed: [9:07:49.815159]  batch: 28  d_loss: 7.880679  g_loss: 68.337875
+Elapsed: [9:07:57.186651]  batch: 29  d_loss: 29.450317  g_loss: 60.309429
+Elapsed: [9:08:04.581731]  batch: 30  d_loss: -101.907089  g_loss: 85.278030
+Elapsed: [9:08:11.929306]  batch: 31  d_loss: -15.257462  g_loss: 21.197042
+Elapsed: [9:08:19.297222]  batch: 32  d_loss: -82.021126  g_loss: 106.685730
+Elapsed: [9:08:26.649292]  batch: 33  d_loss: -46.809895  g_loss: 67.425140
+Elapsed: [9:08:34.007448]  batch: 34  d_loss: 11.923619  g_loss: 106.198166
+Elapsed: [9:08:41.358979]  batch: 35  d_loss: -25.136608  g_loss: 61.956718
+Elapsed: [9:08:48.732198]  batch: 36  d_loss: -63.810356  g_loss: 155.825165
+Elapsed: [9:08:56.091395]  batch: 37  d_loss: 8.222118  g_loss: 19.383801
+Elapsed: [9:09:03.447326]  batch: 38  d_loss: -12.431234  g_loss: 0.968560
+Elapsed: [9:09:10.784688]  batch: 39  d_loss: 9.223320  g_loss: 20.933712
+Elapsed: [9:09:18.140738]  batch: 40  d_loss: -63.591042  g_loss: 60.245667
+Elapsed: [9:09:25.458936]  batch: 41  d_loss: -41.998997  g_loss: 132.263245
+Elapsed: [9:09:32.815168]  batch: 42  d_loss: -54.102531  g_loss: 143.166611
+Elapsed: [9:09:40.171881]  batch: 43  d_loss: -25.196358  g_loss: 92.349472
+Elapsed: [9:09:47.528155]  batch: 44  d_loss: -159.315445  g_loss: 425.705444
+Elapsed: [9:09:54.864287]  batch: 45  d_loss: 150.938522  g_loss: -101.619034
+Elapsed: [9:10:02.220801]  batch: 46  d_loss: 78.624374  g_loss: -25.275017
+Elapsed: [9:10:09.560547]  batch: 47  d_loss: -1.625772  g_loss: 107.012657
+Elapsed: [9:10:15.161887]  batch: 48  d_loss: -6.704943  g_loss: 13.876093
+Time taken for epoch: 354.926 secs
+
+Epoch: 197
+Time taken for epoch: 136.000 secs
+
+Epoch: 198
+Time taken for epoch: 139.816 secs
+
+Epoch: 199
+Time taken for epoch: 141.589 secs
+
+Epoch: 200
+Time taken for epoch: 142.160 secs
+
+Epoch: 201
+Time taken for epoch: 142.401 secs
+
+Epoch: 202
+Time taken for epoch: 142.836 secs
+
+Epoch: 203
+Elapsed: [9:24:29.729514]  batch: 1  d_loss: -80.444435  g_loss: 117.513237
+Elapsed: [9:24:37.317977]  batch: 2  d_loss: 24.180681  g_loss: 30.244095
+Elapsed: [9:24:44.887256]  batch: 3  d_loss: -77.907280  g_loss: 150.954697
+Elapsed: [9:24:52.457305]  batch: 4  d_loss: -42.121925  g_loss: 59.610756
+Elapsed: [9:25:00.043770]  batch: 5  d_loss: -47.546417  g_loss: 122.543663
+Elapsed: [9:25:07.635576]  batch: 6  d_loss: -18.814306  g_loss: 71.241028
+Elapsed: [9:25:15.225354]  batch: 7  d_loss: 14.239092  g_loss: 23.986416
+Elapsed: [9:25:22.782654]  batch: 8  d_loss: -62.940437  g_loss: 95.239258
+Elapsed: [9:25:30.343692]  batch: 9  d_loss: -21.592379  g_loss: 80.589905
+Elapsed: [9:25:37.879791]  batch: 10  d_loss: -56.144897  g_loss: 112.488640
+Elapsed: [9:25:45.435339]  batch: 11  d_loss: -8.036100  g_loss: 83.794861
+Elapsed: [9:25:52.954554]  batch: 12  d_loss: -75.745346  g_loss: 100.540710
+Elapsed: [9:26:00.488204]  batch: 13  d_loss: -54.072281  g_loss: 53.776855
+Elapsed: [9:26:08.007793]  batch: 14  d_loss: 19.550999  g_loss: 60.057022
+Elapsed: [9:26:15.518093]  batch: 15  d_loss: -21.488783  g_loss: 65.435478
+Elapsed: [9:26:22.942310]  batch: 16  d_loss: -72.892471  g_loss: 194.700836
+Elapsed: [9:26:30.377720]  batch: 17  d_loss: -8.202687  g_loss: 26.274612
+Elapsed: [9:26:37.796117]  batch: 18  d_loss: -6.179547  g_loss: 42.387707
+Elapsed: [9:26:45.232187]  batch: 19  d_loss: -61.810452  g_loss: 89.254478
+Elapsed: [9:26:52.630007]  batch: 20  d_loss: -93.985497  g_loss: 173.073639
+Elapsed: [9:27:00.014574]  batch: 21  d_loss: -114.386169  g_loss: 103.124107
+Elapsed: [9:27:07.421735]  batch: 22  d_loss: -21.351868  g_loss: 41.888237
+Elapsed: [9:27:14.830496]  batch: 23  d_loss: -17.461493  g_loss: 48.395500
+Elapsed: [9:27:22.196201]  batch: 24  d_loss: -58.236279  g_loss: 123.189476
+Elapsed: [9:27:29.585848]  batch: 25  d_loss: -165.355621  g_loss: 389.697113
+Elapsed: [9:27:36.982098]  batch: 26  d_loss: -268.053772  g_loss: 99.080170
+Elapsed: [9:27:44.345367]  batch: 27  d_loss: 19.751619  g_loss: 740.620239
+Elapsed: [9:27:51.729587]  batch: 28  d_loss: 413.897217  g_loss: -76.529877
+Elapsed: [9:27:59.191449]  batch: 29  d_loss: -6.455366  g_loss: -71.677208
+Elapsed: [9:28:06.650764]  batch: 30  d_loss: -15.968758  g_loss: -23.253363
+Elapsed: [9:28:14.112801]  batch: 31  d_loss: -67.852264  g_loss: 37.359055
+Elapsed: [9:28:21.507842]  batch: 32  d_loss: -55.465870  g_loss: -18.718189
+Elapsed: [9:28:28.967171]  batch: 33  d_loss: -5.228367  g_loss: -20.733551
+Elapsed: [9:28:36.406957]  batch: 34  d_loss: -33.981304  g_loss: 52.624954
+Elapsed: [9:28:43.759236]  batch: 35  d_loss: 34.763790  g_loss: -19.250759
+Elapsed: [9:28:51.136646]  batch: 36  d_loss: 1.144922  g_loss: -0.334829
+Elapsed: [9:28:58.474509]  batch: 37  d_loss: 13.172744  g_loss: 11.514338
+Elapsed: [9:29:05.851142]  batch: 38  d_loss: -27.741323  g_loss: 33.425541
+Elapsed: [9:29:13.190861]  batch: 39  d_loss: -64.720093  g_loss: 22.384977
+Elapsed: [9:29:20.561002]  batch: 40  d_loss: -52.283020  g_loss: 31.945026
+Elapsed: [9:29:27.900395]  batch: 41  d_loss: -13.400469  g_loss: 12.504866
+Elapsed: [9:29:35.260396]  batch: 42  d_loss: -33.802807  g_loss: 7.123387
+Elapsed: [9:29:42.595861]  batch: 43  d_loss: -64.403954  g_loss: 22.650543
+Elapsed: [9:29:49.957476]  batch: 44  d_loss: -49.364914  g_loss: 16.748377
+Elapsed: [9:29:57.292341]  batch: 45  d_loss: 80.602806  g_loss: 40.019260
+Elapsed: [9:30:04.660059]  batch: 46  d_loss: -110.226753  g_loss: 116.959076
+Elapsed: [9:30:12.002820]  batch: 47  d_loss: -51.223961  g_loss: 58.906700
+Elapsed: [9:30:17.602657]  batch: 48  d_loss: -181.913544  g_loss: 110.408676
+Time taken for epoch: 356.122 secs
+
+Epoch: 204
+Time taken for epoch: 136.139 secs
+
+Epoch: 205
+Time taken for epoch: 139.926 secs
+
+Epoch: 206
+Time taken for epoch: 141.404 secs
+
+Epoch: 207
+Time taken for epoch: 142.074 secs
+
+Epoch: 208
+Time taken for epoch: 142.345 secs
+
+Epoch: 209
+Time taken for epoch: 142.665 secs
+
+Epoch: 210
+Elapsed: [9:44:31.939119]  batch: 1  d_loss: -46.644592  g_loss: 46.425835
+Elapsed: [9:44:39.502023]  batch: 2  d_loss: -40.703968  g_loss: 107.705711
+Elapsed: [9:44:47.069450]  batch: 3  d_loss: -45.951157  g_loss: 103.723923
+Elapsed: [9:44:54.592978]  batch: 4  d_loss: -39.508255  g_loss: 37.941673
+Elapsed: [9:45:02.114537]  batch: 5  d_loss: 2.654336  g_loss: 24.287323
+Elapsed: [9:45:09.618793]  batch: 6  d_loss: -23.745777  g_loss: 129.992172
+Elapsed: [9:45:17.101927]  batch: 7  d_loss: -22.343731  g_loss: -14.073860
+Elapsed: [9:45:24.583096]  batch: 8  d_loss: 10.096210  g_loss: 45.132561
+Elapsed: [9:45:32.038277]  batch: 9  d_loss: -45.003540  g_loss: 77.650192
+Elapsed: [9:45:39.481453]  batch: 10  d_loss: 21.907835  g_loss: 76.661308
+Elapsed: [9:45:46.930035]  batch: 11  d_loss: -74.474792  g_loss: 84.435410
+Elapsed: [9:45:54.375992]  batch: 12  d_loss: -144.494339  g_loss: 201.380493
+Elapsed: [9:46:01.805828]  batch: 13  d_loss: 86.282631  g_loss: 38.060757
+Elapsed: [9:46:09.242735]  batch: 14  d_loss: -30.769772  g_loss: 62.057999
+Elapsed: [9:46:16.676095]  batch: 15  d_loss: -34.324890  g_loss: 82.777908
+Elapsed: [9:46:24.113994]  batch: 16  d_loss: -73.811745  g_loss: 176.254120
+Elapsed: [9:46:31.528358]  batch: 17  d_loss: -10.930126  g_loss: 33.225777
+Elapsed: [9:46:38.916720]  batch: 18  d_loss: -69.434738  g_loss: 68.351402
+Elapsed: [9:46:46.365172]  batch: 19  d_loss: 30.711313  g_loss: 87.984520
+Elapsed: [9:46:53.760032]  batch: 20  d_loss: 8.565985  g_loss: 69.426498
+Elapsed: [9:47:01.177216]  batch: 21  d_loss: -20.051815  g_loss: 38.470192
+Elapsed: [9:47:08.574452]  batch: 22  d_loss: -67.800186  g_loss: 83.702515
+Elapsed: [9:47:15.958398]  batch: 23  d_loss: -212.744110  g_loss: 250.367279
+Elapsed: [9:47:23.344833]  batch: 24  d_loss: 16.416029  g_loss: 64.194130
+Elapsed: [9:47:30.728750]  batch: 25  d_loss: -20.936909  g_loss: 17.780388
+Elapsed: [9:47:38.094911]  batch: 26  d_loss: -8.367182  g_loss: 33.716934
+Elapsed: [9:47:45.487069]  batch: 27  d_loss: -17.636824  g_loss: 77.397614
+Elapsed: [9:47:52.846548]  batch: 28  d_loss: -66.215652  g_loss: 104.799911
+Elapsed: [9:48:00.225879]  batch: 29  d_loss: -192.680161  g_loss: 360.015503
+Elapsed: [9:48:07.594017]  batch: 30  d_loss: 84.808533  g_loss: 25.375748
+Elapsed: [9:48:14.962801]  batch: 31  d_loss: -72.774742  g_loss: 99.194702
+Elapsed: [9:48:22.352831]  batch: 32  d_loss: 129.603729  g_loss: 39.571766
+Elapsed: [9:48:29.697043]  batch: 33  d_loss: 65.250153  g_loss: 55.849670
+Elapsed: [9:48:37.070248]  batch: 34  d_loss: -29.980156  g_loss: 32.807522
+Elapsed: [9:48:44.422078]  batch: 35  d_loss: 15.565720  g_loss: 36.345402
+Elapsed: [9:48:51.795117]  batch: 36  d_loss: -37.888260  g_loss: 37.656929
+Elapsed: [9:48:59.237743]  batch: 37  d_loss: -31.162861  g_loss: 46.142532
+Elapsed: [9:49:06.693387]  batch: 38  d_loss: -52.004635  g_loss: 77.101166
+Elapsed: [9:49:14.136409]  batch: 39  d_loss: -78.543274  g_loss: 106.103806
+Elapsed: [9:49:21.590794]  batch: 40  d_loss: 30.315224  g_loss: 26.120026
+Elapsed: [9:49:29.040437]  batch: 41  d_loss: -90.091080  g_loss: 100.213829
+Elapsed: [9:49:36.485993]  batch: 42  d_loss: -32.898605  g_loss: 60.614525
+Elapsed: [9:49:43.945391]  batch: 43  d_loss: -4.134870  g_loss: 48.412224
+Elapsed: [9:49:51.382958]  batch: 44  d_loss: -19.719255  g_loss: 52.888611
+Elapsed: [9:49:58.824991]  batch: 45  d_loss: -31.455896  g_loss: 74.946777
+Elapsed: [9:50:06.259652]  batch: 46  d_loss: -31.660299  g_loss: 63.246029
+Elapsed: [9:50:13.666018]  batch: 47  d_loss: -10.231892  g_loss: 51.105347
+Elapsed: [9:50:19.298839]  batch: 48  d_loss: 32.705063  g_loss: 89.117912
+Time taken for epoch: 355.691 secs
+
+Epoch: 211
+Time taken for epoch: 135.882 secs
+
+Epoch: 212
+Time taken for epoch: 139.720 secs
+
+Epoch: 213
+Time taken for epoch: 141.417 secs
+
+Epoch: 214
+Time taken for epoch: 142.186 secs
+
+Epoch: 215
+Time taken for epoch: 142.491 secs
+
+Epoch: 216
+Time taken for epoch: 142.234 secs
+
+Epoch: 217
+Elapsed: [10:04:34.565285]  batch: 1  d_loss: 0.988196  g_loss: 13.303850
+Elapsed: [10:04:42.126957]  batch: 2  d_loss: -26.342312  g_loss: 29.452278
+Elapsed: [10:04:49.704767]  batch: 3  d_loss: 6.956590  g_loss: 23.249128
+Elapsed: [10:04:57.230474]  batch: 4  d_loss: -52.516407  g_loss: 62.016216
+Elapsed: [10:05:04.769123]  batch: 5  d_loss: 9.972282  g_loss: 42.064796
+Elapsed: [10:05:12.286048]  batch: 6  d_loss: -100.684723  g_loss: 103.838867
+Elapsed: [10:05:19.851350]  batch: 7  d_loss: -28.046886  g_loss: 96.557388
+Elapsed: [10:05:27.344674]  batch: 8  d_loss: 1.412492  g_loss: 27.825644
+Elapsed: [10:05:34.823256]  batch: 9  d_loss: 3.477342  g_loss: 82.229004
+Elapsed: [10:05:42.285805]  batch: 10  d_loss: -14.519154  g_loss: 35.560612
+Elapsed: [10:05:49.737186]  batch: 11  d_loss: -28.361652  g_loss: 66.383171
+Elapsed: [10:05:57.179760]  batch: 12  d_loss: -22.384636  g_loss: 132.101166
+Elapsed: [10:06:04.636437]  batch: 13  d_loss: -162.702179  g_loss: 225.862549
+Elapsed: [10:06:12.076378]  batch: 14  d_loss: -38.316959  g_loss: 95.531860
+Elapsed: [10:06:19.504279]  batch: 15  d_loss: -124.670692  g_loss: 282.196747
+Elapsed: [10:06:26.942358]  batch: 16  d_loss: 171.432236  g_loss: 20.886177
+Elapsed: [10:06:34.380585]  batch: 17  d_loss: 12.655369  g_loss: 73.172157
+Elapsed: [10:06:41.801633]  batch: 18  d_loss: -38.437664  g_loss: 108.249023
+Elapsed: [10:06:49.192025]  batch: 19  d_loss: -65.982162  g_loss: 140.919296
+Elapsed: [10:06:56.654006]  batch: 20  d_loss: -42.322048  g_loss: 87.939072
+Elapsed: [10:07:04.043952]  batch: 21  d_loss: -77.785965  g_loss: 197.281982
+Elapsed: [10:07:11.447657]  batch: 22  d_loss: 60.422138  g_loss: -5.594175
+Elapsed: [10:07:18.839626]  batch: 23  d_loss: 96.975471  g_loss: 25.381544
+Elapsed: [10:07:26.318148]  batch: 24  d_loss: -32.421413  g_loss: 46.649170
+Elapsed: [10:07:33.794810]  batch: 25  d_loss: -34.690819  g_loss: 39.275261
+Elapsed: [10:07:41.157601]  batch: 26  d_loss: -70.101212  g_loss: 86.523254
+Elapsed: [10:07:48.598684]  batch: 27  d_loss: -51.433468  g_loss: 50.476910
+Elapsed: [10:07:55.984638]  batch: 28  d_loss: -26.517088  g_loss: 65.691734
+Elapsed: [10:08:03.443767]  batch: 29  d_loss: -88.089691  g_loss: 118.783737
+Elapsed: [10:08:10.818915]  batch: 30  d_loss: -111.067551  g_loss: 90.654297
+Elapsed: [10:08:18.192538]  batch: 31  d_loss: -27.053951  g_loss: 89.583649
+Elapsed: [10:08:25.585909]  batch: 32  d_loss: 17.630886  g_loss: 82.059776
+Elapsed: [10:08:33.046668]  batch: 33  d_loss: -28.949793  g_loss: 52.000488
+Elapsed: [10:08:40.401834]  batch: 34  d_loss: -44.327393  g_loss: 169.628784
+Elapsed: [10:08:47.780112]  batch: 35  d_loss: -93.279243  g_loss: 143.112122
+Elapsed: [10:08:55.171484]  batch: 36  d_loss: -22.902193  g_loss: 87.111069
+Elapsed: [10:09:02.517820]  batch: 37  d_loss: -2.898445  g_loss: 57.177818
+Elapsed: [10:09:09.893256]  batch: 38  d_loss: -21.500416  g_loss: 38.308605
+Elapsed: [10:09:17.246566]  batch: 39  d_loss: -105.332878  g_loss: 172.384338
+Elapsed: [10:09:24.625958]  batch: 40  d_loss: -17.089037  g_loss: 55.581097
+Elapsed: [10:09:32.082049]  batch: 41  d_loss: -136.412445  g_loss: 150.878769
+Elapsed: [10:09:39.538472]  batch: 42  d_loss: -12.548607  g_loss: 86.332199
+Elapsed: [10:09:46.974938]  batch: 43  d_loss: -18.804956  g_loss: 116.956352
+Elapsed: [10:09:54.311462]  batch: 44  d_loss: 13.931107  g_loss: -9.984880
+Elapsed: [10:10:01.668801]  batch: 45  d_loss: -11.968973  g_loss: 26.721218
+Elapsed: [10:10:09.003642]  batch: 46  d_loss: -50.427734  g_loss: 80.753143
+Elapsed: [10:10:16.384698]  batch: 47  d_loss: -26.444431  g_loss: 22.569801
+Elapsed: [10:10:21.964486]  batch: 48  d_loss: -15.847929  g_loss: 52.243668
+Time taken for epoch: 355.613 secs
+
+Epoch: 218
+Time taken for epoch: 135.952 secs
+
+Epoch: 219
+Time taken for epoch: 139.776 secs
+
+Epoch: 220
+Time taken for epoch: 141.558 secs
+
+Epoch: 221
+Time taken for epoch: 141.884 secs
+
+Epoch: 222
+Time taken for epoch: 142.357 secs
+
+Epoch: 223
+Time taken for epoch: 142.516 secs
+
+Epoch: 224
+Elapsed: [10:24:35.902385]  batch: 1  d_loss: -104.592705  g_loss: 192.584152
+Elapsed: [10:24:43.480165]  batch: 2  d_loss: 46.849163  g_loss: 25.946997
+Elapsed: [10:24:51.014789]  batch: 3  d_loss: -78.632744  g_loss: 90.173065
+Elapsed: [10:24:58.559986]  batch: 4  d_loss: -28.538904  g_loss: 44.004238
+Elapsed: [10:25:06.055562]  batch: 5  d_loss: -120.381210  g_loss: 92.574371
+Elapsed: [10:25:13.550548]  batch: 6  d_loss: -6.591889  g_loss: 50.717968
+Elapsed: [10:25:21.031577]  batch: 7  d_loss: -34.545982  g_loss: 81.066139
+Elapsed: [10:25:28.526184]  batch: 8  d_loss: 20.770689  g_loss: 29.090948
+Elapsed: [10:25:35.991404]  batch: 9  d_loss: 2.308204  g_loss: 45.158363
+Elapsed: [10:25:43.450735]  batch: 10  d_loss: -26.448425  g_loss: 67.651566
+Elapsed: [10:25:50.905559]  batch: 11  d_loss: 19.180901  g_loss: 70.608063
+Elapsed: [10:25:58.352734]  batch: 12  d_loss: -89.603783  g_loss: 141.439575
+Elapsed: [10:26:05.804870]  batch: 13  d_loss: 12.650215  g_loss: 50.810085
+Elapsed: [10:26:13.244040]  batch: 14  d_loss: -3.605228  g_loss: 64.640648
+Elapsed: [10:26:20.676466]  batch: 15  d_loss: -36.997841  g_loss: 113.115768
+Elapsed: [10:26:28.075785]  batch: 16  d_loss: -80.374176  g_loss: 97.360374
+Elapsed: [10:26:35.466027]  batch: 17  d_loss: -82.561111  g_loss: 151.468170
+Elapsed: [10:26:42.867458]  batch: 18  d_loss: 28.321049  g_loss: 37.177883
+Elapsed: [10:26:50.285889]  batch: 19  d_loss: 14.174032  g_loss: 57.426739
+Elapsed: [10:26:57.682506]  batch: 20  d_loss: -29.396431  g_loss: 54.441936
+Elapsed: [10:27:05.058477]  batch: 21  d_loss: -2.022860  g_loss: 29.955366
+Elapsed: [10:27:12.496408]  batch: 22  d_loss: -16.016880  g_loss: 52.443600
+Elapsed: [10:27:19.888137]  batch: 23  d_loss: -17.819826  g_loss: 89.965881
+Elapsed: [10:27:27.238995]  batch: 24  d_loss: -24.521915  g_loss: 83.588776
+Elapsed: [10:27:34.611073]  batch: 25  d_loss: -76.313232  g_loss: 137.145554
+Elapsed: [10:27:42.068888]  batch: 26  d_loss: -23.635077  g_loss: 72.569672
+Elapsed: [10:27:49.537513]  batch: 27  d_loss: 42.106800  g_loss: 30.223343
+Elapsed: [10:27:56.993129]  batch: 28  d_loss: -25.316662  g_loss: 30.322628
+Elapsed: [10:28:04.345823]  batch: 29  d_loss: -40.073654  g_loss: 52.453716
+Elapsed: [10:28:11.716104]  batch: 30  d_loss: -50.660732  g_loss: 76.668777
+Elapsed: [10:28:19.083814]  batch: 31  d_loss: -74.977745  g_loss: 104.741806
+Elapsed: [10:28:26.434276]  batch: 32  d_loss: -13.653311  g_loss: 73.815979
+Elapsed: [10:28:33.815593]  batch: 33  d_loss: -63.099594  g_loss: 104.011864
+Elapsed: [10:28:41.163954]  batch: 34  d_loss: 0.915117  g_loss: 70.684814
+Elapsed: [10:28:48.538608]  batch: 35  d_loss: -33.249748  g_loss: 82.464874
+Elapsed: [10:28:55.863367]  batch: 36  d_loss: -102.065582  g_loss: 221.030487
+Elapsed: [10:29:03.222320]  batch: 37  d_loss: 21.092623  g_loss: 22.742447
+Elapsed: [10:29:10.571079]  batch: 38  d_loss: -15.575886  g_loss: 71.537521
+Elapsed: [10:29:17.931920]  batch: 39  d_loss: 1.509092  g_loss: 67.417107
+Elapsed: [10:29:25.276161]  batch: 40  d_loss: -32.483162  g_loss: 117.917175
+Elapsed: [10:29:32.632329]  batch: 41  d_loss: -22.963875  g_loss: 85.890274
+Elapsed: [10:29:40.061028]  batch: 42  d_loss: 24.196327  g_loss: -10.833973
+Elapsed: [10:29:47.388461]  batch: 43  d_loss: -61.924004  g_loss: 136.841461
+Elapsed: [10:29:54.786866]  batch: 44  d_loss: 14.662001  g_loss: 83.879959
+Elapsed: [10:30:02.122694]  batch: 45  d_loss: -58.749268  g_loss: 112.458191
+Elapsed: [10:30:09.462614]  batch: 46  d_loss: -64.071617  g_loss: 112.269829
+Elapsed: [10:30:16.818189]  batch: 47  d_loss: 31.794231  g_loss: 18.338552
+Elapsed: [10:30:22.399689]  batch: 48  d_loss: 8.184850  g_loss: 80.030914
+Time taken for epoch: 354.861 secs
+
+Epoch: 225
+Time taken for epoch: 136.017 secs
+
+Epoch: 226
+Time taken for epoch: 139.892 secs
+
+Epoch: 227
+Time taken for epoch: 141.486 secs
+
+Epoch: 228
+Time taken for epoch: 141.954 secs
+
+Epoch: 229
+Time taken for epoch: 142.493 secs
+
+Epoch: 230
+Time taken for epoch: 142.713 secs
+
+Epoch: 231
+Elapsed: [10:44:38.308769]  batch: 1  d_loss: -79.612137  g_loss: 49.940216
+Elapsed: [10:44:45.927364]  batch: 2  d_loss: -77.502419  g_loss: 197.093552
+Elapsed: [10:44:53.523875]  batch: 3  d_loss: 6.820621  g_loss: 97.023308
+Elapsed: [10:45:01.073663]  batch: 4  d_loss: -33.535038  g_loss: 39.232464
+Elapsed: [10:45:08.634196]  batch: 5  d_loss: -36.624561  g_loss: 49.363525
+Elapsed: [10:45:16.154396]  batch: 6  d_loss: -21.696613  g_loss: 56.739010
+Elapsed: [10:45:23.692766]  batch: 7  d_loss: -41.312309  g_loss: 110.928085
+Elapsed: [10:45:31.210104]  batch: 8  d_loss: 22.951298  g_loss: 62.801239
+Elapsed: [10:45:38.706425]  batch: 9  d_loss: -66.648842  g_loss: 90.484726
+Elapsed: [10:45:46.203398]  batch: 10  d_loss: -8.897816  g_loss: 54.320477
+Elapsed: [10:45:53.701956]  batch: 11  d_loss: -14.539525  g_loss: 86.806541
+Elapsed: [10:46:01.174731]  batch: 12  d_loss: -97.037041  g_loss: 144.971619
+Elapsed: [10:46:08.652877]  batch: 13  d_loss: -35.634953  g_loss: 39.395260
+Elapsed: [10:46:16.112396]  batch: 14  d_loss: -48.064034  g_loss: 90.621208
+Elapsed: [10:46:23.568221]  batch: 15  d_loss: -87.601013  g_loss: 143.452911
+Elapsed: [10:46:31.023391]  batch: 16  d_loss: 28.917667  g_loss: 37.134502
+Elapsed: [10:46:38.462906]  batch: 17  d_loss: -18.133139  g_loss: 100.767166
+Elapsed: [10:46:45.900286]  batch: 18  d_loss: 46.654274  g_loss: 4.993475
+Elapsed: [10:46:53.338236]  batch: 19  d_loss: -84.085190  g_loss: 52.522705
+Elapsed: [10:47:00.795063]  batch: 20  d_loss: 5.931226  g_loss: 74.693871
+Elapsed: [10:47:08.240361]  batch: 21  d_loss: -16.763802  g_loss: 107.705109
+Elapsed: [10:47:15.684607]  batch: 22  d_loss: -64.074295  g_loss: 126.498413
+Elapsed: [10:47:23.126898]  batch: 23  d_loss: 9.117014  g_loss: 43.867950
+Elapsed: [10:47:30.561491]  batch: 24  d_loss: -42.178837  g_loss: 90.710251
+Elapsed: [10:47:37.968930]  batch: 25  d_loss: -15.739686  g_loss: 51.832153
+Elapsed: [10:47:45.379296]  batch: 26  d_loss: -98.525124  g_loss: 193.106445
+Elapsed: [10:47:52.799522]  batch: 27  d_loss: -17.083569  g_loss: 96.261429
+Elapsed: [10:48:00.215270]  batch: 28  d_loss: 19.828192  g_loss: 119.413750
+Elapsed: [10:48:07.642370]  batch: 29  d_loss: -60.887638  g_loss: 107.265312
+Elapsed: [10:48:15.055675]  batch: 30  d_loss: 17.837191  g_loss: 5.161459
+Elapsed: [10:48:22.441177]  batch: 31  d_loss: 8.272521  g_loss: 31.576046
+Elapsed: [10:48:29.842973]  batch: 32  d_loss: -39.823879  g_loss: 77.690247
+Elapsed: [10:48:37.260948]  batch: 33  d_loss: 37.747139  g_loss: 90.258102
+Elapsed: [10:48:44.640758]  batch: 34  d_loss: -104.346848  g_loss: 128.722382
+Elapsed: [10:48:52.030223]  batch: 35  d_loss: 6.153052  g_loss: 66.288101
+Elapsed: [10:48:59.325101]  batch: 36  d_loss: -19.577295  g_loss: 38.154430
+Elapsed: [10:49:06.643873]  batch: 37  d_loss: -65.633926  g_loss: 61.480026
+Elapsed: [10:49:13.959715]  batch: 38  d_loss: -62.699680  g_loss: 67.712021
+Elapsed: [10:49:21.258226]  batch: 39  d_loss: 6.516074  g_loss: 41.767166
+Elapsed: [10:49:28.557430]  batch: 40  d_loss: -122.953308  g_loss: 205.266571
+Elapsed: [10:49:35.877714]  batch: 41  d_loss: -18.045597  g_loss: 61.101879
+Elapsed: [10:49:43.180892]  batch: 42  d_loss: -72.838425  g_loss: 105.818604
+Elapsed: [10:49:50.467754]  batch: 43  d_loss: -17.266006  g_loss: 135.407532
+Elapsed: [10:49:57.763290]  batch: 44  d_loss: -120.541237  g_loss: 118.479332
+Elapsed: [10:50:05.081532]  batch: 45  d_loss: -67.564064  g_loss: 142.225586
+Elapsed: [10:50:12.380326]  batch: 46  d_loss: -40.334663  g_loss: 88.563156
+Elapsed: [10:50:19.675310]  batch: 47  d_loss: 38.877968  g_loss: 111.810226
+Elapsed: [10:50:25.177259]  batch: 48  d_loss: 20.297764  g_loss: 81.569672
+Time taken for epoch: 355.112 secs
+
+Epoch: 232
+Time taken for epoch: 135.890 secs
+
+Epoch: 233
+Time taken for epoch: 139.962 secs
+
+Epoch: 234
+Time taken for epoch: 141.494 secs
+
+Epoch: 235
+Time taken for epoch: 142.063 secs
+
+Epoch: 236
+Time taken for epoch: 142.404 secs
+
+Epoch: 237
+Time taken for epoch: 142.590 secs
+
+Epoch: 238
+Elapsed: [11:04:39.253898]  batch: 1  d_loss: -65.722382  g_loss: 259.044006
+Elapsed: [11:04:46.787637]  batch: 2  d_loss: -152.313248  g_loss: -52.080284
+Elapsed: [11:04:54.288185]  batch: 3  d_loss: 135.648346  g_loss: 251.596115
+Elapsed: [11:05:01.766625]  batch: 4  d_loss: 34.237656  g_loss: 34.962914
+Elapsed: [11:05:09.226719]  batch: 5  d_loss: -37.123264  g_loss: 37.743851
+Elapsed: [11:05:16.664773]  batch: 6  d_loss: 19.399279  g_loss: 20.370781
+Elapsed: [11:05:24.086324]  batch: 7  d_loss: -50.701851  g_loss: 63.612957
+Elapsed: [11:05:31.509307]  batch: 8  d_loss: -37.317551  g_loss: 65.747131
+Elapsed: [11:05:38.939281]  batch: 9  d_loss: -33.097401  g_loss: 59.971218
+Elapsed: [11:05:46.359833]  batch: 10  d_loss: -20.200125  g_loss: 75.376205
+Elapsed: [11:05:53.786481]  batch: 11  d_loss: -47.407799  g_loss: 83.923721
+Elapsed: [11:06:01.192485]  batch: 12  d_loss: -31.588148  g_loss: 32.954926
+Elapsed: [11:06:08.565740]  batch: 13  d_loss: -37.043121  g_loss: 103.860252
+Elapsed: [11:06:15.959734]  batch: 14  d_loss: -95.822647  g_loss: 127.394310
+Elapsed: [11:06:23.339705]  batch: 15  d_loss: -75.704895  g_loss: 175.602386
+Elapsed: [11:06:30.702720]  batch: 16  d_loss: -129.982361  g_loss: 161.159119
+Elapsed: [11:06:38.094831]  batch: 17  d_loss: 19.936428  g_loss: 4.325855
+Elapsed: [11:06:45.439215]  batch: 18  d_loss: 44.171783  g_loss: 44.236824
+Elapsed: [11:06:52.808630]  batch: 19  d_loss: -59.494034  g_loss: 105.230164
+Elapsed: [11:07:00.145619]  batch: 20  d_loss: -32.752419  g_loss: 153.075180
+Elapsed: [11:07:07.509348]  batch: 21  d_loss: -12.046532  g_loss: -108.980553
+Elapsed: [11:07:14.959306]  batch: 22  d_loss: -10.426338  g_loss: 242.147339
+Elapsed: [11:07:22.407568]  batch: 23  d_loss: 1.931748  g_loss: 102.440170
+Elapsed: [11:07:29.742237]  batch: 24  d_loss: -98.602562  g_loss: 216.308472
+Elapsed: [11:07:37.092180]  batch: 25  d_loss: -47.416809  g_loss: 164.411285
+Elapsed: [11:07:44.425110]  batch: 26  d_loss: -13.025977  g_loss: 168.373474
+Elapsed: [11:07:51.756484]  batch: 27  d_loss: -75.759827  g_loss: 77.227715
+Elapsed: [11:07:59.104618]  batch: 28  d_loss: 87.588135  g_loss: -1.487635
+Elapsed: [11:08:06.423003]  batch: 29  d_loss: -36.334408  g_loss: 71.861855
+Elapsed: [11:08:13.774424]  batch: 30  d_loss: -45.900177  g_loss: 44.721489
+Elapsed: [11:08:21.173719]  batch: 31  d_loss: -54.431557  g_loss: 124.324432
+Elapsed: [11:08:28.567812]  batch: 32  d_loss: 31.750134  g_loss: 32.432724
+Elapsed: [11:08:35.982205]  batch: 33  d_loss: -63.920280  g_loss: 59.472637
+Elapsed: [11:08:43.408017]  batch: 34  d_loss: -20.982962  g_loss: 34.921173
+Elapsed: [11:08:50.812758]  batch: 35  d_loss: -88.564980  g_loss: 107.104156
+Elapsed: [11:08:58.203734]  batch: 36  d_loss: 10.815523  g_loss: 64.640961
+Elapsed: [11:09:05.603469]  batch: 37  d_loss: -51.004364  g_loss: 115.145203
+Elapsed: [11:09:13.017102]  batch: 38  d_loss: -84.629547  g_loss: 163.229980
+Elapsed: [11:09:20.417745]  batch: 39  d_loss: -41.117310  g_loss: 90.395874
+Elapsed: [11:09:27.809065]  batch: 40  d_loss: 40.417442  g_loss: 23.754974
+Elapsed: [11:09:35.206578]  batch: 41  d_loss: -43.255608  g_loss: 149.293488
+Elapsed: [11:09:42.610002]  batch: 42  d_loss: -103.287598  g_loss: 179.922882
+Elapsed: [11:09:49.916528]  batch: 43  d_loss: 34.737274  g_loss: 32.300259
+Elapsed: [11:09:57.254518]  batch: 44  d_loss: -26.345684  g_loss: 29.199524
+Elapsed: [11:10:04.569577]  batch: 45  d_loss: -11.139067  g_loss: 10.836884
+Elapsed: [11:10:11.872643]  batch: 46  d_loss: -8.766922  g_loss: 43.197182
+Elapsed: [11:10:19.165544]  batch: 47  d_loss: -6.146303  g_loss: 45.007805
+Elapsed: [11:10:24.680606]  batch: 48  d_loss: 17.644613  g_loss: 53.612385
+Time taken for epoch: 353.571 secs
+
+Epoch: 239
+Time taken for epoch: 135.929 secs
+
+Epoch: 240
+Time taken for epoch: 140.013 secs
+
+Epoch: 241
+Time taken for epoch: 141.259 secs
+
+Epoch: 242
+Time taken for epoch: 141.927 secs
+
+Epoch: 243
+Time taken for epoch: 142.477 secs
+
+Epoch: 244
+Time taken for epoch: 142.637 secs
+
+Epoch: 245
+Elapsed: [11:24:38.654537]  batch: 1  d_loss: -53.501904  g_loss: 84.395599
+Elapsed: [11:24:46.207772]  batch: 2  d_loss: -189.196747  g_loss: 211.262482
+Elapsed: [11:24:53.720538]  batch: 3  d_loss: -13.510963  g_loss: 56.177986
+Elapsed: [11:25:01.234382]  batch: 4  d_loss: -59.721214  g_loss: 77.946648
+Elapsed: [11:25:08.728792]  batch: 5  d_loss: 8.554873  g_loss: 35.098701
+Elapsed: [11:25:16.206392]  batch: 6  d_loss: -16.644855  g_loss: 35.517059
+Elapsed: [11:25:23.654394]  batch: 7  d_loss: -36.326302  g_loss: 96.965355
+Elapsed: [11:25:31.102696]  batch: 8  d_loss: -39.276112  g_loss: 54.254601
+Elapsed: [11:25:38.546456]  batch: 9  d_loss: -9.524637  g_loss: 67.979584
+Elapsed: [11:25:45.980756]  batch: 10  d_loss: -15.243774  g_loss: 66.464043
+Elapsed: [11:25:53.398311]  batch: 11  d_loss: -62.055252  g_loss: 77.109116
+Elapsed: [11:26:00.831756]  batch: 12  d_loss: -84.886475  g_loss: 104.436203
+Elapsed: [11:26:08.237982]  batch: 13  d_loss: -12.474279  g_loss: 84.413170
+Elapsed: [11:26:15.631099]  batch: 14  d_loss: -64.363762  g_loss: 169.184616
+Elapsed: [11:26:23.028079]  batch: 15  d_loss: -77.844040  g_loss: 106.395798
+Elapsed: [11:26:30.440198]  batch: 16  d_loss: -62.105476  g_loss: 100.204407
+Elapsed: [11:26:37.811920]  batch: 17  d_loss: -23.068363  g_loss: 134.987701
+Elapsed: [11:26:45.195124]  batch: 18  d_loss: -24.201633  g_loss: 75.569748
+Elapsed: [11:26:52.591044]  batch: 19  d_loss: 40.199188  g_loss: 75.029526
+Elapsed: [11:26:59.947903]  batch: 20  d_loss: -94.714157  g_loss: 157.334045
+Elapsed: [11:27:07.325675]  batch: 21  d_loss: -67.094635  g_loss: 138.137787
+Elapsed: [11:27:14.677359]  batch: 22  d_loss: 67.598724  g_loss: 73.198853
+Elapsed: [11:27:22.038949]  batch: 23  d_loss: -14.089796  g_loss: 36.245708
+Elapsed: [11:27:29.393476]  batch: 24  d_loss: -87.955574  g_loss: 142.591339
+Elapsed: [11:27:36.760031]  batch: 25  d_loss: -10.287346  g_loss: 44.483929
+Elapsed: [11:27:44.128156]  batch: 26  d_loss: -21.332766  g_loss: 21.262211
+Elapsed: [11:27:51.484559]  batch: 27  d_loss: -38.128963  g_loss: 61.301464
+Elapsed: [11:27:58.865444]  batch: 28  d_loss: -100.553459  g_loss: 137.739502
+Elapsed: [11:28:06.206515]  batch: 29  d_loss: 2.513601  g_loss: 60.422867
+Elapsed: [11:28:13.570663]  batch: 30  d_loss: 77.101479  g_loss: 53.849251
+Elapsed: [11:28:20.910175]  batch: 31  d_loss: -110.370178  g_loss: 241.995041
+Elapsed: [11:28:28.278670]  batch: 32  d_loss: 14.739599  g_loss: 61.049438
+Elapsed: [11:28:35.614390]  batch: 33  d_loss: 32.285027  g_loss: 47.775738
+Elapsed: [11:28:42.978246]  batch: 34  d_loss: -27.997950  g_loss: 29.810524
+Elapsed: [11:28:50.310429]  batch: 35  d_loss: -43.698395  g_loss: 61.183311
+Elapsed: [11:28:57.645865]  batch: 36  d_loss: -21.202532  g_loss: 70.016022
+Elapsed: [11:29:04.984261]  batch: 37  d_loss: -56.812172  g_loss: 88.191635
+Elapsed: [11:29:12.298967]  batch: 38  d_loss: 3.454867  g_loss: 80.522858
+Elapsed: [11:29:19.654284]  batch: 39  d_loss: -112.624367  g_loss: 118.925713
+Elapsed: [11:29:26.987151]  batch: 40  d_loss: -115.474312  g_loss: 310.402527
+Elapsed: [11:29:34.331409]  batch: 41  d_loss: 27.440292  g_loss: 63.968140
+Elapsed: [11:29:41.665637]  batch: 42  d_loss: 13.380842  g_loss: 22.734474
+Elapsed: [11:29:48.982787]  batch: 43  d_loss: -53.027523  g_loss: 37.373791
+Elapsed: [11:29:56.320301]  batch: 44  d_loss: -90.208588  g_loss: 109.632126
+Elapsed: [11:30:03.639117]  batch: 45  d_loss: -57.523796  g_loss: 43.840923
+Elapsed: [11:30:10.975234]  batch: 46  d_loss: 6.850731  g_loss: 125.432907
+Elapsed: [11:30:18.310220]  batch: 47  d_loss: -23.749365  g_loss: 67.377731
+Elapsed: [11:30:23.846650]  batch: 48  d_loss: 56.206924  g_loss: 210.419022
+Time taken for epoch: 353.424 secs
+
+Epoch: 246
+Time taken for epoch: 135.868 secs
+
+Epoch: 247
+Time taken for epoch: 139.823 secs
+
+Epoch: 248
+Time taken for epoch: 141.427 secs
+
+Epoch: 249
+Time taken for epoch: 142.022 secs
+
+Epoch: 250
+Time taken for epoch: 142.424 secs
+
+Epoch: 251
+Time taken for epoch: 142.537 secs
+
+Epoch: 252
+Elapsed: [11:44:39.249654]  batch: 1  d_loss: -88.366440  g_loss: 76.547981
+Elapsed: [11:44:46.954415]  batch: 2  d_loss: 0.773090  g_loss: 56.080162
+Elapsed: [11:44:54.545188]  batch: 3  d_loss: -118.496193  g_loss: 131.386444
+Elapsed: [11:45:02.122734]  batch: 4  d_loss: -34.162430  g_loss: 47.124496
+Elapsed: [11:45:09.689832]  batch: 5  d_loss: 12.104414  g_loss: 35.785282
+Elapsed: [11:45:17.226351]  batch: 6  d_loss: -103.120094  g_loss: 97.938049
+Elapsed: [11:45:24.747806]  batch: 7  d_loss: -114.782349  g_loss: 140.345749
+Elapsed: [11:45:32.273694]  batch: 8  d_loss: -9.876499  g_loss: 161.571655
+Elapsed: [11:45:39.786232]  batch: 9  d_loss: 3.797346  g_loss: 85.692528
+Elapsed: [11:45:47.285174]  batch: 10  d_loss: -21.926277  g_loss: 117.645988
+Elapsed: [11:45:54.885538]  batch: 11  d_loss: -93.800232  g_loss: 84.781601
+Elapsed: [11:46:02.363163]  batch: 12  d_loss: 6.890922  g_loss: 20.128916
+Elapsed: [11:46:09.833875]  batch: 13  d_loss: 17.379189  g_loss: 102.872116
+Elapsed: [11:46:17.297277]  batch: 14  d_loss: 0.616692  g_loss: 78.969467
+Elapsed: [11:46:24.769593]  batch: 15  d_loss: -24.766241  g_loss: 49.341698
+Elapsed: [11:46:32.242918]  batch: 16  d_loss: -15.502257  g_loss: 49.798733
+Elapsed: [11:46:39.725168]  batch: 17  d_loss: -72.621262  g_loss: 68.912109
+Elapsed: [11:46:47.197134]  batch: 18  d_loss: 19.831568  g_loss: 67.712708
+Elapsed: [11:46:54.660294]  batch: 19  d_loss: -27.143663  g_loss: 67.084045
+Elapsed: [11:47:02.111239]  batch: 20  d_loss: 17.892113  g_loss: 33.693333
+Elapsed: [11:47:09.559973]  batch: 21  d_loss: -72.411026  g_loss: 80.915283
+Elapsed: [11:47:17.007546]  batch: 22  d_loss: -52.503922  g_loss: 83.972183
+Elapsed: [11:47:24.455109]  batch: 23  d_loss: -47.969540  g_loss: 72.633255
+Elapsed: [11:47:31.913057]  batch: 24  d_loss: 49.531475  g_loss: 21.457266
+Elapsed: [11:47:39.362433]  batch: 25  d_loss: 7.066552  g_loss: 32.157753
+Elapsed: [11:47:46.800167]  batch: 26  d_loss: -7.204708  g_loss: 22.202820
+Elapsed: [11:47:54.235090]  batch: 27  d_loss: 4.531948  g_loss: 42.085060
+Elapsed: [11:48:01.655649]  batch: 28  d_loss: -23.145258  g_loss: 45.591305
+Elapsed: [11:48:09.067108]  batch: 29  d_loss: -9.540140  g_loss: 18.906349
+Elapsed: [11:48:16.483448]  batch: 30  d_loss: -22.601210  g_loss: 50.580273
+Elapsed: [11:48:23.907437]  batch: 31  d_loss: -30.743309  g_loss: 67.391479
+Elapsed: [11:48:31.337723]  batch: 32  d_loss: -5.640724  g_loss: 34.845085
+Elapsed: [11:48:38.776216]  batch: 33  d_loss: -68.495438  g_loss: 109.182602
+Elapsed: [11:48:46.194742]  batch: 34  d_loss: -37.745998  g_loss: 67.711754
+Elapsed: [11:48:53.606254]  batch: 35  d_loss: -32.493912  g_loss: 55.846176
+Elapsed: [11:49:01.006466]  batch: 36  d_loss: -20.367615  g_loss: 101.438354
+Elapsed: [11:49:08.427510]  batch: 37  d_loss: -32.898956  g_loss: 73.293823
+Elapsed: [11:49:15.846189]  batch: 38  d_loss: 11.007906  g_loss: 40.810043
+Elapsed: [11:49:23.245954]  batch: 39  d_loss: -22.942581  g_loss: 96.760399
+Elapsed: [11:49:30.639711]  batch: 40  d_loss: -82.667168  g_loss: 116.631104
+Elapsed: [11:49:38.040381]  batch: 41  d_loss: -42.659054  g_loss: 147.600876
+Elapsed: [11:49:45.454800]  batch: 42  d_loss: -47.657257  g_loss: 222.384338
+Elapsed: [11:49:52.870565]  batch: 43  d_loss: 31.136692  g_loss: -11.848002
+Elapsed: [11:50:00.247039]  batch: 44  d_loss: -26.976587  g_loss: 27.674414
+Elapsed: [11:50:07.644040]  batch: 45  d_loss: 59.521881  g_loss: 14.847626
+Elapsed: [11:50:15.065730]  batch: 46  d_loss: 12.251780  g_loss: 44.600769
+Elapsed: [11:50:22.479469]  batch: 47  d_loss: -36.812695  g_loss: 42.933830
+Elapsed: [11:50:28.099025]  batch: 48  d_loss: -69.013504  g_loss: 180.005005
+Time taken for epoch: 357.180 secs
+
+Epoch: 253
+Time taken for epoch: 135.898 secs
+
+Epoch: 254
+Time taken for epoch: 139.814 secs
+
+Epoch: 255
+Time taken for epoch: 141.373 secs
+
+Epoch: 256
+Time taken for epoch: 141.850 secs
+
+Epoch: 257
+Time taken for epoch: 142.384 secs
+
+Epoch: 258
+Time taken for epoch: 142.670 secs
+
+Epoch: 259
+Elapsed: [12:04:42.053334]  batch: 1  d_loss: -14.956503  g_loss: 10.319004
+Elapsed: [12:04:49.832076]  batch: 2  d_loss: -1.375968  g_loss: 21.625153
+Elapsed: [12:04:57.562163]  batch: 3  d_loss: -49.744667  g_loss: 15.963081
+Elapsed: [12:05:05.285534]  batch: 4  d_loss: -10.345131  g_loss: 20.338690
+Elapsed: [12:05:12.992338]  batch: 5  d_loss: -5.627088  g_loss: 23.442434
+Elapsed: [12:05:20.670276]  batch: 6  d_loss: 41.049126  g_loss: 11.649679
+Elapsed: [12:05:28.332969]  batch: 7  d_loss: -22.648527  g_loss: 18.499897
+Elapsed: [12:05:35.974840]  batch: 8  d_loss: -64.637817  g_loss: 35.051792
+Elapsed: [12:05:43.613061]  batch: 9  d_loss: -49.625465  g_loss: 24.058819
+Elapsed: [12:05:51.250387]  batch: 10  d_loss: -52.578331  g_loss: 38.902645
+Elapsed: [12:05:58.888371]  batch: 11  d_loss: -25.618324  g_loss: 42.872894
+Elapsed: [12:06:06.528483]  batch: 12  d_loss: -115.128555  g_loss: 100.093948
+Elapsed: [12:06:14.163642]  batch: 13  d_loss: -11.801984  g_loss: 85.794182
+Elapsed: [12:06:21.798527]  batch: 14  d_loss: -25.091038  g_loss: 57.015636
+Elapsed: [12:06:29.400946]  batch: 15  d_loss: -27.403267  g_loss: 92.640152
+Elapsed: [12:06:36.997240]  batch: 16  d_loss: -54.936295  g_loss: 119.631157
+Elapsed: [12:06:44.596797]  batch: 17  d_loss: -148.835281  g_loss: 150.832520
+Elapsed: [12:06:52.212207]  batch: 18  d_loss: -56.473610  g_loss: 116.922852
+Elapsed: [12:06:59.786515]  batch: 19  d_loss: -53.781803  g_loss: 76.102768
+Elapsed: [12:07:07.369480]  batch: 20  d_loss: -18.204899  g_loss: 31.761032
+Elapsed: [12:07:14.982370]  batch: 21  d_loss: -19.932051  g_loss: 53.473747
+Elapsed: [12:07:22.540009]  batch: 22  d_loss: -43.171730  g_loss: 63.568047
+Elapsed: [12:07:30.113048]  batch: 23  d_loss: -40.443115  g_loss: 117.440811
+Elapsed: [12:07:37.689725]  batch: 24  d_loss: -80.647148  g_loss: 200.044724
+Elapsed: [12:07:45.249585]  batch: 25  d_loss: 58.714035  g_loss: 58.143311
+Elapsed: [12:07:52.828824]  batch: 26  d_loss: -30.331369  g_loss: 39.754547
+Elapsed: [12:08:00.383810]  batch: 27  d_loss: -34.829369  g_loss: 92.916931
+Elapsed: [12:08:07.967101]  batch: 28  d_loss: -5.955118  g_loss: 66.981873
+Elapsed: [12:08:15.615638]  batch: 29  d_loss: -59.265335  g_loss: 108.242050
+Elapsed: [12:08:23.264939]  batch: 30  d_loss: -69.031616  g_loss: 205.187851
+Elapsed: [12:08:30.801189]  batch: 31  d_loss: -2.012321  g_loss: 67.835991
+Elapsed: [12:08:38.374152]  batch: 32  d_loss: -46.922867  g_loss: 96.447227
+Elapsed: [12:08:45.919631]  batch: 33  d_loss: 13.831200  g_loss: 50.108013
+Elapsed: [12:08:53.477013]  batch: 34  d_loss: 9.814924  g_loss: 5.202684
+Elapsed: [12:09:01.012383]  batch: 35  d_loss: -63.628941  g_loss: 51.900894
+Elapsed: [12:09:08.629653]  batch: 36  d_loss: -37.394291  g_loss: 52.083263
+Elapsed: [12:09:16.270423]  batch: 37  d_loss: -41.334427  g_loss: 49.188137
+Elapsed: [12:09:23.909898]  batch: 38  d_loss: -8.717557  g_loss: 7.684830
+Elapsed: [12:09:31.549615]  batch: 39  d_loss: -29.893867  g_loss: 57.468842
+Elapsed: [12:09:39.085152]  batch: 40  d_loss: 18.524494  g_loss: 86.388123
+Elapsed: [12:09:46.642766]  batch: 41  d_loss: 96.148964  g_loss: 58.719585
+Elapsed: [12:09:54.197266]  batch: 42  d_loss: -60.947437  g_loss: 132.401855
+Elapsed: [12:10:01.815456]  batch: 43  d_loss: -9.177244  g_loss: 41.247234
+Elapsed: [12:10:09.436379]  batch: 44  d_loss: -54.022602  g_loss: 73.629875
+Elapsed: [12:10:17.073823]  batch: 45  d_loss: -41.889175  g_loss: 60.961437
+Elapsed: [12:10:24.710288]  batch: 46  d_loss: -22.417484  g_loss: 77.176331
+Elapsed: [12:10:32.327304]  batch: 47  d_loss: -15.114042  g_loss: 51.423000
+Elapsed: [12:10:38.150973]  batch: 48  d_loss: 42.514290  g_loss: 89.173058
+Time taken for epoch: 364.738 secs
+
+Epoch: 260
+Time taken for epoch: 135.936 secs
+
+Epoch: 261
+Time taken for epoch: 139.800 secs
+
+Epoch: 262
+Time taken for epoch: 141.440 secs
+
+Epoch: 263
+Time taken for epoch: 142.488 secs
+
+Epoch: 264
+Time taken for epoch: 142.737 secs
+
+Epoch: 265
+Time taken for epoch: 142.963 secs
+
+Epoch: 266
+Elapsed: [12:24:55.301080]  batch: 1  d_loss: 8.734944  g_loss: 34.241493
+Elapsed: [12:25:03.163202]  batch: 2  d_loss: -17.994350  g_loss: 15.852158
+Elapsed: [12:25:10.993804]  batch: 3  d_loss: -40.847301  g_loss: 20.614822
+Elapsed: [12:25:18.815932]  batch: 4  d_loss: -48.873463  g_loss: 65.005173
+Elapsed: [12:25:26.624912]  batch: 5  d_loss: -47.925163  g_loss: 112.189270
+Elapsed: [12:25:34.385576]  batch: 6  d_loss: -0.206607  g_loss: 110.186272
+Elapsed: [12:25:42.152618]  batch: 7  d_loss: -31.691406  g_loss: 87.644150
+Elapsed: [12:25:49.902340]  batch: 8  d_loss: -101.687469  g_loss: 96.193382
+Elapsed: [12:25:57.644490]  batch: 9  d_loss: -17.836655  g_loss: 54.462067
+Elapsed: [12:26:05.363318]  batch: 10  d_loss: -62.637909  g_loss: 133.585739
+Elapsed: [12:26:13.101823]  batch: 11  d_loss: 9.716701  g_loss: 33.827419
+Elapsed: [12:26:20.816242]  batch: 12  d_loss: 68.196945  g_loss: 1.270284
+Elapsed: [12:26:28.514985]  batch: 13  d_loss: -57.318485  g_loss: 86.680420
+Elapsed: [12:26:36.205013]  batch: 14  d_loss: -5.397444  g_loss: 43.974834
+Elapsed: [12:26:43.930557]  batch: 15  d_loss: -56.694027  g_loss: 68.934868
+Elapsed: [12:26:51.626240]  batch: 16  d_loss: -16.812874  g_loss: 84.489189
+Elapsed: [12:26:59.306843]  batch: 17  d_loss: 9.223111  g_loss: 71.133797
+Elapsed: [12:27:06.975732]  batch: 18  d_loss: -27.065834  g_loss: 84.305000
+Elapsed: [12:27:14.641537]  batch: 19  d_loss: 0.980543  g_loss: 30.659758
+Elapsed: [12:27:22.405188]  batch: 20  d_loss: -29.873684  g_loss: 40.996258
+Elapsed: [12:27:30.146368]  batch: 21  d_loss: -20.170658  g_loss: 33.638107
+Elapsed: [12:27:37.926274]  batch: 22  d_loss: -20.986683  g_loss: 50.647217
+Elapsed: [12:27:45.667554]  batch: 23  d_loss: -78.202110  g_loss: 75.430634
+Elapsed: [12:27:53.317227]  batch: 24  d_loss: -63.293465  g_loss: 76.498352
+Elapsed: [12:28:00.964458]  batch: 25  d_loss: -61.690559  g_loss: 77.996117
+Elapsed: [12:28:08.612458]  batch: 26  d_loss: -69.038597  g_loss: 85.777390
+Elapsed: [12:28:16.260771]  batch: 27  d_loss: -116.370186  g_loss: 160.971344
+Elapsed: [12:28:23.908705]  batch: 28  d_loss: -88.216728  g_loss: 179.020432
+Elapsed: [12:28:31.548908]  batch: 29  d_loss: -8.699310  g_loss: 170.001404
+Elapsed: [12:28:39.202345]  batch: 30  d_loss: 35.075092  g_loss: 50.169048
+Elapsed: [12:28:46.846366]  batch: 31  d_loss: -28.046040  g_loss: 34.801449
+Elapsed: [12:28:54.483956]  batch: 32  d_loss: -66.077492  g_loss: 143.270966
+Elapsed: [12:29:02.124451]  batch: 33  d_loss: -11.142662  g_loss: 37.078873
+Elapsed: [12:29:09.778249]  batch: 34  d_loss: -56.004894  g_loss: 99.973938
+Elapsed: [12:29:17.431249]  batch: 35  d_loss: -68.079544  g_loss: 92.763977
+Elapsed: [12:29:25.093088]  batch: 36  d_loss: 7.952406  g_loss: 159.593445
+Elapsed: [12:29:32.736868]  batch: 37  d_loss: -31.175491  g_loss: 145.994202
+Elapsed: [12:29:40.374766]  batch: 38  d_loss: -88.003426  g_loss: 177.747299
+Elapsed: [12:29:48.025515]  batch: 39  d_loss: -14.769443  g_loss: -28.650518
+Elapsed: [12:29:55.734168]  batch: 40  d_loss: 14.586845  g_loss: 206.087128
+Elapsed: [12:30:03.368908]  batch: 41  d_loss: 26.670624  g_loss: 45.402493
+Elapsed: [12:30:11.003134]  batch: 42  d_loss: -28.633282  g_loss: 42.048378
+Elapsed: [12:30:18.642812]  batch: 43  d_loss: -42.345112  g_loss: 48.236374
+Elapsed: [12:30:26.359526]  batch: 44  d_loss: -3.237872  g_loss: 48.983452
+Elapsed: [12:30:34.041673]  batch: 45  d_loss: -5.674912  g_loss: 41.838894
+Elapsed: [12:30:41.760811]  batch: 46  d_loss: -15.530170  g_loss: 63.057259
+Elapsed: [12:30:49.480038]  batch: 47  d_loss: -49.417686  g_loss: 58.155972
+Elapsed: [12:30:55.387768]  batch: 48  d_loss: 13.016286  g_loss: 91.134308
+Time taken for epoch: 368.834 secs
+
+Epoch: 267
+Time taken for epoch: 136.020 secs
+
+Epoch: 268
+Time taken for epoch: 140.149 secs
+
+Epoch: 269
+Time taken for epoch: 141.661 secs
+
+Epoch: 270
+Time taken for epoch: 142.683 secs
+
+Epoch: 271
+Time taken for epoch: 142.675 secs
+
+Epoch: 272
+Time taken for epoch: 143.059 secs
+
+Epoch: 273
+Elapsed: [12:45:11.656956]  batch: 1  d_loss: -64.161209  g_loss: 135.957550
+Elapsed: [12:45:19.557981]  batch: 2  d_loss: -37.287327  g_loss: 102.062584
+Elapsed: [12:45:27.422708]  batch: 3  d_loss: -32.328728  g_loss: 34.557716
+Elapsed: [12:45:35.268045]  batch: 4  d_loss: -19.723145  g_loss: 92.390320
+Elapsed: [12:45:43.207426]  batch: 5  d_loss: -190.879791  g_loss: 237.527878
+Elapsed: [12:45:51.052031]  batch: 6  d_loss: -27.776619  g_loss: 104.357544
+Elapsed: [12:45:58.883147]  batch: 7  d_loss: -112.973732  g_loss: 326.756073
+Elapsed: [12:46:06.663661]  batch: 8  d_loss: 83.571815  g_loss: -0.990804
+Elapsed: [12:46:14.440496]  batch: 9  d_loss: 19.757841  g_loss: 38.039963
+Elapsed: [12:46:22.240353]  batch: 10  d_loss: -45.793396  g_loss: 81.593719
+Elapsed: [12:46:29.993146]  batch: 11  d_loss: -70.240448  g_loss: 80.083565
+Elapsed: [12:46:37.759019]  batch: 12  d_loss: 13.117269  g_loss: 21.952370
+Elapsed: [12:46:45.495899]  batch: 13  d_loss: 10.263700  g_loss: 13.521576
+Elapsed: [12:46:53.255783]  batch: 14  d_loss: -56.503601  g_loss: 57.909130
+Elapsed: [12:47:00.985981]  batch: 15  d_loss: -16.994280  g_loss: 32.336014
+Elapsed: [12:47:08.722549]  batch: 16  d_loss: -25.608038  g_loss: 66.304939
+Elapsed: [12:47:16.449317]  batch: 17  d_loss: 81.706612  g_loss: 61.703331
+Elapsed: [12:47:24.158041]  batch: 18  d_loss: -46.094875  g_loss: 72.642090
+Elapsed: [12:47:31.876220]  batch: 19  d_loss: -28.930115  g_loss: 84.725540
+Elapsed: [12:47:39.602622]  batch: 20  d_loss: -67.203911  g_loss: 66.584213
+Elapsed: [12:47:47.302280]  batch: 21  d_loss: -35.183205  g_loss: 52.288536
+Elapsed: [12:47:54.985937]  batch: 22  d_loss: 15.375753  g_loss: 85.317627
+Elapsed: [12:48:02.696453]  batch: 23  d_loss: -19.039230  g_loss: 50.514507
+Elapsed: [12:48:10.412772]  batch: 24  d_loss: -8.080877  g_loss: 5.590368
+Elapsed: [12:48:18.113175]  batch: 25  d_loss: -66.788376  g_loss: 113.644531
+Elapsed: [12:48:25.795578]  batch: 26  d_loss: -26.879391  g_loss: 67.628067
+Elapsed: [12:48:33.484499]  batch: 27  d_loss: 11.302213  g_loss: 30.731197
+Elapsed: [12:48:41.194239]  batch: 28  d_loss: -84.270813  g_loss: 123.746910
+Elapsed: [12:48:48.895516]  batch: 29  d_loss: -36.677380  g_loss: 45.184082
+Elapsed: [12:48:56.610628]  batch: 30  d_loss: -47.596439  g_loss: 69.483757
+Elapsed: [12:49:04.276297]  batch: 31  d_loss: -54.083042  g_loss: 68.016350
+Elapsed: [12:49:11.933496]  batch: 32  d_loss: 1.023839  g_loss: 7.605901
+Elapsed: [12:49:19.698635]  batch: 33  d_loss: -118.168411  g_loss: 173.939865
+Elapsed: [12:49:27.431922]  batch: 34  d_loss: 25.374374  g_loss: 44.260277
+Elapsed: [12:49:35.185167]  batch: 35  d_loss: -30.301189  g_loss: 53.120667
+Elapsed: [12:49:42.926056]  batch: 36  d_loss: -75.184402  g_loss: 126.667664
+Elapsed: [12:49:50.584702]  batch: 37  d_loss: -6.807983  g_loss: 56.764553
+Elapsed: [12:49:58.227101]  batch: 38  d_loss: -71.233208  g_loss: 107.361328
+Elapsed: [12:50:06.005096]  batch: 39  d_loss: -54.462914  g_loss: 133.197479
+Elapsed: [12:50:13.741503]  batch: 40  d_loss: -16.673729  g_loss: 71.577499
+Elapsed: [12:50:21.394534]  batch: 41  d_loss: -101.867928  g_loss: 131.189545
+Elapsed: [12:50:29.160112]  batch: 42  d_loss: -9.969540  g_loss: 43.306957
+Elapsed: [12:50:36.841670]  batch: 43  d_loss: -15.762999  g_loss: 65.538811
+Elapsed: [12:50:44.502776]  batch: 44  d_loss: -25.794067  g_loss: 62.874832
+Elapsed: [12:50:52.158974]  batch: 45  d_loss: -68.690613  g_loss: 76.880646
+Elapsed: [12:50:59.815452]  batch: 46  d_loss: -26.048403  g_loss: 54.593945
+Elapsed: [12:51:07.475487]  batch: 47  d_loss: -8.458170  g_loss: 90.530304
+Elapsed: [12:51:13.361621]  batch: 48  d_loss: -40.254429  g_loss: 63.545670
+Time taken for epoch: 370.227 secs
+
+Epoch: 274
+Time taken for epoch: 136.186 secs
+
+Epoch: 275
+Time taken for epoch: 139.849 secs
+
+Epoch: 276
+Time taken for epoch: 141.207 secs
+
+Epoch: 277
+Time taken for epoch: 141.794 secs
+
+Epoch: 278
+Time taken for epoch: 141.709 secs
+
+Epoch: 279
+Time taken for epoch: 141.773 secs
+
+Epoch: 280
+Elapsed: [13:05:25.894195]  batch: 1  d_loss: -102.401047  g_loss: 101.524437
+Elapsed: [13:05:33.748785]  batch: 2  d_loss: 13.341328  g_loss: 75.238251
+Elapsed: [13:05:41.583497]  batch: 3  d_loss: 7.407299  g_loss: 67.924438
+Elapsed: [13:05:49.394706]  batch: 4  d_loss: -48.598885  g_loss: 70.497154
+Elapsed: [13:05:57.198380]  batch: 5  d_loss: -22.510189  g_loss: 94.176353
+Elapsed: [13:06:04.953206]  batch: 6  d_loss: -51.872631  g_loss: 110.696251
+Elapsed: [13:06:12.714084]  batch: 7  d_loss: -24.773933  g_loss: 66.035736
+Elapsed: [13:06:20.449092]  batch: 8  d_loss: -23.578772  g_loss: 50.480968
+Elapsed: [13:06:28.210027]  batch: 9  d_loss: -63.697426  g_loss: 90.710838
+Elapsed: [13:06:35.936607]  batch: 10  d_loss: 11.534936  g_loss: 91.887253
+Elapsed: [13:06:43.682460]  batch: 11  d_loss: 4.255569  g_loss: 91.204758
+Elapsed: [13:06:51.407878]  batch: 12  d_loss: -89.473404  g_loss: 125.642639
+Elapsed: [13:06:59.111463]  batch: 13  d_loss: 12.171208  g_loss: 59.709404
+Elapsed: [13:07:06.836968]  batch: 14  d_loss: -32.073227  g_loss: 107.867233
+Elapsed: [13:07:14.548558]  batch: 15  d_loss: -45.329102  g_loss: 82.479935
+Elapsed: [13:07:22.242392]  batch: 16  d_loss: -43.863770  g_loss: 81.640656
+Elapsed: [13:07:29.914633]  batch: 17  d_loss: -33.442440  g_loss: 55.949108
+Elapsed: [13:07:37.593023]  batch: 18  d_loss: -61.404671  g_loss: 80.164062
+Elapsed: [13:07:45.300143]  batch: 19  d_loss: -42.086365  g_loss: 118.628128
+Elapsed: [13:07:52.987888]  batch: 20  d_loss: -14.829798  g_loss: 50.420788
+Elapsed: [13:08:00.680256]  batch: 21  d_loss: -23.858675  g_loss: 43.905144
+Elapsed: [13:08:08.349891]  batch: 22  d_loss: 29.947258  g_loss: 55.167450
+Elapsed: [13:08:16.018913]  batch: 23  d_loss: -11.698153  g_loss: 13.903814
+Elapsed: [13:08:23.678504]  batch: 24  d_loss: -77.673378  g_loss: 120.538666
+Elapsed: [13:08:31.337565]  batch: 25  d_loss: -58.775192  g_loss: 58.143494
+Elapsed: [13:08:39.111862]  batch: 26  d_loss: -35.289829  g_loss: 64.295609
+Elapsed: [13:08:46.850081]  batch: 27  d_loss: -52.223965  g_loss: 74.313675
+Elapsed: [13:08:54.613325]  batch: 28  d_loss: -12.221725  g_loss: 47.515106
+Elapsed: [13:09:02.350360]  batch: 29  d_loss: -21.260452  g_loss: 60.984138
+Elapsed: [13:09:10.003573]  batch: 30  d_loss: -55.511543  g_loss: 87.506004
+Elapsed: [13:09:17.769993]  batch: 31  d_loss: -23.751781  g_loss: 40.297256
+Elapsed: [13:09:25.434507]  batch: 32  d_loss: -38.584019  g_loss: 62.264294
+Elapsed: [13:09:33.161892]  batch: 33  d_loss: -12.092634  g_loss: 42.157990
+Elapsed: [13:09:40.822464]  batch: 34  d_loss: -12.526464  g_loss: 78.015022
+Elapsed: [13:09:48.474555]  batch: 35  d_loss: -28.167240  g_loss: 74.328201
+Elapsed: [13:09:56.196409]  batch: 36  d_loss: -10.868662  g_loss: 44.589836
+Elapsed: [13:10:03.936835]  batch: 37  d_loss: -24.396622  g_loss: 36.064499
+Elapsed: [13:10:11.656919]  batch: 38  d_loss: 49.801628  g_loss: 1.190383
+Elapsed: [13:10:19.394140]  batch: 39  d_loss: -26.188608  g_loss: 54.265667
+Elapsed: [13:10:27.131950]  batch: 40  d_loss: -44.388653  g_loss: 112.310143
+Elapsed: [13:10:34.769611]  batch: 41  d_loss: -83.995293  g_loss: 99.281982
+Elapsed: [13:10:42.408668]  batch: 42  d_loss: -71.813797  g_loss: 156.721298
+Elapsed: [13:10:50.060387]  batch: 43  d_loss: 12.170112  g_loss: -18.327740
+Elapsed: [13:10:57.707744]  batch: 44  d_loss: -147.022873  g_loss: 193.423492
+Elapsed: [13:11:05.345016]  batch: 45  d_loss: -4.781092  g_loss: 19.950245
+Elapsed: [13:11:13.003000]  batch: 46  d_loss: -29.203178  g_loss: 94.079285
+Elapsed: [13:11:20.660794]  batch: 47  d_loss: -76.919884  g_loss: 265.273285
+Elapsed: [13:11:26.545581]  batch: 48  d_loss: 41.152634  g_loss: 177.578293
+Time taken for epoch: 369.126 secs
+
+Epoch: 281
+Time taken for epoch: 135.968 secs
+
+Epoch: 282
